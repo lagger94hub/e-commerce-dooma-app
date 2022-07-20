@@ -1,0 +1,517 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto&family=Source+Sans+Pro:wght@300&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body, p {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type=checkbox],
+[type=radio] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type=search] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+
+:root {
+  /*colors generated by color-gen mixin*/
+  --clr-primary-lightRed: hsl(356deg, 100%, 66%);
+  --clr-primary-vlightRed: hsl(355deg, 100%, 74%);
+  --clr-primary-grey-600: hsl(265deg, 4%, 42%);
+  --clr-accent-vdarkBlue: hsl(208deg, 49%, 24%);
+  --clr-neutral-white: hsl(0deg, 0%, 100%);
+  --clr-neutral-grayishBlue: hsl(240deg, 2%, 79%);
+  --clr-neutral-vDarkGrayishBlue: hsl(207deg, 13%, 34%);
+  --clr-neutral-vDarkBlackBlue: hsl(240deg, 10%, 16%);
+  --clr-neutral-lightGrayishCyan2: hsl(189deg, 41%, 97%);
+  --clr-shadow-light-gray: rgb(197, 197, 197);
+  --clr-shadow-dark-shadow: rgb(61, 61, 61);
+  --clr-shadow-grey-50: hsl(265deg, 55%, 96%);
+  --clr-shadow-grey-100: hsl(265deg, 19%, 88%);
+  --clr-shadow-grey-200: hsl(265deg, 7%, 70%);
+  --clr-shadow-grey-300: hsl(265deg, 6%, 66%);
+  --clr-shadow-grey-400: hsl(265deg, 4%, 57%);
+  --clr-shadow-grey-500: hsl(265deg, 3%, 53%);
+  --clr-shadow-grey-600: hsl(265deg, 4%, 42%);
+  --clr-shadow-grey-700: hsl(265deg, 4%, 31%);
+  --clr-shadow-grey-800: hsl(276deg, 5%, 20%);
+  --clr-shadow-grey-900: hsl(280deg, 5%, 13%);
+  --clr-hovered-hdark-blue: hsl(236deg, 45%, 26%);
+  --clr-gradient-vLightRed: hsl(13deg, 100%, 72%);
+  --clr-gradient-lightRed: hsl(353deg, 100%, 62%);
+  --clr-gradient-vDarkGrayBlue: hsl(237deg, 17%, 21%);
+  --clr-gradient-vDarkDesBlue: hsl(237deg, 23%, 32%);
+  --size-1: 0.25rem;
+  --size-2: 0.5rem;
+  --size-3: 0.75rem;
+  --size-4: 1rem;
+  --size-5: 1.25rem;
+  --size-6: 1.5rem;
+  --size-8: 2rem;
+  --size-16: 4rem;
+  --size-20: 5rem;
+  --size-40: 10rem;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+}
+a:active {
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  -webkit-padding-start: 0;
+          padding-inline-start: 0;
+  margin: 0;
+}
+
+pre {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Oswald", "Roboto", sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/*flex standard classes generated by utility */
+.flex-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0 0;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 0 0;
+}
+
+.fjust-start {
+  justify-content: flex-start;
+}
+
+.fjust-end {
+  justify-content: flex-end;
+}
+
+.fjust-center {
+  justify-content: center;
+}
+
+.fjust-between {
+  justify-content: space-between;
+}
+
+.fjust-around {
+  justify-content: space-around;
+}
+
+.fjust-evenly {
+  justify-content: space-evenly;
+}
+
+.falign-start {
+  align-items: flex-start;
+}
+
+.falign-end {
+  align-items: flex-end;
+}
+
+.falign-center {
+  align-items: center;
+}
+
+.falign-stretch {
+  align-items: stretch;
+}
+
+.falign-base {
+  align-items: baseline;
+}
+
+.gap-0p {
+  gap: 0;
+}
+
+.gap-4p {
+  gap: 0.25rem;
+}
+
+.gap-8p {
+  gap: 0.5rem;
+}
+
+.gap-12p {
+  gap: 0.75rem;
+}
+
+.gap-16p {
+  gap: 1rem;
+}
+
+.gap-20p {
+  gap: 1.25rem;
+}
+
+.gap-24p {
+  gap: 1.5rem;
+}
+
+.gap-28p {
+  gap: 1.75rem;
+}
+
+.gap-32p {
+  gap: 2rem;
+}
+
+.gap-36p {
+  gap: 2.24rem;
+}
+
+.gap-40p {
+  gap: 2.5rem;
+}
+
+.gap-44p {
+  gap: 2.75rem;
+}
+
+.gap-48p {
+  gap: 3rem;
+}
+
+.gap-64p {
+  gap: 4rem;
+}
+
+.gap-80p {
+  gap: 5rem;
+}

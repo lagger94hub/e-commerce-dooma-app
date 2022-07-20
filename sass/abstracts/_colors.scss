@@ -1,0 +1,45 @@
+// here we can put all the colors that we will end up using
+
+$page-1: (
+  primary: (
+  "lightRed":hsl(356, 100%, 66%), //CTA text
+  "vlightRed": hsl(355, 100%, 74%), //CTA hover  background
+  "grey-600": hsl(265, 4%, 42%), //headings
+  ),
+  accent: (
+    "vdarkBlue": hsl(208, 49%, 24%),
+  ),
+  neutral: (
+    "white":hsl(0, 0%, 100%), //text
+    "grayishBlue":hsl(240, 2%, 79%), //footer text
+    "vDarkGrayishBlue":hsl(207, 13%, 34%), //body copy
+    "vDarkBlackBlue":hsl(240, 10%, 16%), // footer background
+    "lightGrayishCyan2":hsl(189, 41%, 97%),
+  ),
+  shadow: (
+    "light-gray": rgba(197, 197, 197, 1),
+    "dark-shadow": rgb(61, 61, 61),
+    "grey-50": hsl(265, 55%, 96%),
+    "grey-100": hsl(265, 19%, 88%),
+    "grey-200": hsl(265, 7%, 70%),
+    "grey-300": hsl(265, 6%, 66%),
+    "grey-400": hsl(265, 4%, 57%),
+    "grey-500": hsl(265, 3%, 53%),
+    "grey-600": hsl(265, 4%, 42%),
+    "grey-700": hsl(265, 4%, 31%),
+    "grey-800": hsl(276, 5%, 20%),
+    "grey-900": hsl(280, 5%, 13%),
+  ),
+  hovered: (
+    "hdark-blue": hsl(236, 45%, 26%)
+  ),
+  gradient: (
+    //Background gradient - Intro/CTA mobile nav:
+    "vLightRed":hsl(13, 100%, 72%),
+    "lightRed":hsl(353, 100%, 62%),
+
+    //Background gradient - body:
+    "vDarkGrayBlue":hsl(237, 17%, 21%),
+    "vDarkDesBlue": hsl(237, 23%, 32%)
+  )
+);

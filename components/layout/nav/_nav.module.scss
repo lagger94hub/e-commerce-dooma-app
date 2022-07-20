@@ -1,0 +1,10 @@
+@use '/sass/abstracts/' as *;
+.nav {
+  @include break-point("medium", "up") {
+    width: 100%;
+  }
+  li {
+    display: inline;
+    margin: 0 .5rem;
+  }
+}
