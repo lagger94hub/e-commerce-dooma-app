@@ -1,4 +1,4 @@
-@use '/sass/abstracts/' as *;
+@use '../../../sass/abstracts/' as *;
 .nav {
   @include break-point("medium", "up") {
     width: 100%;
@@ -6,5 +6,10 @@
   li {
     display: inline;
     margin: 0 .5rem;
+  }
+  .barsicon {
+    @include break-point('medium', 'up') {
+      display: none;
+    }
   }
 }

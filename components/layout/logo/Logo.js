@@ -5,8 +5,15 @@ import classes from './_logo.module.scss'
 
 
 const Logo = (props) => {
+  
+  const className = props.className
+  const src = props.src
+  const alt = props.alt
+  const width = props.width
+  const height = props.height
+
   return (
-    <div className={classes[props.className]}><Image src={props.src} alt={props.alt}  width={props.width} height={props.height}/></div>
+    <div className={classes[className]}><Image src={src} alt={alt}  width={width} height={height}/></div>
   )
 }
 export default Logo

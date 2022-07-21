@@ -1,50 +1,46 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./_nav.module.scss";
-import DropDownItem from "./drop-down-item/DropDownItem";
-import dummyCategories from "../../../dummy-data/dummy-categories";
 import CategoryMenu from "./category-menu/CategoryMenu";
+import { MediaQueryContext } from "../../../store/media-query-context";
 
 const Nav = (props) => {
+
+  const desktop = useContext(MediaQueryContext)
+  // here depending on the screen size we either show the menu by default or not
+  // in Next.js because the server prerenders every page, the server can't tell the value of the media query beforehand
+  const [isDesktop, setIsDesktop] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const showCategoryMenu = () => {
-    // List of categories comming from props
-    for (let i = 0; i < dummyCategories.length; i++) {
-      for (let j = 0; j < dummyCategories.length; j++) {
-        if (dummyCategories[i].id === dummyCategories[j].parentId)
-          dummyCategories[i].children.push(j);
-      }
-    }
-    setShowMenu(true);
+  const showMenuHandler = () => {
+    setShowMenu(!showMenu);
   };
+  useEffect(() => {
+    setIsDesktop(desktop);
+  }, [setIsDesktop, desktop]);
 
   return (
-    <nav className={`${"flex-row fjust-between"} ${classes.nav}`}>
-      {/* categories list */}
-      <ul>
-        <DropDownItem itemTitle={"category 1"} />
-        <DropDownItem itemTitle={"category 2"} />
-      </ul>
+    <nav className={`${"flex-row fjust-between falign-center"} ${classes.nav}`}>
+      {/* CategoryMenu */}
+      {/* To keep the nav styling max main categories most not exceed 8 */}
+      {(isDesktop || (!isDesktop && showMenu)) && (
+        <CategoryMenu
+          setShowMenu={setShowMenu}
+          isDesktop={isDesktop}
+        />
+      )}
+
       {/* icons list */}
       <ul>
         <li>
           <FontAwesomeIcon icon={faShoppingCart} />
         </li>
-        <li onClick={showCategoryMenu}>
+        <li onClick={showMenuHandler} className={classes.barsicon}>
           <FontAwesomeIcon icon={faBars} />
         </li>
       </ul>
-      {/* CategoryMenu For Mobile */}
-      {showMenu && (
-        <CategoryMenu
-          setShowMenu={setShowMenu}
-          categories={dummyCategories}
-        />
-      )}
-      {/* CategoryMenu For Desktop */}
     </nav>
   );
 };
