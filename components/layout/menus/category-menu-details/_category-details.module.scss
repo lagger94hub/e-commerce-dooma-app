@@ -1,7 +1,7 @@
 @use "../../../../sass/abstracts/" as *;
 
 .details {
-
+  // for desktop
   .row {
     display: flex;
     flex-direction: row;
@@ -29,5 +29,17 @@
       display: block;
       margin: 0 0 0.8rem 0;
     }
+  }
+  // for mobile
+  border: none !important;
+
+  position: relative;
+  .chevron {
+    position: absolute;
+    right: 0;
+  }
+  li {
+    display: list-item;
+    margin: 1rem 0;
   }
 }
