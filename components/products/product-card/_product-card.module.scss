@@ -1,0 +1,11 @@
+@use '../../../sass/abstracts/' as *;
+.card {
+  // height: 100%;
+  padding-bottom: 1rem;
+  justify-content: space-between!important;
+  // align-items: s;
+  max-height: 22rem !important;
+  img {
+    height: 80% !important;
+  }
+}

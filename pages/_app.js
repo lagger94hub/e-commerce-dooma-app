@@ -1,4 +1,10 @@
 import "../styles/main.css";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 import Layout from "../components/layout/Layout";
 import DimmerContextProvider from "../store/dimmer-context";
 import MediaQueryContextProvider from "../store/media-query-context";

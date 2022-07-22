@@ -9,6 +9,9 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     padding: 1rem 1rem;
+    @include break-point('medium', 'up') {
+      padding: 1rem 1rem 1rem 2rem;
+    }
     strong {
       margin: 0 0 0.8rem 0;
       display: block;
@@ -17,13 +20,13 @@
   .column {
     display: flex;
     flex-direction: column;
-
     li {
       display: list-item;
       margin: 0 0 0.8rem 0;
       max-width: 8rem;
       font-size: 1.2rem;
       overflow-wrap: break-word;
+      
     }
     strong {
       display: block;
