@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./_nav.module.scss";
-import CategoryMenu from "./category-menu/CategoryMenu";
+import CategoryMenu from "./../menus/category-menu/CategoryMenu";
 import { MediaQueryContext } from "../../../store/media-query-context";
 
 const Nav = (props) => {

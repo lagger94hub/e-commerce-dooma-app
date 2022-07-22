@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import classes from "./_category-menu-details.module.scss";
+import classes from "./_m-category-details.module.scss";
 
 const CategoryMenuDetails = (props) => {
   // a Component for mobile devices with width of 768px and less
@@ -12,7 +12,7 @@ const CategoryMenuDetails = (props) => {
   //  fonts to determine the categories parent and child sizes
   const parentFont = props.parentFont <= 0.7 ? 0.7 : props.parentFont;
   const childFont = props.childFont <= 0.625 ? 0.625 : props.parentFont;
-  const padding = props.padding
+  const padding = props.padding >= 4 ? 4 : props.padding
 
   const [showSubCategory, setShowSubCategory] = useState(false);
 

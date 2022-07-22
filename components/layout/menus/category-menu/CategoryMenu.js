@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DimDisplay from "../../../ui/dim-display/DimDisplay";
 import classes from "./_category-menu.module.scss";
 import { DimmerContext } from "../../../../store/dimmer-context";
-import CategoryMenuDetails from "../category-menu-details/CategoryMenuDetails";
+import MCategoryDetails from "../category-menu-details-mobile/MCategoryDetails";
+import DCategoryDetails from "../category-menu-details-desktop/DCategoryDetails";
 import dummyCategories from "../../../../dummy-data/dummy-categories";
 import Logo from "../../logo/Logo";
 
@@ -18,17 +19,15 @@ const CategoryMenu = (props) => {
   const setShowMenu = props.setShowMenu;
 
   const [selectedMenu, setSelectedMenu] = useState(null);
-  const [touchCoor, setTouchCoor] = useState()
-
-  useEffect(() => {
-    toggleDimmer(!isDesktop);
-  }, [toggleDimmer, isDesktop]);
+  const [timerDone, setTimerDone] = useState(false);
+  const [leftMenu, setLeftMenu] = useState(true);
 
   const closeMenu = () => {
     toggleDimmer(false);
     setShowMenu(false);
   };
   const selectMenu = (children, name) => {
+    setLeftMenu(false)
     setSelectedMenu({
       children,
       name,
@@ -37,15 +36,41 @@ const CategoryMenu = (props) => {
   const goBack = () => {
     setSelectedMenu(null);
   };
-  const touchStartHandler = () => {
-
+  const enterMenu = () => {
+    setLeftMenu(false)
   }
+  const leaveMenu = () => {
+    setLeftMenu(true)
+  }
+  const leaveNav = () => {
+    setTimerDone(false)
+    setLeftMenu(true)
+    setTimeout(() => {
+      setTimerDone(true)
+    }, 300)
+  }
+  useEffect(() => {
+    if (timerDone) {
+      if (leftMenu)
+        setSelectedMenu(null)
+    }
+  }, [timerDone, leftMenu])
+
+
+
+  useEffect(() => {
+    toggleDimmer(!isDesktop);
+  }, [toggleDimmer, isDesktop]);
+
+
   const menuLogic = (category) => {
     const item = (
       <li
-        onTouchStart={touchStartHandler}
+        className={!isDesktop ? classes.mobile : null}
         key={category.id}
         onClick={() => selectMenu(category.children, category.name)}
+        onMouseEnter={() => selectMenu(category.children, category.name)}
+        onMouseLeave={() => leaveNav()}
       >
         {category.name}
       </li>
@@ -89,14 +114,29 @@ const CategoryMenu = (props) => {
             return !category.parentId && menuLogic(category);
           })}
           {/* depending on the screen width we render one of the menu components */}
-          {selectedMenu && (
-            <li>
-              <CategoryMenuDetails
+          {selectedMenu && !isDesktop && (
+            <li className={classes.mobile}>
+              <MCategoryDetails
                 selectedMenu={selectedMenu}
                 categories={dummyCategories}
                 childFont={1.5}
                 parentFont={1.5}
                 padding={0.5}
+              />
+            </li>
+          )}
+          {selectedMenu && isDesktop && (
+            <li
+              className={classes.desktop}
+              onMouseEnter={ () => enterMenu()}
+              onMouseLeave={ () => leaveMenu()}
+            >
+              <DCategoryDetails
+                selectedMenu={selectedMenu}
+                categories={dummyCategories}
+                childFont={1.2}
+                parentFont={1.2}
+                padding={0.1}
               />
             </li>
           )}

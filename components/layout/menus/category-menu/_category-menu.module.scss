@@ -45,7 +45,13 @@
 }
 .menu {
 
-  li {
+
+  @include break-point("medium", "up") {
+    position: relative;
+  }
+
+
+  li.mobile {
     display: list-item;
     margin: 1rem 0;
     font-size: 1.5rem;
@@ -53,6 +59,14 @@
       display: inline-block;
       margin: 0 0.5rem;
     }
+  }
+  .desktop {
+    position: absolute;
+    top: 200%;
+    left: -8%;
+    height: 50vh;
+    width: 100vw;
+    background-color: white;
   }
 
 }

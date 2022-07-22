@@ -1,0 +1,33 @@
+@use "../../../../sass/abstracts/" as *;
+
+.details {
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 1rem 1rem;
+    strong {
+      margin: 0 0 0.8rem 0;
+      display: block;
+    }
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      display: list-item;
+      margin: 0 0 0.8rem 0;
+      max-width: 8rem;
+      font-size: 1.2rem;
+      overflow-wrap: break-word;
+    }
+    strong {
+      display: block;
+      margin: 0 0 0.8rem 0;
+    }
+  }
+}

@@ -19,7 +19,7 @@ const dummyCategories =  [
   { id: 4, name: 'Children', parentId: null, children: []},
     { id: 13, name: 'Clothes', parentId: 4, children: []},
     { id: 14, name: 'Collections', parentId: 4, children: []},  
-    { id: 15, name: 'Clothes', parentId: 4, children: []},
+    { id: 15, name: 'toys', parentId: 4, children: []},
 ]
 for (let i = 0; i < dummyCategories.length; i++) {
   for (let j = 0; j < dummyCategories.length; j++) {
