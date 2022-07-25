@@ -1,3 +1,4 @@
+import getProps from "../back-end/PropsGetters/home-page";
 import HomeCarousel from "../components/carousels/home-page-carousel/HomeCarousel";
 
 const productsArray = [
@@ -12,11 +13,28 @@ const productsArray = [
   { id: '9', name: 'shirt', image: '/images/products/1.jpg'},
   { id: '10', name: 'pants', image: '/images/products/2.jpg'},
 ]
-export default function Home() {
+export default function Home(props) {
   return (
       <HomeCarousel 
       width={400}
-      height={287}
+      height={500}
       productsArray={productsArray} />
   )
+}
+
+export async function getStaticProps() {
+  // get categories from the database
+  try {
+    const props = await getProps()
+    // get products from the database 
+    return {
+      props,
+    }
+  } catch (e) {
+    console.log(e.message)
+    return {
+      notFound: true
+    }
+  }
+  
 }

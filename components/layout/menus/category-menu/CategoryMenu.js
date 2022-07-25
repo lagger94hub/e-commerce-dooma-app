@@ -71,7 +71,7 @@ const CategoryMenu = (props) => {
         onMouseLeave={() => leaveNav()}
       >
         {isDesktop ? (
-          <Link href={`/${category.name}`}>{category.name}</Link>
+          <Link href={`/${category.name.toLowerCase()}`}>{category.name}</Link>
         ) : (
           category.name
         )}

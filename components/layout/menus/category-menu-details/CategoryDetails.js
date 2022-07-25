@@ -48,7 +48,7 @@ const CategoryDetails = (props) => {
                     }}
                   >
                     <strong>
-                      <Link href={`${parentName}/${categories[child].name}`}>
+                      <Link href={`${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`}>
                         {categories[child].name}
                       </Link>
                     </strong>
@@ -64,7 +64,7 @@ const CategoryDetails = (props) => {
                         list={true}
                         selectedMenu={{
                           children: categories[child].children,
-                          name: `${parentName}/${categories[child].name}`,
+                          name: `${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`,
                         }}
                         childFont={childFont - 0.1}
                         parentFont={parentFont - 0.1}
@@ -79,7 +79,7 @@ const CategoryDetails = (props) => {
                         categories={categories}
                         selectedMenu={{
                           children: categories[child].children,
-                          name: `${parentName}/${categories[child].name}`,
+                          name: `${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`,
                         }}
                         childFont={childFont - 0.3}
                         parentFont={parentFont - 0.3}
@@ -97,7 +97,7 @@ const CategoryDetails = (props) => {
                     paddingLeft: `${padding}rem`,
                   }}
                 >
-                  <Link href={`${parentName}/${categories[child].name}`}>
+                  <Link href={`${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`}>
                     {categories[child].name}
                   </Link>
                 </li>

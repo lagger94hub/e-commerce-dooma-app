@@ -27,17 +27,21 @@ const HomeCarousel = (props) => {
       modules={[Pagination, Navigation]}
       breakpoints={{
         320: {
-          slidesPerView: 2,
+          slidesPerView: 1,
           spaceBetween: 10,
         },
         // when window width is >= 480px
-        480: {
-          slidesPerView: 3,
+        380: {
+          slidesPerView: 2,
           spaceBetween: 10,
         },
         // when window width is >= 640px
-        640: {
-          slidesPerView: 4,
+        530: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        780: {
+          slidesPerView: 5,
           spaceBetween: 10,
         },
       }}
@@ -51,6 +55,7 @@ const HomeCarousel = (props) => {
               productImage={product.image}
               width={width}
               height={height}
+              
             />
           </SwiperSlide>
         );
