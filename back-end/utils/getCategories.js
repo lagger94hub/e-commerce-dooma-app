@@ -20,7 +20,6 @@ export default async function getCategories() {
           categories[i].children.push(j);
       }
     }
-    console.log(categories);
 
     return categories
   } catch (e) {

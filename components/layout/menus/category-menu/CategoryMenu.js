@@ -7,13 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DimDisplay from "../../../ui/dim-display/DimDisplay";
 import classes from "./_category-menu.module.scss";
 import { DimmerContext } from "../../../../store/dimmer-context";
-import dummyCategories from "../../../../dummy-data/dummy-categories";
+// import dummyCategories from "../../../../dummy-data/dummy-categories";
 import Logo from "../../logo/Logo";
 import CategoryDetails from "../category-menu-details/CategoryDetails";
+import { CategoriesContext } from "../../../../store/categories-context";
 
 // menu  to show categories and sub-categories
 const CategoryMenu = (props) => {
   const toggleDimmer = useContext(DimmerContext).toggleDimmer;
+  const categories = useContext(CategoriesContext).categories
 
   const isDesktop = props.isDesktop;
   const setShowMenu = props.setShowMenu;
@@ -112,7 +114,7 @@ const CategoryMenu = (props) => {
           </div>
         )}
         <ul className={classes.menu}>
-          {dummyCategories.map((category, index) => {
+          {categories && categories.map((category, index) => {
             return !category.parentId && menuLogic(category);
           })}
           {/* depending on the screen width we render one of the menu components */}
@@ -130,7 +132,7 @@ const CategoryMenu = (props) => {
             >
               <CategoryDetails
                 selectedMenu={selectedMenu}
-                categories={dummyCategories}
+                categories={categories}
                 childFont={isDesktop ? 1.2 : 1.5}
                 parentFont={isDesktop ? 1.2 : 1.5}
                 padding={isDesktop ? 0.1 : 0.5}

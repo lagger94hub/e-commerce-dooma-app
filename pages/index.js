@@ -1,40 +1,34 @@
+import { useContext, useEffect } from "react";
 import getProps from "../back-end/PropsGetters/home-page";
 import HomeCarousel from "../components/carousels/home-page-carousel/HomeCarousel";
+import { CategoriesContext } from "../store/categories-context";
 
-const productsArray = [
-  { id: '1', name: 'shirt', image: '/images/products/1.jpg'},
-  { id: '2', name: 'shirt', image: '/images/products/1.jpg'},
-  { id: '3', name: 'pants', image: '/images/products/2.jpg'},
-  { id: '4', name: 'pants', image: '/images/products/2.jpg'},
-  { id: '5', name: 'jacket', image: '/images/products/3.jpg'},
-  { id: '6', name: 'shirt', image: '/images/products/1.jpg'},
-  { id: '7', name: 'pants', image: '/images/products/2.jpg'},
-  { id: '8', name: 'jacket', image: '/images/products/3.jpg'},
-  { id: '9', name: 'shirt', image: '/images/products/1.jpg'},
-  { id: '10', name: 'pants', image: '/images/products/2.jpg'},
-]
 export default function Home(props) {
+  const putCategoreis = useContext(CategoriesContext).putCategories;
+  // first carousal data
+  const dataArray = props.carousal0
+
+  useEffect(() => {
+    if (props.categories) putCategoreis(props.categories);
+  }, [putCategoreis, props.categories]);
   return (
-      <HomeCarousel 
-      width={400}
-      height={500}
-      productsArray={productsArray} />
-  )
+    // carousal 0
+    <HomeCarousel width={400} height={500} dataArray={dataArray} /> 
+  );
 }
 
 export async function getStaticProps() {
-  // get categories from the database
+  
   try {
-    const props = await getProps()
-    // get products from the database 
+    // get main page props and categories
+    const props = await getProps();
     return {
       props,
-    }
+    };
   } catch (e) {
-    console.log(e.message)
+    console.log(e.message);
     return {
-      notFound: true
-    }
+      notFound: true,
+    };
   }
-  
 }

@@ -1,7 +1,7 @@
 import classes from "./_category-details.module.scss";
 import { Fragment, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
 
@@ -14,20 +14,26 @@ const CategoryDetails = (props) => {
   const isDesktop = props.isDesktop;
 
   //  fonts to determine the categories parent and child sizes
-  const parentFont = props.parentFont <= 0.7 ? 0.7 : props.parentFont;
-  const childFont = props.childFont <= 0.625 ? 0.625 : props.parentFont;
+  const parentFont = props.parentFont <= 0.9 ? 0.9 : props.parentFont;
+  const childFont = props.childFont <= 0.8 ? 0.8: props.parentFont;
   const padding = props.padding >= 4 ? 4 : props.padding;
 
   // for desktop version
   const list = props.list;
   const myClass = isDesktop ? (list ? classes.column : classes.row) : null;
+  const stateInitilaizer = {}
+  for (const child of children) {
+    stateInitilaizer[child] = false
+  }
 
   //  for mobile version
-  const [showSubCategory, setShowSubCategory] = useState(false);
-  const toggleCategory = () => {
-    setShowSubCategory(!showSubCategory);
-  };
+  const [showSubCategory, setShowSubCategory] = useState(stateInitilaizer);
 
+  const toggleCategory = (child) => {
+    setShowSubCategory((oldState) => {
+      return {...oldState, [child]: !oldState[child]}
+    });
+  };
   return (
     <div className={classes.details}>
       <ul className={myClass}>
@@ -40,7 +46,7 @@ const CategoryDetails = (props) => {
                     className={classes.parent}
                     onClick={() => {
                       if (isDesktop) return;
-                      toggleCategory();
+                      toggleCategory(child);
                     }}
                     style={{
                       fontSize: `${parentFont}rem`,
@@ -52,7 +58,13 @@ const CategoryDetails = (props) => {
                         {categories[child].name}
                       </Link>
                     </strong>
-                    {!isDesktop && (
+                    {!isDesktop && showSubCategory[child] && (
+                      <FontAwesomeIcon
+                        icon={faChevronUp}
+                        className={classes.chevron}
+                      />
+                    )}
+                    {!isDesktop && !showSubCategory[child] && (
                       <FontAwesomeIcon
                         icon={faChevronDown}
                         className={classes.chevron}
@@ -73,7 +85,7 @@ const CategoryDetails = (props) => {
                       />
                     )}
                   </li>
-                  {!isDesktop && showSubCategory && (
+                  {!isDesktop && showSubCategory[child] && (
                     <li>
                       <CategoryDetails
                         categories={categories}
@@ -81,8 +93,8 @@ const CategoryDetails = (props) => {
                           children: categories[child].children,
                           name: `${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`,
                         }}
-                        childFont={childFont - 0.3}
-                        parentFont={parentFont - 0.3}
+                        childFont={childFont - 0.1}
+                        parentFont={parentFont - 0.1}
                         padding={padding + 0.4}
                         isDesktop={isDesktop}
                       />
