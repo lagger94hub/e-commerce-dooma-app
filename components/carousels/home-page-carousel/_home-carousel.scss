@@ -1,6 +1,6 @@
 @use '../../../sass/abstracts/' as *;
 .swiper {
-  width: 80vw;
+  width: 100%;
   // height: 25rem;
 
   @include break-point('medium', 'up') {

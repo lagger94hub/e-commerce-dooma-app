@@ -8,27 +8,28 @@
 // 1200 >> laptops and desktops
 
 $break-points-min: (
-  "small": "36rem",
   //landscape phones
-  "medium": "48rem",
+  "small": "36rem",
   //tablets
-  "large": "62rem",
+  "medium": "48rem",
   //laptops
-  "extra-large": "75rem",
+  "large": "62rem",
   //desktops
-  "xxL": "100.0625rem" // XXlarge screens,
+  "extra-large": "75rem",
+  // XXlarge screens,
+  "XXL": "100.0625rem" 
 );
 $break-points-max: (
-  "extra-small": "35.9375rem",
   //mobile phones
-  "small": "47.9375rem",
+  "extra-small": "35.9375rem",
   //landscape phones
-  "medium": "61.9375rem",
+  "small": "47.9375rem",
   //tablets
-  "large": "74.9375rem",
+  "medium": "61.9375rem",
   //laptops
-  "extra-large": "100rem",
+  "large": "74.9375rem",
   //desktops
+  "extra-large": "100rem",
 );
 
 $fonts-map: (

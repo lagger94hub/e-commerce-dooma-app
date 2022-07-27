@@ -5,9 +5,10 @@ import classes from './_logo.module.scss'
 
 
 const Logo = (props) => {
-  
+    
   const className = props.className
-  const src = props.src
+  // in first render the src comming from props can be null
+  const src = props.src ? props.src : '/'
   const alt = props.alt
   const width = props.width
   const height = props.height

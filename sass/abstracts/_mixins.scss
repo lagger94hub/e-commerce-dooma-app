@@ -43,7 +43,7 @@
       @media all and (min-width: map-get($break-points-min, $size)) {
         @content;
       }
-    } @else if ($size == "xxL") {
+    } @else if ($size == "XXL") {
       @media all and (min-width: map-get($break-points-min, $size)) {
         @content;
       }
@@ -53,7 +53,7 @@
       @media all and (max-width: map-get($break-points-max, $size)) {
         @content;
       }
-    } @else if ($size == "xxL") {
+    } @else if ($size == "XXL") {
       @media all and (min-width: map-get($break-points-min, $size)) {
         @content;
       }

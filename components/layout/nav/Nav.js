@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./_nav.module.scss";
 import CategoryMenu from "./../menus/category-menu/CategoryMenu";
@@ -35,7 +35,7 @@ const Nav = (props) => {
       {/* icons list */}
       <ul>
         <li>
-          <FontAwesomeIcon icon={faShoppingCart} />
+          <FontAwesomeIcon icon={faBagShopping} />
         </li>
         <li onClick={showMenuHandler} className={classes.barsicon}>
           <FontAwesomeIcon icon={faBars} />

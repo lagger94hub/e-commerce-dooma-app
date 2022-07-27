@@ -5,20 +5,37 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DimDisplay from "../../../ui/dim-display/DimDisplay";
-import classes from "./_category-menu.module.scss";
-import { DimmerContext } from "../../../../store/dimmer-context";
-// import dummyCategories from "../../../../dummy-data/dummy-categories";
 import Logo from "../../logo/Logo";
 import CategoryDetails from "../category-menu-details/CategoryDetails";
+
+import { DimmerContext } from "../../../../store/dimmer-context";
 import { CategoriesContext } from "../../../../store/categories-context";
+import { SettingsContext } from "../../../../store/settings-context";
+
+import classes from "./_category-menu.module.scss";
 
 // menu  to show categories and sub-categories
 const CategoryMenu = (props) => {
   const toggleDimmer = useContext(DimmerContext).toggleDimmer;
-  const categories = useContext(CategoriesContext).categories
+  const siteSettings = useContext(SettingsContext).siteSettings;
+  const categories = useContext(CategoriesContext).categories;
 
   const isDesktop = props.isDesktop;
   const setShowMenu = props.setShowMenu;
+
+  // filtering header settings of all settings
+  const categoryMenuSettings =
+    siteSettings &&
+    siteSettings.filter((setting) => {
+      return setting.component_id === 1;
+    });
+
+  // bring the setting of the logo from the header settings
+  const logoSetting =
+    categoryMenuSettings &&
+    categoryMenuSettings.find((categoryMenuSetting) => {
+      return categoryMenuSetting.setting_key === "logoPath";
+    });
 
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [timerDone, setTimerDone] = useState(false);
@@ -29,8 +46,7 @@ const CategoryMenu = (props) => {
     setShowMenu(false);
   };
   const selectMenu = (children, name) => {
-    if (!children.length)
-    return
+    if (!children.length) return;
     setLeftMenu(false);
     setSelectedMenu({
       children,
@@ -98,7 +114,7 @@ const CategoryMenu = (props) => {
             <div className="flex-row falign-center gap-8p">
               {!selectedMenu && (
                 <Logo
-                  src={"/images/site/logo-dark.png"}
+                  src={logoSetting && logoSetting.setting_value}
                   alt={"site logo"}
                   height={50}
                   width={50}
@@ -114,9 +130,10 @@ const CategoryMenu = (props) => {
           </div>
         )}
         <ul className={classes.menu}>
-          {categories && categories.map((category, index) => {
-            return !category.parentId && menuLogic(category);
-          })}
+          {categories &&
+            categories.map((category, index) => {
+              return !category.parentId && menuLogic(category);
+            })}
           {/* depending on the screen width we render one of the menu components */}
           {selectedMenu && (
             <li
