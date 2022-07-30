@@ -1,5 +1,5 @@
 @use '../../../sass/abstracts/' as *;
-.card {
+.normal {
   // height: 100%;
   // width: 100%;
   padding-bottom: 1rem;
@@ -11,4 +11,9 @@
   p {
     width: 80%;
   }
+}
+.bordered {
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.342);
+  justify-content: center;
+  padding-bottom: 1rem;
 }

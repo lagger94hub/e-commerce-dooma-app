@@ -9,6 +9,8 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     padding: 1rem 1rem;
+    overflow: hidden;
+
     @include break-point('medium', 'up') {
       padding: 1rem 1rem 1rem 2rem;
     }
@@ -23,7 +25,7 @@
     li {
       display: list-item;
       margin: 0 0 0.8rem 0;
-      max-width: 8rem;
+      max-width: 10rem;
       font-size: 1.2rem;
       overflow-wrap: break-word;
       

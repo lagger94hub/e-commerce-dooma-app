@@ -1,0 +1,8 @@
+@use '../../../sass/abstracts/' as *;
+.carousal {
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--clr-shadow-grey-800)
+  }
+}

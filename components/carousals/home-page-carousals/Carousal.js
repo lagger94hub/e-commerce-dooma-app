@@ -1,20 +1,23 @@
 import React from "react";
+import Link from "next/link";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
 import { Pagination, Navigation } from "swiper";
 
-import DataCard from "../../ui/data-card/DataCard";
-import Link from "next/link";
+import DataCard from "../../ui/data-cards/DataCard";
+import classes from './_carousals.module.scss'
 
-const HomeCarousel = (props) => {
+
+const Carousal = (props) => {
   const dataArray = props.dataArray;
   const width = props.width;
   const height = props.height;
 
   return (
-    <section>
+    <section className={`${'flex-col gap-20p falign-center'} ${classes.carousal}`}>
+      <p className={classes.title}>{dataArray[0].display_name}</p>
       <Swiper
         slidesPerView="auto"
         spaceBetween={20}
@@ -69,4 +72,4 @@ const HomeCarousel = (props) => {
     </section>
   );
 };
-export default HomeCarousel;
+export default Carousal;

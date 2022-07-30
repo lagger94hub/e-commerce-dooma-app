@@ -9,7 +9,7 @@ import Logo from "../../logo/Logo";
 import CategoryDetails from "../category-menu-details/CategoryDetails";
 
 import { DimmerContext } from "../../../../store/dimmer-context";
-import { CategoriesContext } from "../../../../store/categories-context";
+import { NavCategoriesContext } from "../../../../store/nav-categories-context";
 import { SettingsContext } from "../../../../store/settings-context";
 
 import classes from "./_category-menu.module.scss";
@@ -18,7 +18,7 @@ import classes from "./_category-menu.module.scss";
 const CategoryMenu = (props) => {
   const toggleDimmer = useContext(DimmerContext).toggleDimmer;
   const siteSettings = useContext(SettingsContext).siteSettings;
-  const categories = useContext(CategoriesContext).categories;
+  const categories = useContext(NavCategoriesContext).navCategories;
 
   const isDesktop = props.isDesktop;
   const setShowMenu = props.setShowMenu;
@@ -45,12 +45,13 @@ const CategoryMenu = (props) => {
     toggleDimmer(false);
     setShowMenu(false);
   };
-  const selectMenu = (children, name) => {
+  const selectMenu = (children, slug, name) => {
     if (!children.length) return;
     setLeftMenu(false);
     setSelectedMenu({
       children,
-      name,
+      slug,
+      name
     });
   };
   const goBack = () => {
@@ -84,12 +85,12 @@ const CategoryMenu = (props) => {
       <li
         className={!isDesktop ? classes.mobile : null}
         key={category.id}
-        onClick={() => selectMenu(category.children, category.name)}
-        onMouseEnter={() => selectMenu(category.children, category.name)}
+        onClick={() => selectMenu(category.children, category.slug, category.name)}
+        onMouseEnter={() => selectMenu(category.children, category.slug, category.name)}
         onMouseLeave={() => leaveNav()}
       >
         {isDesktop ? (
-          <Link href={`/${category.name.toLowerCase()}`}>{category.name}</Link>
+          <Link href={`/${category.slug.toLowerCase()}-c${category.id}`}>{category.name}</Link>
         ) : (
           category.name
         )}

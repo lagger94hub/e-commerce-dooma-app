@@ -8,15 +8,15 @@ const updatePath = async () => {
     {
       let finalPath = ''
       const [paths] = await MyPool.execute(`
-      with recursive cte (id, name, parent_id) as (
+      with recursive cte (id, slug, parent_id) as (
         select     id,
-                   name,
+                   slug,
                    parent_id
         from       categories
         where      id = ?
         union all
         select     c.id,
-                   c.name,
+                   c.slug,
                    c.parent_id
         from       categories c
         inner join cte
@@ -24,8 +24,11 @@ const updatePath = async () => {
       )
       select * from cte
       `, [category.id])
-      for (const path of paths) {
-        finalPath = `/${path.name.toLowerCase().replace(' ', '-')}${finalPath}`
+      for (let i=0; i < paths.length; i++) {
+        if (i === 0)
+          finalPath = `/${paths[0].slug}${finalPath}-c${paths[0].id}`
+        else
+          finalPath = `/${paths[i].slug}${finalPath}`
       }
       await MyPool.execute('UPDATE paths SET path_to_root = ? WHERE id = ?', [finalPath, category.path_id])
     }

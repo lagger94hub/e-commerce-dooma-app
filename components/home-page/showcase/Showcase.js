@@ -16,7 +16,7 @@ const Showcase = (props) => {
               key={photo.setting_key}
               alt="showcase-photo"
               src={photo.setting_value}
-              height={1500}
+              height={1900}
               width={1500}
               layout="responsive"
             />

@@ -10,7 +10,7 @@ const CategoryDetails = (props) => {
   // we start with the array of children that contains indexes of children categories and for each child we find the corresponding object in the data array and if the object has children we would call the component again
   const children = props.selectedMenu.children;
   const categories = props.categories;
-  const parentName = props.selectedMenu.name;
+  const parentSlug = props.selectedMenu.slug
   const isDesktop = props.isDesktop;
 
   //  fonts to determine the categories parent and child sizes
@@ -54,7 +54,7 @@ const CategoryDetails = (props) => {
                     }}
                   >
                     <strong>
-                      <Link href={`${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`}>
+                      <Link href={`${parentSlug}/${categories[child].slug}-c${categories[child].id}`}>
                         {categories[child].name}
                       </Link>
                     </strong>
@@ -76,7 +76,7 @@ const CategoryDetails = (props) => {
                         list={true}
                         selectedMenu={{
                           children: categories[child].children,
-                          name: `${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`,
+                          slug: `${parentSlug}/${categories[child].slug}`,
                         }}
                         childFont={childFont - 0.1}
                         parentFont={parentFont - 0.1}
@@ -91,7 +91,7 @@ const CategoryDetails = (props) => {
                         categories={categories}
                         selectedMenu={{
                           children: categories[child].children,
-                          name: `${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`,
+                          slug: `${parentSlug}/${categories[child].slug}`,
                         }}
                         childFont={childFont - 0.1}
                         parentFont={parentFont - 0.1}
@@ -109,7 +109,7 @@ const CategoryDetails = (props) => {
                     paddingLeft: `${padding}rem`,
                   }}
                 >
-                  <Link href={`${parentName.toLowerCase()}/${categories[child].name.toLowerCase()}`}>
+                  <Link href={`${parentSlug}/${categories[child].slug}-c${categories[child].id}`}>
                     {categories[child].name}
                   </Link>
                 </li>

@@ -9,9 +9,11 @@ const DataCard = React.forwardRef((props, ref) => {
   const height = props.height;
   const discountAmount = props.discountAmount
   const discountName = props.discountName
+  const bordered = props.bordered
+  
   return (
     <a href={props.href} ref={ref}>
-      <div className={`${classes.card} flex-col gap-16p falign-center`}>
+      <div className={`${bordered ? classes.bordered : classes.normal} flex-col gap-16p falign-center`}>
       <Image src={itemPhotoURL} alt={itemName} width={width} height={height} />
       {!discountAmount &&
       <p>{itemName}</p>

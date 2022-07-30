@@ -2,9 +2,9 @@
 .main {
   // max-width: 120rem;
   width: 100vw;
-  padding-top: 2rem;
   margin: auto;
   @include break-point("small", "up") {
+    padding-top: 2rem;
     // padding: 2rem 0;
     // width: 98vw;
   }

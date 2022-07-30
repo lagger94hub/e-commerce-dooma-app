@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import Layout from "../components/layout/Layout";
 import DimmerContextProvider from "../store/dimmer-context";
 import MediaQueryContextProvider from "../store/media-query-context";
-import CategoriesContextProvider from "../store/categories-context";
+import NavCategoriesContextProvider from '../store/nav-categories-context';
 import SettingsContextProvider from "../store/settings-context";
 // import Head from "next/head";
 function MyApp({ Component, pageProps }) {
@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
     <MediaQueryContextProvider>
       <DimmerContextProvider>
         <SettingsContextProvider>
-          <CategoriesContextProvider>
+          <NavCategoriesContextProvider>
             <Layout>
               {/* <Head>
         <meta name="keywords" content="HTML, blog, javascript, nextjs" />
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
       </Head> */}
               <Component {...pageProps} />
             </Layout>
-          </CategoriesContextProvider>
+          </NavCategoriesContextProvider>
         </SettingsContextProvider>
       </DimmerContextProvider>
     </MediaQueryContextProvider>

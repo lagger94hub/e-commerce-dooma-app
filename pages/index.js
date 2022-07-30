@@ -1,24 +1,30 @@
 import { useContext, useEffect } from "react";
-import getProps from "../back-end/PropsGetters/home-page";
-import HomeCarousel from "../components/carousels/home-page-carousel/HomeCarousel";
-import Showcase from "../components/home-page/showcase/Showcase";
-import { CategoriesContext } from "../store/categories-context";
+import { NavCategoriesContext } from "../store/nav-categories-context";
 import { SettingsContext } from "../store/settings-context";
+
+import getProps from "../back-end/PropsGetters/home-page";
+import Carousal from "../components/carousals/home-page-carousals/Carousal";
+import Showcase from "../components/home-page/showcase/Showcase";
+import MainCategories from "../components/categories/MainCategories";
+import ElementWrapper from "../components/layout/element-wrapper/ElementWrapper";
 
 export default function Home(props) {
   
-  const putCategoreis = useContext(CategoriesContext).putCategories;
+  const putNavCategories = useContext(NavCategoriesContext).putNavCategories;
   const putSettings = useContext(SettingsContext).putSettings
 
   
   // get categories
-  const categories = props.categories
+  const navCategories = props.navCategories
 
   // get settings
   const siteSettings = props.siteSettings
 
-  // first carousal data
-  const dataArray = props.carousal0;
+  // dispaly0 data
+  const display0_dataArray = props.display0;
+
+  // dispaly1 data
+  const display1_dataArray = props.display1;
 
   // showcase photos array
   const showcasePhotos = siteSettings && siteSettings.filter((setting) => {
@@ -27,16 +33,31 @@ export default function Home(props) {
 
 
   useEffect(() => {
-    if (categories) putCategoreis(categories);
+    if (navCategories) putNavCategories(navCategories);
     if (siteSettings) putSettings(siteSettings)
-  }, [putCategoreis, putSettings, siteSettings, categories]);
+  }, [putNavCategories, putSettings, siteSettings, navCategories]);
 
   return (
     <>
       {/* showcase */}
-      <Showcase imagesUrlArray={showcasePhotos}/>
-      {/* carousal 0 */}
-      <HomeCarousel width={400} height={500} dataArray={dataArray} />
+      <ElementWrapper>
+        <Showcase imagesUrlArray={showcasePhotos}/>
+      </ElementWrapper>
+
+      {/* display 0 */}
+      <ElementWrapper>
+        <Carousal width={400} height={500} dataArray={display0_dataArray} />
+      </ElementWrapper>
+
+      {/* display 1 */}
+      <ElementWrapper>
+        <MainCategories dataArray={display1_dataArray}/>
+      </ElementWrapper>
+
+      {/* display 0 */}
+      <ElementWrapper>
+        <Carousal width={400} height={500} dataArray={display0_dataArray} />
+      </ElementWrapper>
     </>
   );
 }
