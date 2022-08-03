@@ -1,4 +1,5 @@
 import MyPool from "../db/db"
+import queries from "./queries"
 
 // every time a category update/insert/delete occurs this function should be called to update the paths of categories in the paths table
 
@@ -7,23 +8,7 @@ const updatePath = async () => {
     for (const category of categories)
     {
       let finalPath = ''
-      const [paths] = await MyPool.execute(`
-      with recursive cte (id, slug, parent_id) as (
-        select     id,
-                   slug,
-                   parent_id
-        from       categories
-        where      id = ?
-        union all
-        select     c.id,
-                   c.slug,
-                   c.parent_id
-        from       categories c
-        inner join cte
-                on c.id = cte.parent_id
-      )
-      select * from cte
-      `, [category.id])
+      const [paths] = await MyPool.execute(queries.getRootParent, [category.id])
       for (let i=0; i < paths.length; i++) {
         if (i === 0)
           finalPath = `/${paths[0].slug}${finalPath}-c${paths[0].id}`

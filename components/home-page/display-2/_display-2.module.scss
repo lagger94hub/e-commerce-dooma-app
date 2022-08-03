@@ -1,0 +1,140 @@
+@use "../../../sass/abstracts/" as *;
+
+.wrapper {
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--clr-shadow-grey-800);
+    padding-bottom: .2rem;
+    border-bottom: 1px solid var(--clr-shadow-grey-500);
+
+  }
+  .collections {
+    width: 100%;
+    gap: 0;
+    @include break-point("medium", "up") {
+      gap: 1rem;
+    }
+    @include break-point("extra-large", "up") {
+      flex-direction: row !important;
+      height: 55rem;
+    }
+    @include break-point("XXL") {
+    }
+  }
+}
+.collection-1,
+.collection-2,
+.collection-3 {
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  @include break-point('medium', 'up') {
+    flex-direction: row;
+  }
+  @include break-point('extra-large', 'up') {
+    width: auto;
+    justify-content: center;
+
+  }
+  .name-1, .name-2, .name-3 {
+    display: block;
+
+    text-align: center;
+    padding: .5rem;
+    // width: 17rem;
+    width: 100%;
+    max-width: 25rem;
+    height: fit-content;
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: .3rem;
+    border-right: 15px solid var(--clr-shadow-grey-800);
+
+    @include break-point('medium', 'up') {
+      border-right: 0;
+      width: 30%;
+      height: 10rem;
+      font-size: 2rem;
+      max-width: none;
+
+    }
+
+    @include break-point("extra-large", "up") {
+      writing-mode: tb-rl;
+      transform: rotate(-180deg);
+      width: fit-content;
+
+    }
+  }
+
+  .name-1 {
+    border-left: 15px solid var(--clr-shadow-grey-800);
+    @include break-point("extra-large", "up") {
+      border-left: none;
+      border-right: none;
+      height: 100%;
+
+    }
+  }
+  .name-2 {
+    border-left: 15px solid var(--clr-shadow-grey-800);
+    @include break-point("extra-large", "up") {
+      border-left: none;
+      border-right: 15px solid var(--clr-shadow-grey-500);
+      height: 102%;
+
+    }
+  } 
+  .name-3 {
+    border-left: 15px solid var(--clr-shadow-grey-800);
+    @include break-point("extra-large", "up") {
+      border-left: none;
+      border-right: 15px solid var(--clr-shadow-grey-800);
+      height: 100%;
+
+    }
+  } 
+  .img {
+    width: 100%;    
+    max-width: 25rem;
+
+    @include break-point("medium", "up") {
+      width: 50%;
+      max-width: 22.5rem;
+    }
+    @include break-point("extra-large", "up") {
+      width: auto;
+      max-width: none;
+
+    }
+    display: block;
+    span {
+      width: 100% !important;
+      @include break-point("extra-large", "up") {
+        width: auto;
+      }
+    }
+    @include break-point("extra-large", "up") {
+    }
+  }
+  @include break-point("extra-large", "up") {
+  }
+}
+
+.bar-0,
+.bar-1 {
+  height: 100%;
+  display: none;
+  @include break-point("extra-large", "up") {
+    display: block;
+  }
+  width: 1rem;
+}
+
+.bar-0 {
+  background-color: var(--clr-shadow-grey-500);
+}
+.bar-1 {
+  background-color: var(--clr-shadow-grey-900);
+}

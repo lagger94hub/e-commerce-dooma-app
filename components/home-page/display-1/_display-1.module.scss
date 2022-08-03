@@ -1,0 +1,20 @@
+@use '../../../sass/abstracts/' as *;
+.categories {
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--clr-shadow-grey-800);
+    padding-bottom: .2rem;
+    border-bottom: 1px solid var(--clr-shadow-grey-500);
+  }
+  ul {
+    width: 100%;
+    min-height: 45rem;
+  }
+  li {
+    height: fit-content;
+  }
+  .lower {
+    align-self: flex-end;
+  }
+}
