@@ -90,7 +90,7 @@ const CategoryMenu = (props) => {
         onMouseLeave={() => leaveNav()}
       >
         {isDesktop ? (
-          <Link href={`/${category.slug.toLowerCase()}-c${category.id}`}>{category.name}</Link>
+          <Link href={category.pathToRoot}><a onClick={() => setSelectedMenu(null)}>{category.name}</a></Link>
         ) : (
           category.name
         )}
@@ -155,6 +155,7 @@ const CategoryMenu = (props) => {
                 parentFont={isDesktop ? 1.2 : 1.5}
                 padding={isDesktop ? 0.1 : 0.5}
                 isDesktop={isDesktop}
+                setShowMenu={setShowMenu}
               />
             </li>
           )}

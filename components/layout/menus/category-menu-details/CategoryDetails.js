@@ -12,6 +12,7 @@ const CategoryDetails = (props) => {
   const categories = props.categories;
   const parentSlug = props.selectedMenu.slug
   const isDesktop = props.isDesktop;
+  const setShowMenu = props.setShowMenu
 
   //  fonts to determine the categories parent and child sizes
   const parentFont = props.parentFont <= 0.9 ? 0.9 : props.parentFont;
@@ -34,6 +35,9 @@ const CategoryDetails = (props) => {
       return {...oldState, [child]: !oldState[child]}
     });
   };
+  const closeParentMenu = () => {
+    setShowMenu(false)
+  }
   return (
     <div className={classes.details}>
       <ul className={myClass}>
@@ -54,8 +58,8 @@ const CategoryDetails = (props) => {
                     }}
                   >
                     <strong>
-                      <Link href={`${parentSlug}/${categories[child].slug}-c${categories[child].id}`}>
-                        {categories[child].name}
+                      <Link href={categories[child].pathToRoot}>
+                        <a onClick={closeParentMenu}>{categories[child].name}</a>
                       </Link>
                     </strong>
                     {!isDesktop && showSubCategory[child] && (
@@ -82,6 +86,8 @@ const CategoryDetails = (props) => {
                         parentFont={parentFont - 0.1}
                         padding={padding + 0.1}
                         isDesktop={isDesktop}
+                        setShowMenu={setShowMenu}
+
                       />
                     )}
                   </li>
@@ -97,6 +103,7 @@ const CategoryDetails = (props) => {
                         parentFont={parentFont - 0.1}
                         padding={padding + 0.4}
                         isDesktop={isDesktop}
+                        setShowMenu={setShowMenu}
                       />
                     </li>
                   )}
@@ -109,8 +116,8 @@ const CategoryDetails = (props) => {
                     paddingLeft: `${padding}rem`,
                   }}
                 >
-                  <Link href={`${parentSlug}/${categories[child].slug}-c${categories[child].id}`}>
-                    {categories[child].name}
+                  <Link href={categories[child].pathToRoot}>
+                    <a onClick={closeParentMenu}>{categories[child].name}</a>
                   </Link>
                 </li>
               )}

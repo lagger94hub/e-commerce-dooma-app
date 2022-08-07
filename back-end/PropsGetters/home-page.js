@@ -5,11 +5,12 @@ import queries from "../utils/queries";
 
 export default async function getProps() {
   try {
+    await updatePaths()
+    
     // get site settings
     const [siteSettings] = await MyPool.execute(
       `SELECT component_id, setting_key, setting_value from settings`,);
 
-    await updatePaths()
 
     // get navCategories
     const navCategories = await getNavCategories();

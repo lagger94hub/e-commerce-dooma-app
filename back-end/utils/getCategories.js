@@ -3,7 +3,10 @@ import MyPool from "../db/db";
 
   const getNavCategories = async () => {
   try {
-    const [rows] = await MyPool.execute("select id, name, slug, parent_id from categories WHERE visible = 1");
+    const [rows] = await MyPool.execute(`
+    select c.id, c.name, c.slug, c.parent_id, p.path_to_root from categories c
+    JOIN paths p ON c.path_id = p.id WHERE visible = 1
+    `);
     const categories = []
 
     // this double loop can be improved 
@@ -14,6 +17,7 @@ import MyPool from "../db/db";
           name: rows[i].name,
           slug: rows[i].slug,
           parentId: rows[i].parent_id,
+          pathToRoot: rows[i].path_to_root,
           children: []
         })
       for (let j = 0; j < rows.length; j++) {

@@ -15,6 +15,7 @@ const updatePath = async () => {
         else
           finalPath = `/${paths[i].slug}${finalPath}`
       }
+      finalPath = '/categories' + finalPath
       await MyPool.execute('UPDATE paths SET path_to_root = ? WHERE id = ?', [finalPath, category.path_id])
     }
 }

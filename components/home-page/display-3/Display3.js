@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import classes from "./_display-3.module.scss";
 import React, { useState, useRef } from "react";
+import Button from "../../ui/buttons/Button";
 const Display3 = (props) => {
   const width = props.width;
   const height = props.height;
@@ -10,14 +11,14 @@ const Display3 = (props) => {
   const initilizeParents = (dataArray) => {
     let parents = {};
     for (var category of dataArray) {
-      let parent = category.item_path.split("/")[1];
+      let parent = category.item_path.split("/")[2];
       if (!parents[parent]) parents[parent] = true;
     }
     return parents;
   };
   const parentsObj = useRef(initilizeParents(dataArray));
 
-  let randomParent = dataArray[0].item_path.split("/")[1];
+  let randomParent = dataArray[0].item_path.split("/")[2];
   const [selectedCategory, setSelectedCategory] = useState(randomParent);
   const selectCategory = (category) => {
     setSelectedCategory(category);
@@ -30,7 +31,7 @@ const Display3 = (props) => {
       <p className={classes.title}>{dataArray[0].display_name}</p>
       <div className={`${classes.featured}`}>
         {dataArray.map((data, index) => {
-          let parent = data.item_path.split("/")[1];
+          let parent = data.item_path.split("/")[2];
           return (
             <React.Fragment key={data.item_id}>
               {selectedCategory === parent && (
@@ -57,14 +58,14 @@ const Display3 = (props) => {
                 >
                   {Object.keys(parentsObj.current).map((parent, index) => {
                     return (
-                      <button
+                      <Button
                         onClick={() => {
                           selectCategory(parent);
                         }}
                         key={index}
-                      >
-                        {parent}
-                      </button>
+                        title={parent}
+                        className="default-button-dark"
+                      />
                     );
                   })}
                 </div>
