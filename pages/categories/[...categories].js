@@ -6,7 +6,9 @@ import { SettingsContext } from "../../store/settings-context";
 import RootPath from "../../components/ui/root-path/RootPath";
 import getProps from "../../back-end/PropsGetters/SSR/categories/categories-catch-all";
 import { FRIENDLY_ERROR_500, logError } from "../../back-end/utils/errorsLib";
-import ElementWrapper from "../../components/layout/element-wrapper/ElementWrapper";
+
+import SectionWrapper from "../../components/layout/element-wrapper/SectionWrapper";
+import Filter from "../../components/filtration/Filter";
 
 export default function CategoryPage(props) {
   // update store with nav and settings data
@@ -27,9 +29,12 @@ export default function CategoryPage(props) {
 
   return (
     <>
-      <ElementWrapper>
+      <SectionWrapper>
         <RootPath pathsToRoot={pathsToRoot} />
-      </ElementWrapper>
+      </SectionWrapper>
+      <SectionWrapper>
+        <Filter></Filter>
+      </SectionWrapper>
     </>
   );
 }

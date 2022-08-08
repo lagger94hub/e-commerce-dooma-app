@@ -25,7 +25,7 @@ const Display3 = (props) => {
   };
 
   return (
-    <section
+    <div
       className={`${classes.wrapper} flex-col gap-32p fjust-center falign-center`}
     >
       <p className={classes.title}>{dataArray[0].display_name}</p>
@@ -74,7 +74,7 @@ const Display3 = (props) => {
           );
         })}
       </div>
-    </section>
+    </div>
   );
 };
 export default Display3;

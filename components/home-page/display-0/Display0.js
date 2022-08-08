@@ -16,7 +16,7 @@ const Display0 = (props) => {
   const height = props.height;
 
   return (
-    <section className={`${'flex-col gap-32p falign-center'} ${classes.carousal}`}>
+    <div className={`${'flex-col gap-32p falign-center'} ${classes.carousal}`}>
       <p className={classes.title}>{dataArray[0].display_name}</p>
       <Swiper
         slidesPerView="auto"
@@ -69,7 +69,7 @@ const Display0 = (props) => {
           );
         })}
       </Swiper>
-    </section>
+    </div>
   );
 };
 export default Display0;

@@ -6,7 +6,7 @@ const RootPath = (props) => {
   const pathsToRoot = props.pathsToRoot;
 
   return (
-    <section className={`${classes.path} flex-row gap-16p`}>
+    <div className={`${classes.path} flex-row gap-16p`}>
       <Link href={'/'}>
         Homepage |
       </Link>
@@ -23,7 +23,7 @@ const RootPath = (props) => {
             </Link>
           );
         })}
-    </section>
+    </div>
   );
 };
 export default RootPath;

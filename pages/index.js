@@ -5,7 +5,7 @@ import Display1 from "../components/home-page/display-1/Display1";
 import Display2 from "../components/home-page/display-2/Display2";
 import Display3 from "../components/home-page/display-3/Display3";
 import Showcase from "../components/home-page/showcase/Showcase";
-import ElementWrapper from "../components/layout/element-wrapper/ElementWrapper";
+import SectionWrapper from "../components/layout/element-wrapper/SectionWrapper";
 
 import { NavCategoriesContext } from "../store/nav-categories-context";
 import { SettingsContext } from "../store/settings-context";
@@ -52,29 +52,29 @@ export default function Home(props) {
   return (
     <>
       {/* showcase */}
-      <ElementWrapper>
+      <SectionWrapper>
         <Showcase imagesUrlArray={showcasePhotos}/>
-      </ElementWrapper>
+      </SectionWrapper>
 
       {/* display 0 */}
-      <ElementWrapper>
+      <SectionWrapper>
         <Display0 width={400} height={500} dataArray={display0_dataArray} />
-      </ElementWrapper>
+      </SectionWrapper>
 
       {/* display 1 */}
-      <ElementWrapper>
+      <SectionWrapper>
         <Display1 width={300} height={400} dataArray={display1_dataArray}/>
-      </ElementWrapper>
+      </SectionWrapper>
 
       {/* display 2 */}
-      <ElementWrapper>
+      <SectionWrapper>
         <Display2 width={300} height={950} dataArray={display2_dataArray} />
-      </ElementWrapper>
+      </SectionWrapper>
 
       {/* display 3 */}
-      <ElementWrapper>
+      <SectionWrapper>
         <Display3 width={100} height={100} dataArray={display3_dataArray} />
-      </ElementWrapper>
+      </SectionWrapper>
     </>
   );
 }

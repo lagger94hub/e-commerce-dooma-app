@@ -8,7 +8,7 @@ const Display1 = (props) => {
   const height = props.height
   
   return (
-    <section
+    <div
       className={`${
         classes.categories
       } ${"flex-col gap-32p fjust-center falign-center"}`}
@@ -38,7 +38,7 @@ const Display1 = (props) => {
             );
           })}
       </ul>
-    </section>
+    </div>
   );
 };
 export default Display1;

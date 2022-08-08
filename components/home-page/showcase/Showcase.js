@@ -4,7 +4,7 @@ const Showcase = (props) => {
   const imagesUrlArray = props.imagesUrlArray;
 
   return (
-    <section className={classes.grid}>
+    <div className={classes.grid}>
       <div className={`flex-col gap-8p`}>
         <p>Dooma</p>
         <p>Never run out of style</p>
@@ -22,7 +22,7 @@ const Showcase = (props) => {
             />
           );
         })}
-    </section>
+    </div>
   );
 };
 export default Showcase;
