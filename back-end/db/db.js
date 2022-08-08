@@ -8,7 +8,14 @@ const db = {
   connectionLimit: 10,
   queueLimit: 0
 }
-// create the pool
-const MyPool =  mysql.createPool(db);
-
+let MyPool
+try {
+  // create the pool
+   MyPool =  mysql.createPool(db);
+   
+} catch (e) {
+  console.log('Failed to connect to database')
+  console.log(`Error Details: ${e.message}`);
+  throw e
+}
 export default MyPool

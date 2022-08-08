@@ -1,56 +1,51 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import getPaths from "../../back-end/pathsGetters/categories/categories-catch-all";
-import getProps from "../../back-end/PropsGetters/categories/categories-catch-all";
-import RootPath from "../../components/ui/root-path/RootPath";
 import { NavCategoriesContext } from "../../store/nav-categories-context";
 import { SettingsContext } from "../../store/settings-context";
 
+import RootPath from "../../components/ui/root-path/RootPath";
+import getProps from "../../back-end/PropsGetters/SSR/categories/categories-catch-all";
+import { FRIENDLY_ERROR_500, logError } from "../../back-end/utils/errorsLib";
+import ElementWrapper from "../../components/layout/element-wrapper/ElementWrapper";
+
 export default function CategoryPage(props) {
-
   // update store with nav and settings data
-  const navCategories = props.navCategories
-  const siteSettings = props.siteSettings
+  const navCategories = props.navCategories;
+  const siteSettings = props.siteSettings;
+  const pathsToRoot = props.pathsToRoot;
 
-  const putNavCategories = useContext(NavCategoriesContext).putNavCategories
-  const putSettings = useContext(SettingsContext).putSettings
+  const putNavCategories = useContext(NavCategoriesContext).putNavCategories;
+  const putSettings = useContext(SettingsContext).putSettings;
 
   // get the path from the url to create path to the root
-  const router = useRouter()
-  const paramsArr = router.query.categories
+  const router = useRouter();
 
   useEffect(() => {
     if (navCategories) putNavCategories(navCategories);
-    if (siteSettings) putSettings(siteSettings)
+    if (siteSettings) putSettings(siteSettings);
   }, [putNavCategories, putSettings, siteSettings, navCategories]);
 
   return (
     <>
-      <RootPath paramsArr={paramsArr}/>
+      <ElementWrapper>
+        <RootPath pathsToRoot={pathsToRoot} />
+      </ElementWrapper>
     </>
   );
 }
-export async function getStaticPaths() {
-  try {
-    const paths = await getPaths()
-    return {
-      paths,
-      fallback: 'blocking'
-    }
-  } catch (e) {
-    console.log(e)
-  }
-}
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   try {
     const props = await getProps(context);
+    if (!props) {
+      return {
+        notFound: true,
+      };
+    }
     return {
       props,
     };
   } catch (e) {
-    console.log(e.message);
-    return {
-      notFound: true,
-    };
+    logError("getServerSideProps", e.message);
+    throw new Error(FRIENDLY_ERROR_500);
   }
 }

@@ -1,15 +1,16 @@
-import MyPool from "../db/db";
+import MyPool from '../db/db'
+import { logError } from "../utils/errorsLib";
 // getting the menus
 
-  const getNavCategories = async () => {
+const getNavCategories = async () => {
   try {
     const [rows] = await MyPool.execute(`
     select c.id, c.name, c.slug, c.parent_id, p.path_to_root from categories c
     JOIN paths p ON c.path_id = p.id WHERE visible = 1
     `);
-    const categories = []
+    const categories = [];
 
-    // this double loop can be improved 
+    // this double loop can be improved
     for (let i = 0; i < rows.length; i++) {
       if (!categories[i])
         categories.push({
@@ -18,19 +19,19 @@ import MyPool from "../db/db";
           slug: rows[i].slug,
           parentId: rows[i].parent_id,
           pathToRoot: rows[i].path_to_root,
-          children: []
-        })
+          children: [],
+        });
       for (let j = 0; j < rows.length; j++) {
-        if (rows[i].id === rows[j].parent_id)
-          categories[i].children.push(j);
+        if (rows[i].id === rows[j].parent_id) categories[i].children.push(j);
       }
     }
 
-    return categories
+    return categories;
   } catch (e) {
-    throw e
+    logError('getNavCategories', e.message, { isSource: true })
+    throw e;
   }
-}
+};
 const getDisplayCategories = async (displayId) => {
   try {
     const [categories] = await MyPool.execute(
@@ -43,12 +44,10 @@ const getDisplayCategories = async (displayId) => {
       WHERE cd.display_id = ? AND c.visible = 1`,
       [displayId]
     );
-    return categories
+    return categories;
   } catch (e) {
-    throw e
+    logError('getDisplayCategories', e.message, { isSource: true })
+    throw e;
   }
-}
-export {
-  getNavCategories,
-  getDisplayCategories
-}
+};
+export { getNavCategories, getDisplayCategories };

@@ -1,14 +1,17 @@
 import { useContext, useEffect } from "react";
-import { NavCategoriesContext } from "../store/nav-categories-context";
-import { SettingsContext } from "../store/settings-context";
 
-import getProps from "../back-end/PropsGetters/home-page";
-import Showcase from "../components/home-page/showcase/Showcase";
-import ElementWrapper from "../components/layout/element-wrapper/ElementWrapper";
 import Display0 from "../components/home-page/display-0/Display0";
 import Display1 from "../components/home-page/display-1/Display1";
 import Display2 from "../components/home-page/display-2/Display2";
 import Display3 from "../components/home-page/display-3/Display3";
+import Showcase from "../components/home-page/showcase/Showcase";
+import ElementWrapper from "../components/layout/element-wrapper/ElementWrapper";
+
+import { NavCategoriesContext } from "../store/nav-categories-context";
+import { SettingsContext } from "../store/settings-context";
+
+import getProps from "../back-end/PropsGetters/SSG/home-page";
+import { logError, FRIENDLY_ERROR_500 } from '../back-end/utils/errorsLib'
 
 export default function Home(props) {
   
@@ -40,6 +43,7 @@ export default function Home(props) {
   })
 
 
+  // update the store 
   useEffect(() => {
     if (navCategories) putNavCategories(navCategories);
     if (siteSettings) putSettings(siteSettings)
@@ -83,9 +87,7 @@ export async function getStaticProps() {
       props,
     };
   } catch (e) {
-    console.log(e.message);
-    return {
-      notFound: true,
-    };
+    logError('getStaticProps', e.message)
+    throw new Error(FRIENDLY_ERROR_500)
   }
 }

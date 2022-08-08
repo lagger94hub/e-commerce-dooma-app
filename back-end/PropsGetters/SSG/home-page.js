@@ -1,15 +1,15 @@
-import { getNavCategories, getDisplayCategories } from "../utils/getCategories";
-import updatePaths from '../utils/updatePaths'
-import MyPool from "../db/db";
-import queries from "../utils/queries";
+import { getNavCategories, getDisplayCategories } from "../../categories/getCategories";
+import { getSiteSettings } from "../../utils/siteSettings";
+import { logError } from "../../utils/errorsLib";
+import { updateCategoriesPaths } from "../../categories/paths";
+
 
 export default async function getProps() {
   try {
-    await updatePaths()
+    await updateCategoriesPaths()
     
     // get site settings
-    const [siteSettings] = await MyPool.execute(
-      `SELECT component_id, setting_key, setting_value from settings`,);
+    const siteSettings = await getSiteSettings()
 
 
     // get navCategories
@@ -41,6 +41,7 @@ export default async function getProps() {
       display3
     };
   } catch (e) {
+    logError('getProps', e.message)
     throw e;
   }
 }

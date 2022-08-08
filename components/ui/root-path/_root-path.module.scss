@@ -1,0 +1,25 @@
+@use '../../../sass/abstracts/' as *;
+.path {
+  width: 95%;
+  margin: auto;
+  display: none;
+  @include break-point("small", "up") {
+    width: 95%;
+    display: flex;
+  }
+  @include break-point("large", "up") {
+    width: 100%;
+  }
+  a {
+    font-size: .8rem;
+    color: var(--clr-shadow-grey-500);
+  }
+  .active {
+    color: black;
+    font-weight: 600;
+    &:hover {
+      cursor: default;
+    }
+  }
+
+}

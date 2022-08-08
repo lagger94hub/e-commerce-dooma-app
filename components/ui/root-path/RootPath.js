@@ -3,31 +3,24 @@ import React from "react";
 import Link from "next/link";
 const RootPath = (props) => {
 
-  const paramsArr = props.paramsArr;
-  let path = '/categories'
+  const pathsToRoot = props.pathsToRoot;
 
   return (
-    <section className={classes.path}>
-      {paramsArr &&
-        paramsArr.map((pathSegment, index) => {
-          let subSegments;
-          path += '/' + pathSegment
-          if (index === paramsArr.length - 1) {
-            subSegments = pathSegment.split("-");
-            subSegments.pop();
-          }
+    <section className={`${classes.path} flex-row gap-16p`}>
+      <Link href={'/'}>
+        Homepage |
+      </Link>
+      {pathsToRoot &&
+        pathsToRoot.map((path, index) => {
           return (
-            <React.Fragment key={index}>
-              {index === paramsArr.length - 1 ? (
-                <Link href={path}>
-                  <a>{subSegments.join(" ")}</a>
-                </Link>
-              ) : (
-                <Link href={path}>
-                  <a>{pathSegment} | </a>
-                </Link>
-              )}
-            </React.Fragment>
+            <Link href={path.path_to_root} key={index}>
+              {index === pathsToRoot.length - 1 
+              ? 
+              <a className={classes.active}>{path.name}</a>
+              :
+              <a>{path.name} |</a>
+              }
+            </Link>
           );
         })}
     </section>
