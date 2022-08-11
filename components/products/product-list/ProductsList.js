@@ -1,14 +1,14 @@
 import ProductCard from "../product-card/ProductCard"
 
 const ProductsList = (props) => {
-  // const productsArr = props.productsArr
-  const productsArr = [{}]
+
+  const products = props.products
 
   return (
-    <ul>
-      {productsArr && productsArr.map((product) => {
+    <ul className={`flex-row gap-16p fjust-start`}>
+      {products && products.map((product, index) => {
         return (
-          <ProductCard product={product} key={product.id}/>
+          <ProductCard product={product} key={index}/>
         )
       })}
     </ul>

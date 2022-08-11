@@ -9,12 +9,16 @@ import { FRIENDLY_ERROR_500, logError } from "../../back-end/utils/errorsLib";
 
 import SectionWrapper from "../../components/layout/element-wrapper/SectionWrapper";
 import Filter from "../../components/filtration/Filter";
+import ProductsList from "../../components/products/product-list/ProductsList";
 
 export default function CategoryPage(props) {
   // update store with nav and settings data
   const navCategories = props.navCategories;
   const siteSettings = props.siteSettings;
   const pathsToRoot = props.pathsToRoot;
+
+  // list of featured non-filtered products
+  const products = props.products
 
   const putNavCategories = useContext(NavCategoriesContext).putNavCategories;
   const putSettings = useContext(SettingsContext).putSettings;
@@ -34,6 +38,9 @@ export default function CategoryPage(props) {
       </SectionWrapper>
       <SectionWrapper>
         <Filter></Filter>
+      </SectionWrapper>
+      <SectionWrapper>
+        <ProductsList products={products}/>
       </SectionWrapper>
     </>
   );

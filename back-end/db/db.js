@@ -6,7 +6,8 @@ const db = {
   password: 'petApp12345!',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  timezone: 'Z',
 }
 let MyPool
 try {
