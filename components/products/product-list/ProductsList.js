@@ -1,11 +1,12 @@
 import ProductCard from "../product-card/ProductCard"
+import classes from './_products-list.module.scss'
 
 const ProductsList = (props) => {
 
   const products = props.products
 
   return (
-    <ul className={`flex-row gap-16p fjust-start`}>
+    <ul className={`${classes.list} flex-row fjust-center`}>
       {products && products.map((product, index) => {
         return (
           <ProductCard product={product} key={index}/>

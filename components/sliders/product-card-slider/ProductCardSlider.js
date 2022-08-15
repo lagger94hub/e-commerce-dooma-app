@@ -1,11 +1,14 @@
 import Image from "next/image"
+import classes from './_product-card-slider.module.scss'
 const ProductCardSlider = (props) => {
   const imagesURLs = props.imagesURLs.split(',')
   const width = props.width
   const height = props.height
   const alt = props.productName
   return (
-    <Image width={width} height={height} src={imagesURLs[0]} alt={alt}/>
+    <div className={classes.wrapper}>
+      <Image width={width} height={height} src={imagesURLs[0]} alt={alt}/>
+    </div>
   )
 }
 export default ProductCardSlider

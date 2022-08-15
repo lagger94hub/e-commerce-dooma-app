@@ -1,1 +1,7 @@
 @use '../../../sass/abstracts/' as *;
+.list {
+  gap: 0;
+  @include break-point('medium', 'up') {
+    gap: 1rem;
+  }
+}

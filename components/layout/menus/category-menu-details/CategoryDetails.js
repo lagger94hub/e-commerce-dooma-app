@@ -13,6 +13,7 @@ const CategoryDetails = (props) => {
   const parentSlug = props.selectedMenu.slug
   const isDesktop = props.isDesktop;
   const setShowMenu = props.setShowMenu
+  const setSelectedMenu = props.setSelectedMenu
 
   //  fonts to determine the categories parent and child sizes
   const parentFont = props.parentFont <= 0.9 ? 0.9 : props.parentFont;
@@ -37,6 +38,7 @@ const CategoryDetails = (props) => {
   };
   const closeParentMenu = () => {
     setShowMenu(false)
+    setSelectedMenu(null)
   }
   return (
     <div className={classes.details}>
@@ -87,6 +89,7 @@ const CategoryDetails = (props) => {
                         padding={padding + 0.1}
                         isDesktop={isDesktop}
                         setShowMenu={setShowMenu}
+                        setSelectedMenu={setSelectedMenu}
 
                       />
                     )}
@@ -104,6 +107,7 @@ const CategoryDetails = (props) => {
                         padding={padding + 0.4}
                         isDesktop={isDesktop}
                         setShowMenu={setShowMenu}
+                        setSelectedMenu={setSelectedMenu}
                       />
                     </li>
                   )}

@@ -1,0 +1,67 @@
+@use '../../../sass/abstracts/' as *;
+.wrapper {
+  position: relative;
+}
+.header {
+  width: 7rem;
+  padding: .5rem;
+  border: solid 1px var(--clr-shadow-grey-400);
+  @include rounded-corners(.2rem, .2rem, .2rem, .2rem);
+  &:hover {
+    cursor: pointer;
+  }
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+    font-weight: 500;
+    color: var(--clr-shadow-grey-700);
+  }
+}
+.body {
+  position: absolute;
+  left: 0;
+  top: 130%;
+  background-color: white;
+  border: 1px solid var(--clr-shadow-grey-400);
+  padding: .5rem;
+  width: 200%;
+  max-height: 6rem;
+  overflow-y: scroll;
+  z-index: 3;
+  span {
+    font-size: .75rem;
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    max-width: 80%;   
+  }
+  li {
+    margin-bottom: .5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.closed {
+  display: none;
+}
+// the box style when its open
+.open {
+  border: solid 1px var(--clr-shadow-grey-800);
+  span {
+    font-weight: bold;
+    color: var(--clr-shadow-grey-800);
+  }
+}
+
+.box {
+  display: block;
+  width: .8rem;
+  height: .8rem;
+  @include rounded-corners(.1rem, .1rem, .1rem, .1rem);
+  border: 1px solid var(--clr-shadow-grey-400);
+}
+// the checked checkbox
+.checked {
+  background-color: var(--clr-shadow-grey-800);
+}

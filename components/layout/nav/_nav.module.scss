@@ -11,6 +11,15 @@
       padding-bottom: 1rem;
     }
   }
+  .icons_list {
+    li {
+      height: fit-content;
+      padding: 0;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
   .barsicon {
     @include break-point('medium', 'up') {
       display: none;

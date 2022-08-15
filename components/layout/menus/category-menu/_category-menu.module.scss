@@ -7,7 +7,7 @@
   height: 100vh;
   background-color: white;
   padding: 2rem 1rem;
-  z-index: 3;
+  z-index: 100;
   @include break-point("small") {
     width: 60%;
   }
@@ -69,7 +69,7 @@
     width: 97vw;
     overflow: hidden;
     background-color: white;
-    z-index: 3;
+    z-index: 100;
     li {
       padding: 0;
       width: fit-content;

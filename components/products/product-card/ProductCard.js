@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useState } from "react";
+
 import ProductCardSlider from "../../sliders/product-card-slider/ProductCardSlider";
 import classes from "./_product-card.module.scss";
 
@@ -11,43 +13,58 @@ const ProductCard = (props) => {
   const productPrice = props.product.product_price.split(",");
   const productDiscount = props.product.discount_amount;
   const imagesURLs = props.product.images_urls;
-  console.log(props.product);
+
+  // add to cart state
+  const [button, setButton] = useState(false);
+  const showButton = () => {
+    setButton(true);
+  };
+  const hideButton = () => {
+    setButton(false);
+  };
 
   return (
-    <li>
+    <li
+      onMouseEnter={showButton}
+      onMouseLeave={hideButton}
+      className={classes.wrapper}
+    >
       <Link href={`/products/${productSlug}/${colorId}`}>
-        <a
-          className={`flex-col gap-16p fjust-center falign-center ${classes.card}`}
-        >
+        <a className={`flex-col gap-16p fjust-center  ${classes.card}`}>
           <ProductCardSlider
             alt={productName}
-            width={318}
-            height={400}
+            // width={318}
+            // height={420}
+            width={1000}
+            height={1300}
             imagesURLs={imagesURLs}
           />
           <div
             className={`flex-col gap-8p fjust-center falign-start ${classes.details}`}
           >
-            <p>{productName}</p>
-            <p>{productColor}</p>
-            <p>{productFit} fit</p>
+            {button && <button>Add to cart</button>}
+
+            <p className={classes.name}>{productName}</p>
+            <p className={classes.color}>{productColor}</p>
+            <p className={classes.fit}>{productFit} fit</p>
             <p className={`flex-row gap-8p`}>
               {productDiscount ? (
                 <>
-                  <span>{productPrice[0] - productPrice[0] * 0.2}</span>
-                  <span>
-                    <s>{productPrice[0]}</s>
+                  <span className={classes.price}>
+                    {productPrice[0] - productPrice[0] * 0.2} TL
                   </span>
-                  <span>%{productDiscount}</span>
+                  <span>
+                    <s className={classes.old}>{productPrice[0]} TL</s>
+                  </span>
+                  <span className={classes.discount}>{productDiscount}%</span>
                 </>
               ) : (
-                <span>{productPrice[0]}</span>
+                <span className={classes.price}>{productPrice[0]} TL</span>
               )}
             </p>
           </div>
         </a>
       </Link>
-      <button>Add to cart</button>
     </li>
   );
 };

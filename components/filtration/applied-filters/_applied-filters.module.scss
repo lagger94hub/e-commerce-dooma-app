@@ -1,0 +1,9 @@
+@use '../../../sass/abstracts/' as *;
+.applied {
+  li {
+    font-size: .75rem;
+    &:last-child {
+      text-decoration: underline;
+    }
+  }
+}

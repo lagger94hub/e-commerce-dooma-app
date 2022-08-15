@@ -37,7 +37,7 @@ export default function CategoryPage(props) {
         <RootPath pathsToRoot={pathsToRoot} />
       </SectionWrapper>
       <SectionWrapper>
-        <Filter></Filter>
+        <Filter />
       </SectionWrapper>
       <SectionWrapper>
         <ProductsList products={products}/>

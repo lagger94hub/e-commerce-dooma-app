@@ -150,6 +150,7 @@ const CategoryMenu = (props) => {
             >
               <CategoryDetails
                 selectedMenu={selectedMenu}
+                setSelectedMenu={setSelectedMenu}
                 categories={categories}
                 childFont={isDesktop ? 1.2 : 1.5}
                 parentFont={isDesktop ? 1.2 : 1.5}

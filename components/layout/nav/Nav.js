@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faBars, faBagShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./_nav.module.scss";
 import CategoryMenu from "./../menus/category-menu/CategoryMenu";
@@ -32,8 +33,14 @@ const Nav = (props) => {
         />
       )}
 
-      {/* icons list */}
-      <ul>
+      {/* easy access list */}
+      <ul className={`${classes.icons_list} flex-row gap-8p fjust-start falign-center`}>
+        <li>
+          <FontAwesomeIcon icon={faSearch} />
+        </li>
+        <li>
+          <FontAwesomeIcon icon={faUser} />
+        </li>
         <li>
           <FontAwesomeIcon icon={faBagShopping} />
         </li>
