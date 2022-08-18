@@ -29,6 +29,8 @@ const ProductCard = (props) => {
       onMouseLeave={hideButton}
       className={classes.wrapper}
     >
+      {button && <button>Add to cart</button>}
+
       <Link href={`/products/${productSlug}/${colorId}`}>
         <a className={`flex-col gap-16p fjust-center  ${classes.card}`}>
           <ProductCardSlider
@@ -42,8 +44,6 @@ const ProductCard = (props) => {
           <div
             className={`flex-col gap-8p fjust-center falign-start ${classes.details}`}
           >
-            {button && <button>Add to cart</button>}
-
             <p className={classes.name}>{productName}</p>
             <p className={classes.color}>{productColor}</p>
             <p className={classes.fit}>{productFit} fit</p>
