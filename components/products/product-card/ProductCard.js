@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import ProductCardSlider from "../../sliders/product-card-slider/ProductCardSlider";
 import classes from "./_product-card.module.scss";
@@ -16,12 +16,12 @@ const ProductCard = (props) => {
 
   // add to cart state
   const [button, setButton] = useState(false);
-  const showButton = () => {
+  const showButton = useCallback(() => {
     setButton(true);
-  };
-  const hideButton = () => {
+  }, []);
+  const hideButton = useCallback(() => {
     setButton(false);
-  };
+  }, []);
 
   return (
     <li

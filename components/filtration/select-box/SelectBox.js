@@ -1,15 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import classes from "./_select-box.module.scss";
+import { useCallback } from "react";
 const SelectBox = (props) => {
   const check = props.check;
   const disptach = props.dispatch;
   const { name, items, open } = props.data;
   const boxIndex = props.boxIndex;
 
-  const toggleBox = () => {
+  const toggleBox = useCallback(() => {
     disptach({ type: "toggle-box", boxIndex });
-  };
+  }, [boxIndex, disptach])
 
   return (
     <div className={classes.wrapper}>

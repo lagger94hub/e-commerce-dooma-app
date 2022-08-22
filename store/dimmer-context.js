@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useCallback } from "react";
 import { useState } from "react";
 const DimmerContext = createContext({
   dimmer: false,
@@ -7,9 +7,10 @@ const DimmerContext = createContext({
 
 const DimmerContextProvider = (props) => {
   const [dimmer, setDimmer] = useState(false)
-  const toggleDimmer = (value) => {
+  const toggleDimmer = useCallback((value) => {
     setDimmer(value)
-  }
+  }, [])
+  
   return (
     <DimmerContext.Provider value={{
       dimmer,

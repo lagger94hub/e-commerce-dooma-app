@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -15,9 +15,10 @@ const Nav = (props) => {
   // in Next.js because the server prerenders every page, the server can't tell the value of the media query beforehand
   const [isDesktop, setIsDesktop] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const showMenuHandler = () => {
+  const showMenuHandler = useCallback(() => {
     setShowMenu(!showMenu);
-  };
+  }, [setShowMenu, showMenu])
+  
   useEffect(() => {
     setIsDesktop(desktop);
   }, [setIsDesktop, desktop]);

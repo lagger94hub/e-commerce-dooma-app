@@ -1,5 +1,5 @@
 import classes from "./_category-details.module.scss";
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
@@ -31,15 +31,17 @@ const CategoryDetails = (props) => {
   //  for mobile version
   const [showSubCategory, setShowSubCategory] = useState(stateInitilaizer);
 
-  const toggleCategory = (child) => {
+  const toggleCategory = useCallback((child) => {
     setShowSubCategory((oldState) => {
       return {...oldState, [child]: !oldState[child]}
     });
-  };
-  const closeParentMenu = () => {
+  }, [])
+
+  const closeParentMenu = useCallback(() => {
     setShowMenu(false)
     setSelectedMenu(null)
-  }
+  }, [setShowMenu, setSelectedMenu])
+  
   return (
     <div className={classes.details}>
       <ul className={myClass}>

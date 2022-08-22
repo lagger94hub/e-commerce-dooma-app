@@ -1,13 +1,15 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 const SettingsContext = createContext({
   siteSettings: [],
   putSettings: () => {},
 });
 const SettingsContextProvider = (props) => {
   const [siteSettings, setSiteSettings] = useState(null);
-  const putSettings = (siteSettings) => {
+
+  const putSettings = useCallback((siteSettings) => {
     setSiteSettings(siteSettings);
-  };
+  }, [])
+  
   return (
     <SettingsContext.Provider
       value={{

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 const NavCategoriesContext = createContext({
   navCategories: null,
   putNavCategories: () => {},
@@ -7,9 +7,9 @@ const NavCategoriesContext = createContext({
 const NavCategoriesContextProvider = (props) => {
   const [navCategories, setNavCategories] = useState(null)
 
-  const putNavCategories = (navCategories) => {
+  const putNavCategories = useCallback((navCategories) => {
     setNavCategories(navCategories)
-  }
+  }, [])
 
   return (
     <NavCategoriesContext.Provider value={{navCategories, putNavCategories}}>

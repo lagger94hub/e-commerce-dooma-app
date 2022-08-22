@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import Logo from "../logo/Logo";
 import classes from "./_header.module.scss";
@@ -10,18 +10,21 @@ const Header = () => {
   const siteSettings = useContext(SettingsContext).siteSettings;
 
   // filtering header settings of all settings
-  const headerSettings =
-    siteSettings &&
-    siteSettings.filter((setting) => {
+  const headerSettings = useMemo(() => {
+    if (!siteSettings) return
+    return siteSettings.filter((setting) => {
       return setting.component_id === 0;
-    });
+    })
+  }, [siteSettings])
+    
 
   // bring the setting of the logo from the header settings
-  const logoSetting =
-    headerSettings &&
-    headerSettings.find((headerSetting) => {
+  const logoSetting = useMemo(() => {
+    if (!headerSettings) return
+    return headerSettings.find((headerSetting) => {
       return headerSetting.setting_key === "logoPath";
     });
+  }, [headerSettings])
 
   return (
     <header

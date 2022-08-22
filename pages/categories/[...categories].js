@@ -31,6 +31,9 @@ export default function CategoryPage(props) {
     if (siteSettings) putSettings(siteSettings);
   }, [putNavCategories, putSettings, siteSettings, navCategories]);
 
+
+  // creating the filtration object
+  
   return (
     <>
       <SectionWrapper>

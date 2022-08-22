@@ -1,28 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import classes from "./_display-3.module.scss";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Button from "../../ui/buttons/Button";
 const Display3 = (props) => {
   const width = props.width;
   const height = props.height;
   const dataArray = props.dataArray;
 
-  const initilizeParents = (dataArray) => {
+  const initilizeParents = useCallback((dataArray) => {
     let parents = {};
     for (var category of dataArray) {
       let parent = category.item_path.split("/")[2];
       if (!parents[parent]) parents[parent] = true;
     }
     return parents;
-  };
+  }, [])
+  
   const parentsObj = useRef(initilizeParents(dataArray));
-
   let randomParent = dataArray[0].item_path.split("/")[2];
+
   const [selectedCategory, setSelectedCategory] = useState(randomParent);
-  const selectCategory = (category) => {
+
+  const selectCategory = useCallback((category) => {
     setSelectedCategory(category);
-  };
+  }, [])
 
   return (
     <div

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -24,28 +24,36 @@ const CategoryMenu = (props) => {
   const setShowMenu = props.setShowMenu;
 
   // filtering header settings of all settings
-  const categoryMenuSettings =
-    siteSettings &&
-    siteSettings.filter((setting) => {
+  const categoryMenuSettings = useMemo(() => {
+    if (!siteSettings) return
+    return siteSettings.filter((setting) => {
       return setting.component_id === 1;
     });
+  }, [siteSettings])
+    
 
   // bring the setting of the logo from the header settings
-  const logoSetting =
-    categoryMenuSettings &&
-    categoryMenuSettings.find((categoryMenuSetting) => {
+  const logoSetting = useMemo(() => {
+
+    if (!categoryMenuSettings) return
+
+    return categoryMenuSettings.find((categoryMenuSetting) => {
       return categoryMenuSetting.setting_key === "logoPath";
     });
 
+  }, [categoryMenuSettings])
+    
+  // states and setStates
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [timerDone, setTimerDone] = useState(false);
   const [leftMenu, setLeftMenu] = useState(true);
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     toggleDimmer(false);
     setShowMenu(false);
-  };
-  const selectMenu = (children, slug, name) => {
+  }, [toggleDimmer, setShowMenu])
+
+  const selectMenu = useCallback((children, slug, name) => {
     if (!children.length) return;
     setLeftMenu(false);
     setSelectedMenu({
@@ -53,23 +61,30 @@ const CategoryMenu = (props) => {
       slug,
       name
     });
-  };
-  const goBack = () => {
+  }, [])
+  const goBack = useCallback(() => {
     setSelectedMenu(null);
-  };
-  const enterMenu = () => {
+  }, [])
+
+  const enterMenu = useCallback(() => {
     setLeftMenu(false);
-  };
-  const leaveMenu = () => {
+  }, [
+
+  ])
+  const leaveMenu = useCallback(() => {
     setLeftMenu(true);
-  };
-  const leaveNav = () => {
+  }, [])
+
+  const leaveNav = useCallback(() => {
     setTimerDone(false);
     setLeftMenu(true);
     setTimeout(() => {
       setTimerDone(true);
     }, 300);
-  };
+  }, [])
+
+
+  // useEffects
   useEffect(() => {
     if (timerDone) {
       if (leftMenu) setSelectedMenu(null);
