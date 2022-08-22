@@ -12,11 +12,19 @@ const reducer = (state, action) => {
         }) 
       }
     }
+    // case 'calibrate': {
+    //   return {
+    //     ...state,
+    //     boxes: state.boxes.map((box, index) => {
+    //       return {...box, }
+    //     })
+    //   }
+    // }
   }
 }
 
-const FilterReducerHook = (initialState) => {
+const useFilterReducer = (initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   return [state, dispatch]
 }
-export default  FilterReducerHook
+export default  useFilterReducer

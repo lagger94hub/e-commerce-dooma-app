@@ -6,7 +6,7 @@ import { updateCategoriesPaths } from "../../categories/paths";
 
 export default async function getProps() {
   try {
-    await updateCategoriesPaths()
+    // await updateCategoriesPaths()
     
     // get site settings
     const siteSettings = await getSiteSettings()

@@ -14,6 +14,8 @@ const ProductCard = (props) => {
   const productDiscount = props.product.discount_amount;
   const imagesURLs = props.product.images_urls;
 
+  // presentable fit-name creation
+  const fit = (productFit[0].toUpperCase() + productFit.slice(1)).replace('-', ' ')
   // add to cart state
   const [button, setButton] = useState(false);
   const showButton = useCallback(() => {
@@ -46,7 +48,7 @@ const ProductCard = (props) => {
           >
             <p className={classes.name}>{productName}</p>
             <p className={classes.color}>{productColor}</p>
-            <p className={classes.fit}>{productFit} fit</p>
+            <p className={classes.fit}>{fit} fit</p>
             <p className={`flex-row gap-8p`}>
               {productDiscount ? (
                 <>
