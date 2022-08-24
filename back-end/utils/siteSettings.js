@@ -6,7 +6,7 @@ const getSiteSettings = async () => {
       `SELECT component_id, setting_key, setting_value from settings`,);
     return siteSettings
   } catch (e) {
-    logError('getSiteSettings', e.message, { isSource: true })
+    logError('getSiteSettings', e.message)
     throw e;
   }
 }

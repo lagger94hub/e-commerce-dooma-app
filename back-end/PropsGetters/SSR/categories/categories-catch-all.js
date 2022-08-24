@@ -3,12 +3,12 @@ import { getSiteSettings } from "../../../utils/siteSettings";
 import { getCategoriesPaths } from "../../../categories/paths";
 import { logError } from "../../../utils/errorsLib";
 import { getProductsList } from "../../../products/getProducts";
-import { createFilterData } from "../../../products/filtration";
+import { createFilterData } from "../../../products/filtration/filterData";
 
 export default async function getProps(context) {
   const { categories } = context.params;
-  const { query } = context;
-  const noQueryUrl = context.resolvedUrl.split('?')[0];
+  const urlQuery = context.query;
+  const noQueryUrl = context.resolvedUrl.split("?")[0];
   try {
     // get categories paths for the root path component
     const pathsToRoot = await getCategoriesPaths(categories);
@@ -24,17 +24,27 @@ export default async function getProps(context) {
     const navCategories = await getNavCategories();
 
     // get products in productList by categoryPath and query params
-    const products = await getProductsList(noQueryUrl, query);
+
+    const allProducts = await getProductsList(noQueryUrl, urlQuery, {
+      filtered: false,
+    });
+    const filteredProducts = await getProductsList(noQueryUrl, urlQuery, {
+      filtered: true,
+    });
 
     // create filtration data
-    const filterData = createFilterData(products, query)
+    const filterData = createFilterData(
+      allProducts,
+      filteredProducts,
+      urlQuery
+    );
 
     return {
       siteSettings,
       navCategories,
       pathsToRoot,
-      products,
-      filterData
+      filteredProducts,
+      filterData,
     };
   } catch (e) {
     logError("getProps", e.message);

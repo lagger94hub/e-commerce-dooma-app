@@ -1,13 +1,9 @@
 const FRIENDLY_ERROR_500 = "Oops Something went wrong!!"
 
-const logError = (functionName, details, options) => {
+const logError = (functionName, details) => {
 
-  if (options && options.isSource) {
-    console.log('------------------------------------')
-    console.log(`Something went wrong in :${functionName}()`);
-  } else {
-    console.log(`Error caught and rethrown in :${functionName}()`);
-  }
+  console.log('------------------------------------')
+  console.log(`Error caught and rethrown in :${functionName}()`)
   console.log(`Error Details: ${details}`);
   console.log('------------------------------------')
 }

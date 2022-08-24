@@ -1,5 +1,5 @@
 import MyPool from "../db/db";
-import queries from "../utils/queries";
+import queries from "../db/queries/queries";
 import { logError } from "../utils/errorsLib";
 
 // every time a category update/insert/delete occurs this function should be called to update the paths of categories in the paths table
@@ -27,7 +27,7 @@ const updateCategoriesPaths = async () => {
       ]);
     }
   } catch (e) {
-    logError('updateCategoriesPaths', e.message, { isSource: true })
+    logError('updateCategoriesPaths', e.message)
     throw e;
   }
 };
@@ -53,7 +53,7 @@ const getCategoriesPaths = async (params) => {
     }
     return pathsToRoot
   } catch (e) {
-    logError('validUrlParams', e.message, { isSource: true })
+    logError('validUrlParams', e.message)
     throw e;
   }
 };

@@ -28,7 +28,7 @@ const getNavCategories = async () => {
 
     return categories;
   } catch (e) {
-    logError('getNavCategories', e.message, { isSource: true })
+    logError('getNavCategories', e.message)
     throw e;
   }
 };
@@ -46,7 +46,7 @@ const getDisplayCategories = async (displayId) => {
     );
     return categories;
   } catch (e) {
-    logError('getDisplayCategories', e.message, { isSource: true })
+    logError('getDisplayCategories', e.message)
     throw e;
   }
 };

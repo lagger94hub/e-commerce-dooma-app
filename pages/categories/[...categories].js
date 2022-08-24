@@ -66,11 +66,10 @@ export default function CategoryPage(props) {
   const pathsToRoot = props.pathsToRoot;
 
   // list of featured non-filtered products
-  const products = props.products
+  const products = props.filteredProducts
 
   // filterData
   const filterData = props.filterData
-  console.log(filterData)
   // get the path from the url to create path to the root
   const router = useRouter();
 
