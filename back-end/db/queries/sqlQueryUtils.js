@@ -6,9 +6,10 @@ const operatorGenerator = (sqlQueryArr, urlQuery, param, options) => {
     if (!sqlQueryArr || !urlQuery || !param || !options || !options.op)
       throw new Error("Missing argument.");
 
-    const { op, minMax, colName } = options;
+    const { op, minMax, colName, regx } = options;
     let inOperator = "IN (";
     let betweenOperator = "";
+    let likeOperator = ''
     // depending on operation required an operator will be generated
     switch (op) {
       case "in": {
@@ -24,24 +25,50 @@ const operatorGenerator = (sqlQueryArr, urlQuery, param, options) => {
         }
         return inOperator;
       }
-      case "between": {
+      case "like": {
+        let value
         if (Array.isArray(urlQuery[param])) {
           for (let [i, item] of urlQuery[param].entries()) {
             // param is an array of min-max
+              value = regx.replace('?', item)
+              sqlQueryArr.push(value);
+              likeOperator +=
+                i === urlQuery[param].length - 1
+                  ? `LIKE ?) `
+                  : `LIKE ? OR ${colName} `;
+          }
+        } else {
+          value = regx.replace('?', urlQuery[param])
+          sqlQueryArr.push(value);
+          likeOperator += `LIKE ?) `;
+        }
+        return likeOperator;
+      }
+      case "between": {
+        if (Array.isArray(urlQuery[param])) {
+          for (let [i, item] of urlQuery[param].entries()) {
+            // param is an array of min-max, here we are filtering based on the price with discount
             if (minMax) {
-              let min = item.split("-")[0];
-              let max = item.split("-")[1];
+              let minMax = item.split('-')
+              if (minMax.length < 2)
+                throw new Error('wrong formated data')
+              let min = minMax[0];
+              let max = minMax[1];
               sqlQueryArr.push(min);
               sqlQueryArr.push(max);
               betweenOperator +=
                 i === urlQuery[param].length - 1
                   ? `BETWEEN ? AND ?) `
-                  : `BETWEEN ? AND ? OR (${colName} `;
+                  : `BETWEEN ? AND ?) OR (${colName} `;
             }
           }
         } else {
-          let min = urlQuery[param].split("-")[0];
-          let max = urlQuery[param].split("-")[1];
+          let minMax = urlQuery[param].split("-")
+
+          if (minMax.length < 2)
+            throw new Error('wrong formated data')
+          let min = minMax[0];
+          let max = minMax[1];
           sqlQueryArr.push(min);
           sqlQueryArr.push(max);
           betweenOperator += `BETWEEN ? AND ?) `;
@@ -69,40 +96,47 @@ const sqlQueryDependencies = (urlQuery, options) => {
   if (!urlQuery) return { sqlQueryArr, filterString, orderString };
 
   for (let param in urlQuery) {
-    if (param === "categories") continue;
-
     let operator;
-    if (param !== "sort") {
-      // price param will need between op and minMax, other params require in op and no need for min max
-      operator = operatorGenerator(sqlQueryArr, urlQuery, param, {
-        op: param !== 'price' ? 'in' : 'between',
-        minMax: param !== 'price' ? false : true,
-        colName: param !== 'price' ? '' : 'pr.price'
-      });
-    }
     switch (param) {
+      case 'categories': continue
       case "color": {
+        operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'in',
+        });
         filterString += `AND co.name ${operator}`;
         break;
       }
       case "fit": {
+        operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'in',
+        });
         filterString += `AND f.name ${operator} `;
         break;
       }
       case "size": {
+        operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'in',
+        });
         filterString += `AND s.size ${operator}`;
         break;
       }
       case "width": {
-        filterString += `AND s.width ${operator}`;
+        operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'like',
+        colName: 's.width_length',
+        regx: "w?%"});
+        filterString += `AND (s.width_length ${operator}`;
         break;
       }
       case "length": {
-        filterString += `AND s.length ${operator}`;
+        operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'like',
+        colName: 's.width_length',
+        regx: "%l?"});
+        filterString += `AND (s.width_length ${operator}`;
         break;
       }
       case "price": {
-        filterString += `AND (pr.price ${operator}`;
+        operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'between',
+        minMax: true,
+        colName: '(pr.price - pr.price * (d.amount/100))',
+        });
+        filterString += `AND ((pr.price - pr.price * (d.amount/100)) ${operator}`;
         break;
       }
       case "sort": {

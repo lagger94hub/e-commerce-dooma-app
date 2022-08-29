@@ -5,12 +5,12 @@ import { queryProducts } from "../db/queries/products";
 // get the products list in the catch all categories path
 const getProductsList = async (categoryPath, urlQuery, options) => {
   try {
-    const { filtered } = options;
     const { sqlQuery, sqlQueryArr } = queryProducts(
       categoryPath,
       urlQuery,
-      filtered
+      options
     );
+    console.log(sqlQuery)
     // get the featured productsList according to filters
     const [products] = await MyPool.execute(sqlQuery, sqlQueryArr);
 

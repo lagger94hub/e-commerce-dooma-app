@@ -70,6 +70,8 @@ export default function CategoryPage(props) {
 
   // filterData
   const filterData = props.filterData
+
+
   // get the path from the url to create path to the root
   const router = useRouter();
 
@@ -118,6 +120,10 @@ export async function getServerSideProps(context) {
     };
   } catch (e) {
     logError("getServerSideProps", e.message);
-    throw new Error(FRIENDLY_ERROR_500);
+    // incase of 500 error redirect to not found
+    return {
+      notFound: true,
+    };
+    // throw new Error(FRIENDLY_ERROR_500);
   }
 }

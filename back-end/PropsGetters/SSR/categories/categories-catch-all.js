@@ -26,25 +26,26 @@ export default async function getProps(context) {
     // get products in productList by categoryPath and query params
 
     const allProducts = await getProductsList(noQueryUrl, urlQuery, {
-      filtered: false,
+      filtered: false, minimalData: true
     });
     const filteredProducts = await getProductsList(noQueryUrl, urlQuery, {
       filtered: true,
     });
 
     // create filtration data
-    const filterData = createFilterData(
-      allProducts,
-      filteredProducts,
-      urlQuery
-    );
+    // const filterData = createFilterData(
+    //   allProducts,
+    //   filteredProducts,
+    //   urlQuery
+    // );
+
 
     return {
       siteSettings,
       navCategories,
       pathsToRoot,
       filteredProducts,
-      filterData,
+      // filterData,
     };
   } catch (e) {
     logError("getProps", e.message);

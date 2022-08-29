@@ -1,4 +1,14 @@
 // helper functions used in filtration
+
+// create price range like 100TL-200TL
+const createPriceRange = (price, rangesArr) => {
+  for (let range of rangesArr) {
+    if (price <= range.max && price >= range.min) {
+      return `${range.min}TL-${range.max}TL`;
+    }
+  }
+  return `${price}TL-${price}TL`;
+};
 const createNewFilterBox = (filterData, boxName, itemName, urlQuery) => {
   try {
     filterData.boxes.push({
@@ -32,7 +42,8 @@ const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
                   ...item,
                   quantity: ++item.quantity,
                   checked:
-                    urlQuery[boxName] !== undefined && urlQuery[boxName] === itemName,
+                    urlQuery[boxName] !== undefined &&
+                    urlQuery[boxName] === itemName,
                 };
               return item;
             })
@@ -42,7 +53,8 @@ const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
                 name: itemName,
                 quantity: 1,
                 checked:
-                  urlQuery[boxName] !== undefined && urlQuery[boxName] === itemName,
+                  urlQuery[boxName] !== undefined &&
+                  urlQuery[boxName] === itemName,
               },
             ],
     };
@@ -51,13 +63,48 @@ const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
     throw e;
   }
 };
-const manageFilterData = (filterData, boxName, itemName, urlQuery) => {
+const manageFilterData = (filterData, boxName, itemName, urlQuery, options) => {
+  // width and length and size could be null, fits could be NA
+  if (!itemName || itemName === "NA") return;
+  const { concatenated } = options;
+  let itemArr = concatenated ? itemName.split(',') : null
   try {
     let boxIndex = filterData.boxes.findIndex((box) => box.name === boxName);
     if (boxIndex < 0) {
-      createNewFilterBox(filterData, boxName, itemName, urlQuery);
+      if (concatenated) {
+        let firstItem = itemArr[0]
+        if (boxName === "price") {
+          let priceRange = createPriceRange(firstItem, [
+            { min: 50, max: 60 },
+            { min: 80, max: 100 },
+            { min: 120, max: 200 },
+            { min: 300, max: 400 },
+            { min: 500, max: 750 },
+          ]);
+          createNewFilterBox(filterData, boxName, priceRange, urlQuery);
+        } else createNewFilterBox(filterData, boxName, firstItem, urlQuery);
+      } else createNewFilterBox(filterData, boxName, itemName, urlQuery)
     } else {
-      modifyFilterBox(filterData, boxName, itemName, urlQuery, boxIndex);
+      if (concatenated) {
+        for (let i = 0; i < itemArr.length; i++) {
+          if (boxName === "price") {
+            let priceRange = createPriceRange(itemArr[i], [
+              { min: 50, max: 60 },
+              { min: 80, max: 100 },
+              { min: 120, max: 200 },
+              { min: 300, max: 400 },
+              { min: 500, max: 750 },
+            ]);
+            modifyFilterBox(
+              filterData,
+              boxName,
+              priceRange,
+              urlQuery,
+              boxIndex
+            );
+          } else modifyFilterBox(filterData, boxName, itemArr[i], urlQuery, boxIndex);
+        }
+      } else modifyFilterBox(filterData, boxName, itemName, urlQuery, boxIndex);
     }
   } catch (e) {
     logError("manageFilterData", e.message);
@@ -79,8 +126,4 @@ const fillAppliedFilters = (filterData, urlQuery) => {
   }
 };
 
-
-export {
-  manageFilterData,
-  fillAppliedFilters,
-}
+export { manageFilterData, fillAppliedFilters, createPriceRange };
