@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const AppliedFilters = (props) => {
-  const appliedFilters = props.appliedFilters;
+  // const appliedFilters = props.appliedFilters;
+  const appliedFilters = [];
   return (
     <ul className={`flex-row gap-16p ${classes.applied}`}>
       {appliedFilters &&

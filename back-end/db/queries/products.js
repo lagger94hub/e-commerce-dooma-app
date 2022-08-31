@@ -3,6 +3,7 @@ import { sqlQueryDependencies } from "./sqlQueryUtils"
 // filterd products query
 const queryProducts = (categoryPath, urlQuery, options) => {
 
+  
   const { filtered, minimalData } = options;
 
   if (!categoryPath || !urlQuery)

@@ -3,14 +3,20 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import classes from "./_select-box.module.scss";
 import { useCallback } from "react";
 const SelectBox = (props) => {
-  const check = props.check;
+
   const disptach = props.dispatch;
   const { name, items, open } = props.data;
   const boxIndex = props.boxIndex;
 
+  // close and open drop-down menu
   const toggleBox = useCallback(() => {
     disptach({ type: "toggle-box", boxIndex });
   }, [boxIndex, disptach])
+
+  // select item from box
+  const selectItem = useCallback((itemIndex, itemName) => {
+    disptach({ type: "select-item", boxIndex, itemIndex, name, itemName})
+  }, [disptach, boxIndex, name])
 
   return (
     <div className={classes.wrapper}>
@@ -32,7 +38,7 @@ const SelectBox = (props) => {
           items.length &&
           items.map((item, index) => {
             return (
-              <li key={index} className={`flex-row fjust-start gap-8p`}>
+              <li key={index} className={`flex-row fjust-start gap-8p`} onClick={() => selectItem(index, item.name)}>
                 <span
                   className={
                     item.checked

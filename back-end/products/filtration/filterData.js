@@ -43,21 +43,25 @@
 //   appliedFilters: ["Skinny", "100TL-200TL", "Blue"],
 // };
 
-import { createPriceRange, manageFilterData } from "./filtrationUtils";
+import { manageFilterData } from "./filtrationUtils";
 import { logError } from "../../utils/errorsLib";
+
 const createFilterData = (allProducts, filteredProducts, query) => {
+
+  // this is the final object that will be returned by this function it will be used to fill the filtration bar
   const filterData = {
     boxes: [],
-    appliedFilters: [],
+    appliedFilters: {},
   };
   try {
     // get the number of keys in query
     let keysCount = Object.keys(query).length;
-
     // when we have one filter applied only we would like to get the data of this filter based on all the products not based on the filtered products
+
+    // only one filter is applied
     if (keysCount === 2) {
       for (let product of allProducts) {
-        // checking which of these filters is applied
+        // if a filter is applied and its the only filter applied then we use all prodcuts instead of the filtered products
         if (query.fit) {
           manageFilterData(filterData, "fit", product.product_fit, query, {
             concatenated: false,
@@ -74,12 +78,12 @@ const createFilterData = (allProducts, filteredProducts, query) => {
           });
         }
         if (query.width) {
-          manageFilterData(filterData, "width", product.width, query, {
+          manageFilterData(filterData, "width", product.width_length, query, {
             concatenated: true,
           });
         }
         if (query.length) {
-          manageFilterData(filterData, "length", product.length, query, {
+          manageFilterData(filterData, "length", product.width_length, query, {
             concatenated: true,
           });
         }
@@ -90,7 +94,7 @@ const createFilterData = (allProducts, filteredProducts, query) => {
         }
       }
     }
-
+    // if no filters were applied or we have more than one filter
     for (let product of filteredProducts) {
       if (keysCount !== 2 || !query.fit)
         manageFilterData(filterData, "fit", product.product_fit, query, {
@@ -107,12 +111,12 @@ const createFilterData = (allProducts, filteredProducts, query) => {
         });
       }
       if (keysCount !== 2 || !query.width) {
-        manageFilterData(filterData, "width", product.width, query, {
+        manageFilterData(filterData, "width", product.width_length, query, {
           concatenated: true,
         });
       }
       if (keysCount !== 2 || !query.length) {
-        manageFilterData(filterData, "length", product.length, query, {
+        manageFilterData(filterData, "length", product.width_length, query, {
           concatenated: true,
         });
       }
@@ -122,6 +126,13 @@ const createFilterData = (allProducts, filteredProducts, query) => {
         });
       }
     }
+
+    // create the sorting box if sort is in the query
+    manageFilterData(filterData, "sort", null, query);
+
+    // add the query object to the filterdata object
+    filterData.appliedFilters = query
+    
   } catch (e) {
     logError("createFilterData", e.message);
     throw e;

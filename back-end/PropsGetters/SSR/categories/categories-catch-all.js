@@ -2,7 +2,7 @@ import { getNavCategories } from "../../../categories/getCategories";
 import { getSiteSettings } from "../../../utils/siteSettings";
 import { getCategoriesPaths } from "../../../categories/paths";
 import { logError } from "../../../utils/errorsLib";
-import { getProductsList } from "../../../products/getProducts";
+import { getCategoryProducts } from "../../../products/getProducts";
 import { createFilterData } from "../../../products/filtration/filterData";
 
 export default async function getProps(context) {
@@ -23,21 +23,21 @@ export default async function getProps(context) {
     // get navCategories
     const navCategories = await getNavCategories();
 
-    // get products in productList by categoryPath and query params
-
-    const allProducts = await getProductsList(noQueryUrl, urlQuery, {
-      filtered: false, minimalData: true
-    });
-    const filteredProducts = await getProductsList(noQueryUrl, urlQuery, {
+    // get filtered products using url query
+    const filteredProducts = await getCategoryProducts(noQueryUrl, urlQuery, {
       filtered: true,
     });
-
+    
+    // this is used by createFilterData
+    const allProducts = await getCategoryProducts(noQueryUrl, urlQuery, {
+      filtered: false, minimalData: true
+    });
     // create filtration data
-    // const filterData = createFilterData(
-    //   allProducts,
-    //   filteredProducts,
-    //   urlQuery
-    // );
+    const filterData = createFilterData(
+      allProducts,
+      filteredProducts,
+      urlQuery
+    );
 
 
     return {
@@ -45,7 +45,7 @@ export default async function getProps(context) {
       navCategories,
       pathsToRoot,
       filteredProducts,
-      // filterData,
+      filterData,
     };
   } catch (e) {
     logError("getProps", e.message);

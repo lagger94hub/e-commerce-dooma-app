@@ -1,6 +1,8 @@
 // generate sql in operator for get products query based on url query params
 // output example IN (?, ?, ?)
 import { logError } from "../../utils/errorsLib";
+
+// its used to return sql operator for sql query
 const operatorGenerator = (sqlQueryArr, urlQuery, param, options) => {
   try {
     if (!sqlQueryArr || !urlQuery || !param || !options || !options.op)
@@ -13,7 +15,7 @@ const operatorGenerator = (sqlQueryArr, urlQuery, param, options) => {
     // depending on operation required an operator will be generated
     switch (op) {
       case "in": {
-        // if param is an aray of values
+        // if param is an aray of values like when we enter color=xxx&color=yyy
         if (Array.isArray(urlQuery[param])) {
           for (let [i, item] of urlQuery[param].entries()) {
             inOperator += (i === (urlQuery[param].length - 1)) ? "?) " : "?, ";
@@ -88,6 +90,7 @@ const operatorGenerator = (sqlQueryArr, urlQuery, param, options) => {
 // generate dynamic sqlQueries' dependencies
 const sqlQueryDependencies = (urlQuery, options) => {
   let sqlQueryArr;
+  // the initial value of sqlqueryarr is `${categoryPath}%`
   if (options && options.initialArray) sqlQueryArr = options.initialArray;
   else sqlQueryArr = "";
   let filterString = "";
@@ -97,6 +100,7 @@ const sqlQueryDependencies = (urlQuery, options) => {
 
   for (let param in urlQuery) {
     let operator;
+
     switch (param) {
       case 'categories': continue
       case "color": {
@@ -140,14 +144,17 @@ const sqlQueryDependencies = (urlQuery, options) => {
         break;
       }
       case "sort": {
-        if (urlQuery[param] === "ds-rate") {
+        if (urlQuery[param] === "ds-rate" && !orderString) {
           orderString = "ORDER BY d.amount DESC";
         }
-        if (urlQuery[param] === "price-asc") {
-          orderString = "ORDER BY pr.price ASC";
+        if (urlQuery[param] === "price-asc" && !orderString) {
+          orderString = "ORDER BY (pr.price - pr.price * (d.amount/100)) ASC";
         }
-        if (urlQuery[param] === "price-desc") {
-          orderString = "ORDER BY pr.price DESC";
+        if (urlQuery[param] === "price-desc" && !orderString) {
+          orderString = "ORDER BY (pr.price - pr.price * (d.amount/100)) DESC";
+        }
+        if (urlQuery[param] === "latest" && !orderString) {
+          orderString = "ORDER BY pr.created_at DESC";
         }
         break;
       }
