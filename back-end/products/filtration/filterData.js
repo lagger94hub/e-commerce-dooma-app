@@ -52,14 +52,19 @@ const createFilterData = (allProducts, filteredProducts, query) => {
   const filterData = {
     boxes: [],
     appliedFilters: {},
+    changed: false,
+    productsCount: 0
   };
   try {
     // get the number of keys in query
-    let keysCount = Object.keys(query).length;
+    let keysCount = 0
+    for (let key in query) {
+      if (key !== 'sort' && key !== 'categories') keysCount++
+    }
     // when we have one filter applied only we would like to get the data of this filter based on all the products not based on the filtered products
 
     // only one filter is applied
-    if (keysCount === 2) {
+    if (keysCount === 1) {
       for (let product of allProducts) {
         // if a filter is applied and its the only filter applied then we use all prodcuts instead of the filtered products
         if (query.fit) {
@@ -88,7 +93,7 @@ const createFilterData = (allProducts, filteredProducts, query) => {
           });
         }
         if (query.price) {
-          manageFilterData(filterData, "price", product.product_price, query, {
+          manageFilterData(filterData, "price", product.after_discount, query, {
             concatenated: true,
           });
         }
@@ -96,32 +101,32 @@ const createFilterData = (allProducts, filteredProducts, query) => {
     }
     // if no filters were applied or we have more than one filter
     for (let product of filteredProducts) {
-      if (keysCount !== 2 || !query.fit)
+      if (keysCount !== 1 || !query.fit)
         manageFilterData(filterData, "fit", product.product_fit, query, {
           concatenated: false,
         });
-      if (keysCount !== 2 || !query.color)
+      if (keysCount !== 1 || !query.color)
         // creating and modifying boxes for the color
         manageFilterData(filterData, "color", product.product_color, query, {
           concatenated: false,
         });
-      if (keysCount !== 2 || !query.size) {
+      if (keysCount !== 1 || !query.size) {
         manageFilterData(filterData, "size", product.size, query, {
           concatenated: true,
         });
       }
-      if (keysCount !== 2 || !query.width) {
+      if (keysCount !== 1 || !query.width) {
         manageFilterData(filterData, "width", product.width_length, query, {
           concatenated: true,
         });
       }
-      if (keysCount !== 2 || !query.length) {
+      if (keysCount !== 1 || !query.length) {
         manageFilterData(filterData, "length", product.width_length, query, {
           concatenated: true,
         });
       }
-      if (keysCount !== 2 || !query.price) {
-        manageFilterData(filterData, "price", product.product_price, query, {
+      if (keysCount !== 1 || !query.price) {
+        manageFilterData(filterData, "price", product.after_discount, query, {
           concatenated: true,
         });
       }
@@ -132,6 +137,9 @@ const createFilterData = (allProducts, filteredProducts, query) => {
 
     // add the query object to the filterdata object
     filterData.appliedFilters = query
+
+    // set the filterData products count to the size of the filteredProducts array
+    filterData.productsCount = filteredProducts.length
     
   } catch (e) {
     logError("createFilterData", e.message);

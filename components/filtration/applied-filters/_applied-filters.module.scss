@@ -1,9 +1,25 @@
-@use '../../../sass/abstracts/' as *;
+@use "../../../sass/abstracts/" as *;
 .applied {
   li {
-    font-size: .75rem;
-    &:last-child {
-      text-decoration: underline;
+    font-size: 0.75rem;
+    svg {
+      &:hover {
+        cursor: pointer;
+      }
     }
+    span {
+      &:first-child {
+        svg {
+          vertical-align: middle;
+          font-size: 0.6rem;
+          padding: 0.1rem;
+          font-weight: 300;
+          color: var(--clr-shadow-grey-800);
+        }
+      }
+    }
+  }
+  .remove {
+    text-decoration: underline;
   }
 }

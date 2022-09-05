@@ -5,7 +5,7 @@ import { SettingsContext } from "../../store/settings-context";
 
 import RootPath from "../../components/ui/root-path/RootPath";
 import getProps from "../../back-end/PropsGetters/SSR/categories/categories-catch-all";
-import { FRIENDLY_ERROR_500, logError } from "../../back-end/utils/errorsLib";
+import { logError } from "../../back-end/utils/errorsLib";
 
 import SectionWrapper from "../../components/layout/element-wrapper/SectionWrapper";
 import Filter from "../../components/filtration/Filter";
@@ -88,14 +88,29 @@ export default function CategoryPage(props) {
     // dispatch({ type: 'calibrate', query: router.query})
   }, [putNavCategories, putSettings, dispatch, router.query, siteSettings, navCategories]);
   
+  // every time the appliedFilters change the url is going to change
   useEffect(() => {
-    console.log(filter)
-  }, [filter])
+    if (filter.changed) {
+      // this is to stop infinite loop useEffect
+      dispatch({ type: 'disallowPushUrl' })
+      setTimeout(() => {
+        router.push({
+          pathname: '/categories/[...categories]',
+          query: filter.appliedFilters 
+        })
+      }, 100)
+    }
+  }, [filter.appliedFilters, router, filter.changed, dispatch])
 
 
-
-
+  // always use the filterdata comming from the server side and sort them alphabetically 
+  useEffect(() => {
+    if (filterData) {
+      dispatch({ type: 'calibrateFilter', filterData })
+    }
+  }, [filterData, dispatch])
   
+
   return (
     <>
       <SectionWrapper>

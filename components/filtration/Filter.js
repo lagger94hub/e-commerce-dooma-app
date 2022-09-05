@@ -30,14 +30,20 @@ const Filter = (props) => {
             );
           })}
         </ul>
-        <SelectBox
-          data={filter.boxes[filter.boxes.length - 1]}
-          check="circle"
-          dispatch={dispatch}
-          boxIndex={filter.boxes.length - 1}
-        />
+        <div className="flex-row gap-16p falign-center">
+          <SelectBox
+            data={filter.boxes[filter.boxes.length - 1]}
+            check="circle"
+            dispatch={dispatch}
+            boxIndex={filter.boxes.length - 1}
+          />
+          <p>({filter.productsCount}) products</p>
+        </div>
       </div>
-      <AppliedFilters appliedFilters={filter.appliedFilters} />
+      <AppliedFilters 
+      appliedFilters={filter.appliedFilters} 
+      showRemoveAll={true}
+      dispatch={dispatch} />
     </section>
   );
 };

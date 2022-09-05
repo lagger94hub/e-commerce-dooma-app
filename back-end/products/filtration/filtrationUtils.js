@@ -1,9 +1,10 @@
+import { logError } from "../../utils/errorsLib";
 // helper functions used in filtration
 
 // create price range like 100TL-200TL
 const createPriceRange = (price, rangesArr) => {
   for (let range of rangesArr) {
-    if (price <= range.max && price >= range.min) {
+    if (price < range.max && price >= range.min) {
       return `${range.min}TL-${range.max}TL`;
     }
   }
@@ -13,14 +14,14 @@ const createPriceRange = (price, rangesArr) => {
 // in the boxes array of the filter data object if the box doesn't exist create it
 
 const createNewFilterBox = (filterData, boxName, itemName, urlQuery) => {
-  let checked
-  let query = urlQuery[boxName]
-  if (!query) checked = false
+  let checked;
+  let query = urlQuery[boxName];
+  if (!query) checked = false;
   else {
     if (Array.isArray(query)) {
-      checked = query.includes(itemName) ? true : false
+      checked = query.includes(itemName) ? true : false;
     } else {
-      checked = query === itemName ? true : false
+      checked = query === itemName ? true : false;
     }
   }
   try {
@@ -43,14 +44,14 @@ const createNewFilterBox = (filterData, boxName, itemName, urlQuery) => {
 
 // if the box already exist
 const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
-  let checked
-  let query = urlQuery[boxName]
-  if (!query) checked = false
+  let checked;
+  let query = urlQuery[boxName];
+  if (!query) checked = false;
   else {
     if (Array.isArray(query)) {
-      checked = query.includes(itemName) ? true : false
+      checked = query.includes(itemName) ? true : false;
     } else {
-      checked = query === itemName ? true : false
+      checked = query === itemName ? true : false;
     }
   }
   try {
@@ -66,7 +67,7 @@ const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
                 return {
                   ...item,
                   quantity: ++item.quantity,
-                  checked
+                  checked,
                 };
               return item;
             })
@@ -75,7 +76,7 @@ const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
               {
                 name: itemName,
                 quantity: 1,
-                checked
+                checked,
               },
             ],
     };
@@ -87,7 +88,7 @@ const modifyFilterBox = (filterData, boxName, itemName, urlQuery, boxIndex) => {
 
 const createSortBox = (filterData, boxName, urlQuery) => {
   filterData.boxes.push({
-    name: "Sort By",
+    name: "sort",
     open: false,
     items: [
       { name: "latest", checked: urlQuery[boxName] === "latest" },
@@ -99,24 +100,24 @@ const createSortBox = (filterData, boxName, urlQuery) => {
 };
 const manageFilterData = (filterData, boxName, itemName, urlQuery, options) => {
   // if the box name is sort create one object, one box only
-  if (boxName === 'sort') return createSortBox(filterData, boxName, urlQuery)
+  if (boxName === "sort") return createSortBox(filterData, boxName, urlQuery);
 
   // width and length and size could be null, fits could be NA, but sort doesn't need itemName so we added it to the condition
-  if ((!itemName || itemName === "NA")) return;
+  if (!itemName || itemName === "NA") return;
 
   // some products properties are multi valued like size, width_length..etc
   const { concatenated } = options;
-  let itemArr = concatenated ? itemName.split(",") : null;
-
-  // the width_length has the format of w20-l32, so we split the width and the length so that we can count them and add them to filter data
-  if (boxName === "width" || boxName === "length") {
-    itemArr[0] =
-      boxName === "width"
-        ? itemArr[0].split("-")[0].replace("w", "")
-        : itemArr[1].split("-")[1].replace("l", "");
-  }
 
   try {
+    let itemArr = concatenated ? itemName.toString().split(",") : null;
+
+    // the width_length has the format of w20-l32, so we split the width and the length so that we can count them and add them to filter data
+    if (boxName === "width" || boxName === "length") {
+      itemArr[0] =
+        boxName === "width"
+          ? itemArr[0].split("-")[0].replace("w", "")
+          : itemArr[0].split("-")[1].replace("l", "");
+    }
     let boxIndex = filterData.boxes.findIndex((box) => box.name === boxName);
     // if box doesnt exist
     if (boxIndex < 0) {
@@ -131,11 +132,12 @@ const manageFilterData = (filterData, boxName, itemName, urlQuery, options) => {
         // create the price range
         if (boxName === "price") {
           let priceRange = createPriceRange(firstItem, [
-            { min: 50, max: 60 },
-            { min: 80, max: 100 },
-            { min: 120, max: 200 },
-            { min: 300, max: 400 },
-            { min: 500, max: 750 },
+            { min: 10, max: 50 },
+            { min: 50, max: 100 },
+            { min: 100, max: 150 },
+            { min: 150, max: 200 },
+            { min: 200, max: 300 },
+            { min: 300, max: 500 },
           ]);
           createNewFilterBox(filterData, boxName, priceRange, urlQuery);
         } else createNewFilterBox(filterData, boxName, firstItem, urlQuery);
@@ -156,11 +158,12 @@ const manageFilterData = (filterData, boxName, itemName, urlQuery, options) => {
           }
           if (boxName === "price") {
             let priceRange = createPriceRange(itemArr[i], [
-              { min: 50, max: 60 },
-              { min: 80, max: 100 },
-              { min: 120, max: 200 },
-              { min: 300, max: 400 },
-              { min: 500, max: 750 },
+              { min: 10, max: 50 },
+              { min: 50, max: 100 },
+              { min: 100, max: 150 },
+              { min: 150, max: 200 },
+              { min: 200, max: 300 },
+              { min: 300, max: 500 },
             ]);
             modifyFilterBox(
               filterData,
@@ -185,19 +188,5 @@ const manageFilterData = (filterData, boxName, itemName, urlQuery, options) => {
     throw e;
   }
 };
-const fillAppliedFilters = (filterData, urlQuery) => {
-  const fits = urlQuery.fit;
-  const colors = urlQuery.colors;
-  const prices = urlQuery;
-  if (fits) {
-    if (Array.isArray(fits)) {
-      for (let fit of fits) {
-        filterData.appliedFilters.push(fit);
-      }
-    } else {
-      filterData.appliedFilters.push(fits);
-    }
-  }
-};
 
-export { manageFilterData, fillAppliedFilters, createPriceRange };
+export { manageFilterData, createPriceRange };

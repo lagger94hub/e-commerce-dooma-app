@@ -1,7 +1,10 @@
+import { useCallback } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+
 import classes from "./_select-box.module.scss";
-import { useCallback } from "react";
+import { toFriendlyBoxItemName, toFriendlyBoxName } from "../../../utils/user-friendly-content";
 const SelectBox = (props) => {
 
   const disptach = props.dispatch;
@@ -15,7 +18,7 @@ const SelectBox = (props) => {
 
   // select item from box
   const selectItem = useCallback((itemIndex, itemName) => {
-    disptach({ type: "select-item", boxIndex, itemIndex, name, itemName})
+    disptach({ type: "select-item", boxIndex, itemIndex, boxName: name, itemName, first: true})
   }, [disptach, boxIndex, name])
 
   return (
@@ -24,7 +27,7 @@ const SelectBox = (props) => {
         className={`${classes.header} flex-row fjust-between`}
         onClick={toggleBox}
       >
-        <span>{name}</span>
+        <span>{toFriendlyBoxName(name)}</span>
         <span>
           {open ? (
             <FontAwesomeIcon icon={faChevronUp} />
@@ -46,10 +49,10 @@ const SelectBox = (props) => {
                       : classes.box
                   }
                 ></span>
-                {!item.quantity && <span>{item.name}</span>}
+                {!item.quantity && <span>{toFriendlyBoxItemName(name, item.name)}</span>}
                 {item.quantity && (
                   <span>
-                    {item.name} ({item.quantity})
+                    {toFriendlyBoxItemName(name, item.name)} ({item.quantity})
                   </span>
                 )}
               </li>
