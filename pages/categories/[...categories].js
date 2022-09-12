@@ -45,12 +45,12 @@ import useFilterReducer from "../../reducers/filter-reducer-hook";
 //     {
 //       name: "Sort By",
 //       open: false,
-      // items: [
-      //   { name: "Featured", checked: false },
-      //   { name: "Price(High to Low)", checked: false },
-      //   { name: "Price(Low to High)", checked: false },
-      //   { name: "Discount Rate", checked: false },
-      // ],
+// items: [
+//   { name: "Featured", checked: false },
+//   { name: "Price(High to Low)", checked: false },
+//   { name: "Price(Low to High)", checked: false },
+//   { name: "Discount Rate", checked: false },
+// ],
 //     },
 //   ],
 
@@ -61,55 +61,59 @@ export default function CategoryPage(props) {
   //   nav and settings data
   const navCategories = props.navCategories;
   const siteSettings = props.siteSettings;
-  
+
   // path to root data
   const pathsToRoot = props.pathsToRoot;
 
   // list of featured non-filtered products
-  const products = props.filteredProducts
+  const products = props.filteredProducts;
 
   // filterData
-  const filterData = props.filterData
+  const filterData = props.filterData;
+
   // get the path from the url to create path to the root
   const router = useRouter();
-
 
   // update nav and settings store
   const putNavCategories = useContext(NavCategoriesContext).putNavCategories;
   const putSettings = useContext(SettingsContext).putSettings;
 
+
   // initialize filtration object
-  const [filter, dispatch] = useFilterReducer(filterData)
-  
+  const [filter, dispatch] = useFilterReducer(filterData);
+
   useEffect(() => {
     if (navCategories) putNavCategories(navCategories);
     if (siteSettings) putSettings(siteSettings);
-    // modify filtration object according to the url query string
-    // dispatch({ type: 'calibrate', query: router.query})
-  }, [putNavCategories, putSettings, dispatch, router.query, siteSettings, navCategories]);
-  
+  }, [
+    putNavCategories,
+    putSettings,
+    dispatch,
+    router.query,
+    siteSettings,
+    navCategories,
+  ]);
+
   // every time the appliedFilters change the url is going to change
   useEffect(() => {
     if (filter.changed) {
       // this is to stop infinite loop useEffect
-      dispatch({ type: 'disallowPushUrl' })
+      dispatch({ type: "disallowPushUrl" });
       setTimeout(() => {
         router.push({
-          pathname: '/categories/[...categories]',
-          query: filter.appliedFilters 
-        })
-      }, 100)
+          pathname: "/categories/[...categories]",
+          query: filter.appliedFilters,
+        });
+      }, 100);
     }
-  }, [filter.appliedFilters, router, filter.changed, dispatch])
+  }, [filter.appliedFilters, router, filter.changed, dispatch]);
 
-
-  // always use the filterdata comming from the server side and sort them alphabetically 
+  // always use the filterdata comming from the server side and sort them alphabetically
   useEffect(() => {
     if (filterData) {
-      dispatch({ type: 'calibrateFilter', filterData })
+      dispatch({ type: "sortFilters", filterData });
     }
-  }, [filterData, dispatch])
-  
+  }, [filterData, dispatch]);
 
   return (
     <>
@@ -120,7 +124,7 @@ export default function CategoryPage(props) {
         <Filter filter={filter} dispatch={dispatch}/>
       </SectionWrapper>
       <SectionWrapper>
-        <ProductsList products={products}/>
+        <ProductsList products={products} />
       </SectionWrapper>
     </>
   );

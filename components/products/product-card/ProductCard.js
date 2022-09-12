@@ -4,6 +4,8 @@ import { useCallback, useState } from "react";
 import ProductCardSlider from "../../sliders/product-card-slider/ProductCardSlider";
 import classes from "./_product-card.module.scss";
 
+import Button from "../../ui/buttons/Button";
+
 const ProductCard = (props) => {
   const productSlug = props.product.product_slug;
   const productName = props.product.product_name;
@@ -15,7 +17,10 @@ const ProductCard = (props) => {
   const imagesURLs = props.product.images_urls;
 
   // presentable fit-name creation
-  const fit = (productFit[0].toUpperCase() + productFit.slice(1)).replace('-', ' ')
+  const fit = (productFit[0].toUpperCase() + productFit.slice(1)).replace(
+    "-",
+    " "
+  );
   // add to cart state
   const [button, setButton] = useState(false);
   const showButton = useCallback(() => {
@@ -31,7 +36,9 @@ const ProductCard = (props) => {
       onMouseLeave={hideButton}
       className={classes.wrapper}
     >
-      {button && <button>Add to cart</button>}
+      {button && (
+        <Button title={"Add to cart"} styles={["absolute", "light", "wide"]} />
+      )}
 
       <Link href={`/products/${productSlug}/${colorId}`}>
         <a className={`flex-col gap-16p fjust-center  ${classes.card}`}>

@@ -66,7 +66,7 @@ const Display3 = (props) => {
                         }}
                         key={index}
                         title={parent}
-                        className="default-button-dark"
+                        styles={['default', 'dark']}
                       />
                     );
                   })}

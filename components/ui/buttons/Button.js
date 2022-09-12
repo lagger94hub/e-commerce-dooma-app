@@ -2,10 +2,10 @@ import classes from './_button.module.scss'
 const Button = (props) => {
   const title = props.title
   const clickHandler = props.onClick
-  const className = props.className
+  const className = props.styles && props.styles.map((style) => classes[style]).join(' ')
   return (
     <button 
-    className={classes[className]}
+    className={className}
     onClick={clickHandler}>{title}</button>
   )
 }

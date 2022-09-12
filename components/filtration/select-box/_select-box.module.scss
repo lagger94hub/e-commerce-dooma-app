@@ -3,19 +3,22 @@
   position: relative;
 }
 .header {
-  width: 7rem;
-  padding: .7rem;
-  border: solid 1px var(--clr-shadow-grey-200);
-  @include rounded-corners(.2rem, .2rem, .2rem, .2rem);
-  &:hover {
-    cursor: pointer;
-  }
-  span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 80%;
-    font-weight: 500;
-    color: var(--clr-shadow-grey-700);
+  
+  @include break-point('medium', 'up') {
+    width: 7rem;
+    padding: .7rem;
+    border: solid 1px var(--clr-shadow-grey-200);
+    @include rounded-corners(.2rem, .2rem, .2rem, .2rem);
+    &:hover {
+      cursor: pointer;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+      font-weight: 500;
+      color: var(--clr-shadow-grey-700);
+    }
   }
 }
 .body {
@@ -25,10 +28,10 @@
   background-color: white;
   border: 1px solid var(--clr-shadow-grey-100);
   padding: .5rem;
-  width: 200%;
+  width: 12rem;
   max-height: 6rem;
   overflow-y: scroll;
-  z-index: 3;
+  z-index: 2;
   span {
     font-size: .75rem;
     text-overflow: ellipsis; 
@@ -49,8 +52,39 @@
     }
   }
 }
+.body-mobile {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  gap: 1rem;
+  background-color: white;
+  z-index: 3;
+  span {
+    font-size: .75rem;
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    max-width: 80%;   
+  }
+  li {
+    justify-content: space-between;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--clr-shadow-grey-100);
+  }
+  .back {
+    position: absolute;
+  }
+}
 .closed {
   display: none;
+}
+.sort-icon {
+  margin-right: .5rem;
 }
 // the box style when its open
 .open {
@@ -65,8 +99,15 @@
   display: block;
   width: .8rem;
   height: .8rem;
-  @include rounded-corners(.1rem, .1rem, .1rem, .1rem);
   border: 1px solid var(--clr-shadow-grey-400);
+}
+.square {
+  @extend .box;
+  @include rounded-corners(.1rem, .1rem, .1rem, .1rem);
+}
+.circle {
+  @extend .box;
+  @include rounded-corners();
 }
 // the checked checkbox
 .checked {

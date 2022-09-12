@@ -73,7 +73,7 @@ const useFilterReducer = (initialState) => {
     }
     switch (action.type) {
       // always use the filterdata comming from the server side and sort them alphabetically 
-      case 'calibrateFilter': {
+      case 'sortFilters': {
         let sortedBoxes = action.filterData.boxes.sort(sortByBoxName)
         return {
           ...action.filterData,
@@ -88,6 +88,14 @@ const useFilterReducer = (initialState) => {
             return { ...box, open: false };
           }),
         };
+      }
+      case 'closeAllBoxes': {
+        return {
+          ...state,
+          boxes: state.boxes.map((box) => {
+            return { ...box, open: false }
+          })
+        }
       }
       case "select-item": {
         return {
@@ -123,6 +131,7 @@ const useFilterReducer = (initialState) => {
           changed: true
         };
       }
+     
       case 'remove-one': {
         return {
           ...state,
@@ -145,15 +154,6 @@ const useFilterReducer = (initialState) => {
           changed: false
         }
       }
-
-      // case 'calibrate': {
-      //   return {
-      //     ...state,
-      //     boxes: state.boxes.map((box, index) => {
-      //       return {...box, }
-      //     })
-      //   }
-      // }
     }
   }, [])
   const [state, dispatch] = useReducer(reducer, initialState);

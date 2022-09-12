@@ -10,18 +10,14 @@ import { MediaQueryContext } from "../../../store/media-query-context";
 
 const Nav = (props) => {
 
-  const desktop = useContext(MediaQueryContext)
+  const isDesktop = useContext(MediaQueryContext)
   // here depending on the screen size we either show the menu by default or not
   // in Next.js because the server prerenders every page, the server can't tell the value of the media query beforehand
-  const [isDesktop, setIsDesktop] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const showMenuHandler = useCallback(() => {
     setShowMenu(!showMenu);
   }, [setShowMenu, showMenu])
   
-  useEffect(() => {
-    setIsDesktop(desktop);
-  }, [setIsDesktop, desktop]);
 
   return (
     <nav className={`${"flex-row fjust-between falign-center"} ${classes.nav}`}>

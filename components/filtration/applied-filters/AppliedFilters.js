@@ -11,6 +11,9 @@ const AppliedFilters = (props) => {
   const showRemoveAll = props.showRemoveAll;
   const dispatch = props.dispatch
 
+  // if the applied filters is an array then the boxName would be numbers, and the removeOne function would fail, so we send the array name as an alternative(alt) to boxName
+  const alt = props.alt
+
 
   // remove filters when x is pressed
   const removeOne = (itemName, boxName) => {
@@ -32,12 +35,13 @@ const AppliedFilters = (props) => {
                       appliedFilters={appliedFilters[boxName]}
                       showRemoveAll={false}
                       dispatch={dispatch}
+                      alt={boxName}
                     />
                   ) : (
                     <>
                       <span>{toFriendlyBoxItemName(boxName, appliedFilters[boxName])}</span>
                       <span>
-                        <FontAwesomeIcon icon={faXmark} onClick={() => removeOne(appliedFilters[boxName], boxName)} />
+                        <FontAwesomeIcon icon={faXmark} onClick={() => removeOne(appliedFilters[boxName], alt ? alt : boxName)} />
                       </span>
                     </>
                   )}
@@ -47,10 +51,10 @@ const AppliedFilters = (props) => {
           );
         })}
       {showRemoveAll && Object.keys(appliedFilters).length > 1 && (
-        <li className={`flex-row gap-8p fjust-between`}>
+        <li className={`flex-row gap-8p fjust-between`} onClick={removeAll}>
           <span className={classes.remove}>Remove All</span>
           <span>
-            <FontAwesomeIcon icon={faXmark} onClick={removeAll} />
+            <FontAwesomeIcon icon={faXmark}/>
           </span>
         </li>
       )}

@@ -1,9 +1,10 @@
 @use '../../../sass/abstracts/' as *;
 .path {
+  padding-top: 2rem;
   width: 95%;
   margin: auto;
-  display: none;
   @include break-point("small", "up") {
+    padding-top: 0;
     width: 95%;
     display: flex;
   }
