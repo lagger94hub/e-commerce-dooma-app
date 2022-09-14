@@ -41,9 +41,9 @@ const SelectBox = (props) => {
           itemName,
           first: true,
         });
-        hideFilterMenu()
+        if (!isDesktop) hideFilterMenu()
     },
-    [disptach, boxIndex, name, hideFilterMenu]
+    [disptach, boxIndex, name, hideFilterMenu, isDesktop]
   );
   return (
     <div className={classes.wrapper}>
