@@ -46,8 +46,8 @@ const queryProducts = (categoryPath, urlQuery, options) => {
 }
 const queryProductDetails = (productSlug, colorId) => {
   return {
-    sqlQuery,
-    sqlQueryArr
+    sqlQuery: queries.productDetails,
+    sqlQueryArr: [colorId, productSlug]
   }
 }
 export {

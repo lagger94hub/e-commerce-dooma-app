@@ -9,7 +9,7 @@
 }
 .dark {
   color: white;
-  background-color: var(--clr-shadow-grey-800);
+  background-color: black;
 }
 .light {
   background-color: white;
@@ -19,6 +19,9 @@
 }
 .thick {
   padding: 1rem;
+}
+.thin {
+  padding: .5rem 1rem;
 }
 .center {
   left: 50%;

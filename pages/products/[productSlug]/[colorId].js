@@ -1,31 +1,47 @@
 import { useRouter } from 'next/router'
 import { useContext,useEffect } from 'react'
 
-import { SettingsContext } from '../../../store/settings-context'
-import { getCachedProducts } from '../../../back-end/pathsGetters/products-details-page'
-import { FRIENDLY_ERROR_500 } from '../../../back-end/utils/errorsLib'
 import getProps from '../../../back-end/PropsGetters/SSG/product-details-page'
-import { NavCategoriesContext } from '../../../store/nav-categories-context'
+import { FRIENDLY_ERROR_500 } from '../../../back-end/utils/errorsLib'
+import { getCachedProducts } from '../../../back-end/pathsGetters/products-details-page'
 
-export default function  ProductDetails(props) {
+import { NavCategoriesContext } from '../../../store/nav-categories-context'
+import { SettingsContext } from '../../../store/settings-context'
+
+import RootPath from '../../../components/ui/root-path/RootPath'
+import SectionWrapper from '../../../components/layout/element-wrapper/SectionWrapper'
+import ProductDetails from '../../../components/products/product-details/ProductDetails'
+export default function  ProductDetailsPage(props) {
 
   // getting the logo and the nav categories
   const siteSettings = props.siteSettings
   const navCategories = props.navCategories
 
+  // needed for paths to root component
+  const pathsToRoot = props.pathsToRoot
+
+  // product details
+  const productDetails = props.productDetails
+
+  // updating the settings and nav stores
   const putSettings = useContext(SettingsContext).putSettings
   const putNavCategories = useContext(NavCategoriesContext).putNavCategories
 
-  // updating the settings and nav stores
   useEffect(() => {
     putSettings(siteSettings)
     putNavCategories(navCategories)
   }, [putNavCategories, putSettings, siteSettings, navCategories])
 
   const router = useRouter()
-  console.log(router.query)
   return (
-    <h1>Hello from productDetails</h1>
+    <>
+      <SectionWrapper>
+        <RootPath pathsToRoot={pathsToRoot}/>
+      </SectionWrapper>
+      <SectionWrapper>
+        <ProductDetails productDetails={productDetails} />
+      </SectionWrapper>
+    </>
   )
 }
 export async function getStaticPaths() {
@@ -40,9 +56,17 @@ export async function getStaticPaths() {
   }
 }
 export async function getStaticProps(context) {
+
   // const productDetails = await getProductDetails()
   const { productSlug, colorId } = context.params
   const props = await getProps(productSlug, colorId)
+
+  // if no product found return 404 page
+  if (!props.productDetails.length) {
+    return {
+      notFound: true
+    }
+  }
   return {
     props
   }

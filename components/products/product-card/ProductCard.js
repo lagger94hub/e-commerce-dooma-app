@@ -60,7 +60,7 @@ const ProductCard = (props) => {
               {productDiscount ? (
                 <>
                   <span className={classes.price}>
-                    {productPrice[0] - productPrice[0] * 0.2} TL
+                    {productPrice[0] - productPrice[0] * productDiscount / 100} TL
                   </span>
                   <span>
                     <s className={classes.old}>{productPrice[0]} TL</s>

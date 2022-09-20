@@ -26,6 +26,8 @@ const getCategoryProducts = async (categoryPath, urlQuery, options) => {
 const getProductDetails = async (productSlug, colorId) => {
   try {
     const { sqlQuery, sqlQueryArr } = queryProductDetails(productSlug, colorId)
+    const [ productDetails ] = await MyPool.execute(sqlQuery, sqlQueryArr)
+    return productDetails
   } catch (e) {
     logError('getProductDetails', e.message)
     throw e

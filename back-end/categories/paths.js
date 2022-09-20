@@ -32,28 +32,34 @@ const updateCategoriesPaths = async () => {
   }
 };
 
-const getCategoriesPaths = async (params) => {
-  
+const getCategoriesPaths = async (catArr, productSlug, colorId) => {
+  // in case of getting categories paths for a product 
+  let catPath
+  if (!catArr) {
+    [catPath] = await MyPool.execute(queries.getCategoryPath, [productSlug])
+    // transform /categories/men/pants to [ 'men', 'pants' ]
+    catArr = catPath[0].path_to_root.replace('/categories/', '').split('/')
+  }
   let pathsToRoot = [];
   let parent_id = null;
   try {
-    for (let i = 0; i < params.length; i++) {
+    for (let i = 0; i < catArr.length; i++) {
       const [result] = 
       parent_id ? 
       await MyPool.execute(`SELECT c.id, c.name, p.path_to_root FROM categories c JOIN paths p ON
       c.path_id = p.id
-      WHERE visible=1 AND parent_id=? AND c.slug =?`, [parent_id, params[i]]) 
+      WHERE visible=1 AND parent_id=? AND c.slug =?`, [parent_id, catArr[i]]) 
       :
       await MyPool.execute(`SELECT c.id, c.name, p.path_to_root FROM categories c JOIN paths p ON
       c.path_id = p.id
-      WHERE visible=1 AND c.slug =?`, [params[i]])
+      WHERE visible=1 AND c.slug =?`, [catArr[i]])
       if (!result.length) return null;
       pathsToRoot.push(result[0]);
       parent_id = result[0].id;
     }
     return pathsToRoot
   } catch (e) {
-    logError('validUrlParams', e.message)
+    logError('getCategoriesPaths', e.message)
     throw e;
   }
 };
