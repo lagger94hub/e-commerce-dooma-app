@@ -29,8 +29,13 @@ const queries = {
   JOIN colors co ON co.id = pr.color_id
   JOIN fits f ON f.id = p.fit_id
   JOIN sizes s ON s.id = pr.size_id
-  WHERE (pa.path_to_root LIKE ?) AND pr.visible = 1 AND pr.featured = 1
+  WHERE (pa.path_to_root LIKE ?) AND pr.visible = 1 
   GROUP BY pr.product_id, pr.color_id
-`
+`,
+  cachedProducts: `SELECT p.slug, c.id AS color_id FROM products p 
+  JOIN product_records pr ON pr.product_id = p.id
+  JOIN colors c ON pr.color_id = c.id
+  WHERE pr.cached = 1 AND pr.visible = 1
+  GROUP BY pr.color_id, p.id`
 };
 export default queries;

@@ -20,7 +20,6 @@ const Filter = (props) => {
     setFilterMenu(true);
   }, []);
   const hideFilterMenu = useCallback(() => {
-    console.log('hide')
     setFilterMenu(false);
   }, []);
   useEffect(() => {

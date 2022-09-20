@@ -36,13 +36,21 @@ const queryProducts = (categoryPath, urlQuery, options) => {
     JOIN colors co ON co.id = pr.color_id
     JOIN fits f ON f.id = p.fit_id
     JOIN sizes s ON s.id = pr.size_id
-    WHERE (pa.path_to_root LIKE ?) AND pr.visible = 1 AND pr.featured = 1 ${dependencies.filterString ? dependencies.filterString : ''}
+    WHERE (pa.path_to_root LIKE ?) AND pr.visible = 1 
+   ${dependencies.filterString ? dependencies.filterString : ''}
     GROUP BY pr.product_id, pr.color_id
     ${dependencies.orderString ? dependencies.orderString : ''}
     `,
     sqlQueryArr: dependencies.sqlQueryArr ? dependencies.sqlQueryArr : []
   }
 }
+const queryProductDetails = (productSlug, colorId) => {
+  return {
+    sqlQuery,
+    sqlQueryArr
+  }
+}
 export {
-  queryProducts
+  queryProducts,
+  queryProductDetails
 }

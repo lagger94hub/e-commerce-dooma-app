@@ -1,6 +1,6 @@
 import MyPool from "../db/db";
 import { logError } from "../utils/errorsLib";
-import { queryProducts } from "../db/queries/products";
+import { queryProducts, queryProductDetails } from "../db/queries/products";
 
 // get the products list in the catch all categories path
 const getCategoryProducts = async (categoryPath, urlQuery, options) => {
@@ -21,4 +21,14 @@ const getCategoryProducts = async (categoryPath, urlQuery, options) => {
     throw e;
   }
 };
-export { getCategoryProducts };
+
+// get the product details based on product slug and color id
+const getProductDetails = async (productSlug, colorId) => {
+  try {
+    const { sqlQuery, sqlQueryArr } = queryProductDetails(productSlug, colorId)
+  } catch (e) {
+    logError('getProductDetails', e.message)
+    throw e
+  }
+}
+export { getCategoryProducts, getProductDetails };

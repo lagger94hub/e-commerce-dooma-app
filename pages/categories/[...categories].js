@@ -5,7 +5,7 @@ import { SettingsContext } from "../../store/settings-context";
 
 import RootPath from "../../components/ui/root-path/RootPath";
 import getProps from "../../back-end/PropsGetters/SSR/categories/categories-catch-all";
-import { logError } from "../../back-end/utils/errorsLib";
+import { FRIENDLY_ERROR_500, logError } from "../../back-end/utils/errorsLib";
 
 import SectionWrapper from "../../components/layout/element-wrapper/SectionWrapper";
 import Filter from "../../components/filtration/Filter";
@@ -141,11 +141,10 @@ export async function getServerSideProps(context) {
       props,
     };
   } catch (e) {
-    logError("getServerSideProps", e.message);
+    console.log(FRIENDLY_ERROR_500)
     // incase of 500 error redirect to not found
     return {
       notFound: true,
     };
-    // throw new Error(FRIENDLY_ERROR_500);
   }
 }
