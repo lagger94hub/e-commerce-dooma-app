@@ -1,39 +1,53 @@
+import { toFriendlyName } from "../../../../utils/user-friendly-content";
 import Accordion from "../../../ui/accordion/Accordion";
 import Button from "../../../ui/buttons/Button";
 import ColorsSlider from "../../../ui/colors-slider/ColorsSlider";
+import SelectSize from "../../../ui/combo-box/SelectSize";
 
-import classes from './_details-menu.module.scss'
+import classes from "./_details-menu.module.scss";
 
+// side menu of product details page
 const DetailsMenu = (props) => {
+
   const productDetails = props.productDetails;
-  const prices = productDetails.price.split(",");
+  const productFabrics = props.productFabrics
+  const price = productDetails.price;
+  const sizes = productDetails.size ? productDetails.size.split(',') : 
+  productDetails.width_length.split(',')
+  const description = productDetails.description
+
   return (
-    <div className={`flex-col falign-center fjust-center gap-32p ${classes.wrapper}`}>
-      <div className="flex-col">
+    <div className={`flex-col gap-32p ${classes.wrapper}`}>
+      <div className={`flex-col ${classes["title-wrapper"]}`}>
         <h3>{productDetails.product_name}</h3>
-        <p>{productDetails.fit}</p>
+        <p>{toFriendlyName(productDetails.fit) + " Fit"}</p>
       </div>
-      <div className="flex-col">
-        {productDetails.discount_amount ? (
-          <>
-            <p>
-              <s>{prices[0]} TL</s>
-              <span> {prices[0] - (prices[0] * productDetails.discount_amount) / 100}
-              TL</span>
-            </p>
-          </>
-        ) : (
-          <>
-            <p>{prices[0]} TL</p>
-          </>
-        )}
-      </div>
+      {productDetails.discount_amount ? (
+        <>
+          <p className={`flex-row gap-8p ${classes['price-wrapper']}`}>
+            <s>{price} TL</s>
+            <span>
+              {" "}
+              {price - (price * productDetails.discount_amount) / 100}
+              TL
+            </span>
+          </p>
+        </>
+      ) : (
+        <>
+          <p className={`flex-row gap-8p ${classes['price-wrapper']}`}>
+            <span>{price} TL</span>
+          </p>
+        </>
+      )}
       <ColorsSlider />
-      <Button title='Add to cart'
-      clickHandler={() => {}}
-      styles={['default', 'dark', 'wide', 'thin']}
+      <Button
+        title="Add to cart"
+        clickHandler={() => {}}
+        styles={["default", "dark", "full-size", "thin"]}
       />
-      <Accordion />
+      <SelectSize sizes={sizes}/>
+      <Accordion dataArr={[{title: 'Description', body: description}, {title: 'Fabric', body: productFabrics, array: true}]}/>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import MyPool from "../db/db";
 import { logError } from "../utils/errorsLib";
-import { queryProducts, queryProductDetails } from "../db/queries/products";
+import { queryProducts, queryProductDetails, queryProductFabrics } from "../db/queries/products";
 
 // get the products list in the catch all categories path
 const getCategoryProducts = async (categoryPath, urlQuery, options) => {
@@ -11,10 +11,9 @@ const getCategoryProducts = async (categoryPath, urlQuery, options) => {
       urlQuery,
       options
     );
-    // console.log(sqlQuery)
     // get the featured productsList according to filters
     const [products] = await MyPool.execute(sqlQuery, sqlQueryArr);
-
+    // console.log(products)
     return JSON.parse(JSON.stringify(products));
   } catch (e) {
     logError("getProductsList", e.message);
@@ -33,4 +32,16 @@ const getProductDetails = async (productSlug, colorId) => {
     throw e
   }
 }
-export { getCategoryProducts, getProductDetails };
+
+// get the product fabrics based on product slug and color id
+const getProductFabrics = async (productSlug) => {
+  try {
+    const { sqlQuery, sqlQueryArr } = queryProductFabrics(productSlug)
+    const [ productFabrics ] = await MyPool.execute(sqlQuery, sqlQueryArr)
+    return productFabrics
+  } catch (e) {
+    logError('getProductFabrics', e.message)
+    throw e
+  }
+}
+export { getCategoryProducts, getProductDetails, getProductFabrics };

@@ -1,7 +1,7 @@
 import { faTurkishLira } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const toFriendlyBoxName = (boxName) =>
+const toFriendlyName = (boxName) =>
   boxName[0].toUpperCase() + boxName.slice(1);
 
 const toFriendlyBoxItemName = (boxName, itemName) => {
@@ -33,6 +33,6 @@ const toFriendlyBoxItemName = (boxName, itemName) => {
 };
 
 export {
-  toFriendlyBoxName,
+  toFriendlyName,
   toFriendlyBoxItemName
 }

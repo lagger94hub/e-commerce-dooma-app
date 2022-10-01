@@ -138,9 +138,9 @@ const sqlQueryDependencies = (urlQuery, options) => {
       case "price": {
         operator = operatorGenerator(sqlQueryArr, urlQuery, param, { op: 'between',
         minMax: true,
-        colName: '(pr.price - pr.price * (d.amount/100))',
+        colName: '(p.price - p.price * (d.amount/100))',
         });
-        filterString += `AND ((pr.price - pr.price * (d.amount/100)) ${operator}`;
+        filterString += `AND (((p.price - p.price * (d.amount/100)) ${operator})`;
         break;
       }
       case "sort": {
@@ -148,10 +148,10 @@ const sqlQueryDependencies = (urlQuery, options) => {
           orderString = "ORDER BY d.amount DESC";
         }
         if (urlQuery[param] === "price-asc" && !orderString) {
-          orderString = "ORDER BY (pr.price - pr.price * (d.amount/100)) ASC";
+          orderString = "ORDER BY (p.price - p.price * (d.amount/100)) ASC";
         }
         if (urlQuery[param] === "price-desc" && !orderString) {
-          orderString = "ORDER BY (pr.price - pr.price * (d.amount/100)) DESC";
+          orderString = "ORDER BY (p.price - p.price * (d.amount/100)) DESC";
         }
         if (urlQuery[param] === "latest" && !orderString) {
           orderString = "ORDER BY pr.created_at DESC";

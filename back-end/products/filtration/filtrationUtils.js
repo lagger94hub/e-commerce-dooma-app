@@ -1,4 +1,8 @@
 import { logError } from "../../utils/errorsLib";
+// some extra usefull functions used in ths file 
+const getSize = (size, item) => {
+  return size === "width" ? item.split("-")[0].replace('w', '') : item.split("-")[1].replace('l', '') 
+}
 // helper functions used in filtration
 
 // create price range like 100TL-200TL
@@ -107,82 +111,81 @@ const manageFilterData = (filterData, boxName, itemName, urlQuery, options) => {
 
   // some products properties are multi valued like size, width_length..etc
   const { concatenated } = options;
-
   try {
-    let itemArr = concatenated ? itemName.toString().split(",") : null;
-
-    // the width_length has the format of w20-l32, so we split the width and the length so that we can count them and add them to filter data
-    if (boxName === "width" || boxName === "length") {
-      itemArr[0] =
-        boxName === "width"
-          ? itemArr[0].split("-")[0].replace("w", "")
-          : itemArr[0].split("-")[1].replace("l", "");
-    }
     let boxIndex = filterData.boxes.findIndex((box) => box.name === boxName);
     // if box doesnt exist
     if (boxIndex < 0) {
-      if (boxName === "sort") {
-        createNewFilterBox(filterData, boxName, urlQuery);
+      if (boxName === "price") {
+        let priceRange = createPriceRange(itemName, [
+          { min: 10, max: 50 },
+          { min: 50, max: 100 },
+          { min: 100, max: 150 },
+          { min: 150, max: 200 },
+          { min: 200, max: 300 },
+          { min: 300, max: 500 },
+        ]);
+        createNewFilterBox(filterData, boxName, priceRange, urlQuery);
         return;
       }
-
       // if multi valued property
       if (concatenated) {
-        let firstItem = itemArr[0];
-        // create the price range
-        if (boxName === "price") {
-          let priceRange = createPriceRange(firstItem, [
-            { min: 10, max: 50 },
-            { min: 50, max: 100 },
-            { min: 100, max: 150 },
-            { min: 150, max: 200 },
-            { min: 200, max: 300 },
-            { min: 300, max: 500 },
-          ]);
-          createNewFilterBox(filterData, boxName, priceRange, urlQuery);
-        } else createNewFilterBox(filterData, boxName, firstItem, urlQuery);
-      } else createNewFilterBox(filterData, boxName, itemName, urlQuery);
-    } else {
-      // if box already exist
-      if (boxName === "sort") {
-        modifyFilterBox(filterData, boxName, urlQuery, boxIndex);
-      }
-      if (concatenated) {
+        let itemArr =itemName.toString().split(",")
         for (let i = 0; i < itemArr.length; i++) {
           // the width_length has the format of w20-l32, so we split the width and the length so that we can count them and add them to filter data
           if (boxName === "width" || boxName === "length") {
-            itemArr[i] =
-              boxName === "width"
-                ? itemArr[i].split("-")[0]
-                : itemArr[1].split("-")[1];
+            let size
+             size = getSize(boxName, itemArr[i])
+             if (i === 0) {
+              createNewFilterBox(filterData, boxName, size, urlQuery);
+              boxIndex = filterData.boxes.findIndex((box) => box.name === boxName);
+              continue;
+            }
+            modifyFilterBox(filterData, boxName, size, urlQuery, boxIndex);
+            // if not width length, if size maybe
+          } else {
+            if (i === 0) {
+              createNewFilterBox(filterData, boxName, itemArr[i], urlQuery);
+              boxIndex = filterData.boxes.findIndex((box) => box.name === boxName);
+              continue;
+            }
+            modifyFilterBox(filterData, boxName, itemArr[i], urlQuery, boxIndex);
           }
-          if (boxName === "price") {
-            let priceRange = createPriceRange(itemArr[i], [
-              { min: 10, max: 50 },
-              { min: 50, max: 100 },
-              { min: 100, max: 150 },
-              { min: 150, max: 200 },
-              { min: 200, max: 300 },
-              { min: 300, max: 500 },
-            ]);
-            modifyFilterBox(
-              filterData,
-              boxName,
-              priceRange,
-              urlQuery,
-              boxIndex
-            );
-          } else
-            modifyFilterBox(
-              filterData,
-              boxName,
-              itemArr[i],
-              urlQuery,
-              boxIndex
-            );
+          
         }
-      } else modifyFilterBox(filterData, boxName, itemName, urlQuery, boxIndex);
+        return;
+      }
+      createNewFilterBox(filterData, boxName, itemName, urlQuery);
+      return;
     }
+    // if box already exist
+
+    if (boxName === "price") {
+      let priceRange = createPriceRange(itemName, [
+        { min: 10, max: 50 },
+        { min: 50, max: 100 },
+        { min: 100, max: 150 },
+        { min: 150, max: 200 },
+        { min: 200, max: 300 },
+        { min: 300, max: 500 },
+      ]);
+      modifyFilterBox(filterData, boxName, priceRange, urlQuery, boxIndex);
+      return;
+    }
+    if (concatenated) {
+      let itemArr =itemName.toString().split(",")
+      for (let i = 0; i < itemArr.length; i++) {
+        // the width_length has the format of w20-l32, so we split the width and the length so that we can count them and add them to filter data
+        if (boxName === "width" || boxName === "length") {
+          let size
+          size = getSize(boxName, itemArr[i])
+          modifyFilterBox(filterData, boxName, size, urlQuery, boxIndex);
+        } else {
+          modifyFilterBox(filterData, boxName, itemArr[i], urlQuery, boxIndex);
+        }
+      }
+      return
+    }
+    modifyFilterBox(filterData, boxName, itemName, urlQuery, boxIndex);
   } catch (e) {
     logError("manageFilterData", e.message);
     throw e;

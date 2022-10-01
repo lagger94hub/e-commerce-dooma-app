@@ -13,7 +13,7 @@ import {
 import classes from "./_select-box.module.scss";
 import {
   toFriendlyBoxItemName,
-  toFriendlyBoxName,
+  toFriendlyName,
 } from "../../../utils/user-friendly-content";
 const SelectBox = (props) => {
   const disptach = props.dispatch;
@@ -54,7 +54,7 @@ const SelectBox = (props) => {
         {iconed && (
           <FontAwesomeIcon icon={faSort} className={classes["sort-icon"]} />
         )}
-        <span>{toFriendlyBoxName(name)}</span>
+        <span>{toFriendlyName(name)}</span>
         {isDesktop && !iconed && (
           <span>
             {open ? (
@@ -79,7 +79,7 @@ const SelectBox = (props) => {
           open ? null : classes.closed
         }`}
       >
-        {!isDesktop && <h3>{toFriendlyBoxName(name)}</h3>}
+        {!isDesktop && <h3>{toFriendlyName(name)}</h3>}
         {!isDesktop && (
           <FontAwesomeIcon
             icon={faArrowLeft}

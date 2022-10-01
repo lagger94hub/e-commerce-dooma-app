@@ -7,6 +7,9 @@
 .wide {
   width: 90%;
 }
+.full-size {
+  width: 100%;
+}
 .dark {
   color: white;
   background-color: black;
@@ -26,6 +29,9 @@
 .center {
   left: 50%;
   transform: translateX(-50%);
+}
+.center-flex {
+  align-self: center;
 }
 .absolute {
   position: absolute;

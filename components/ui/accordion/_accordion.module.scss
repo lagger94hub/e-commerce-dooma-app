@@ -1,1 +1,15 @@
 @use '../../../sass/abstracts/' as *;
+
+.tab {
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--clr-shadow-grey-100);
+}
+.title {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.body {
+  font-weight: 700;
+  font-size: .8rem;
+}

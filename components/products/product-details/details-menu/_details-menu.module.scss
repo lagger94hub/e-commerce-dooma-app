@@ -1,4 +1,22 @@
 @use '../../../../sass/abstracts/' as *;
 .wrapper {
-  width: 40%;
+  width: 100%;
+  @include break-point('medium', 'up') {
+    width: 40%;
+  }
+}
+.title-wrapper {
+  gap: 1rem;
+  font-weight: 300;
+  p {
+    font-style: italic;
+  }
+}
+.price-wrapper {
+  s {
+    color: var(--clr-shadow-grey-300);
+  }
+  span {
+    font-weight: 700;
+  }
 }

@@ -94,7 +94,7 @@ const createFilterData = (allProducts, filteredProducts, query) => {
         }
         if (query.price) {
           manageFilterData(filterData, "price", product.after_discount, query, {
-            concatenated: true,
+            concatenated: false,
           });
         }
       }
@@ -127,7 +127,7 @@ const createFilterData = (allProducts, filteredProducts, query) => {
       }
       if (keysCount !== 1 || !query.price) {
         manageFilterData(filterData, "price", product.after_discount, query, {
-          concatenated: true,
+          concatenated: false,
         });
       }
     }

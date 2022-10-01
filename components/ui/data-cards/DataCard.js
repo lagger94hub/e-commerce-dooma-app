@@ -15,10 +15,9 @@ const DataCard = React.forwardRef((props, ref) => {
     <a href={props.href} ref={ref}>
       <div className={`${bordered ? classes.bordered : classes.normal} flex-col gap-16p falign-center`}>
       <Image src={itemPhotoURL} alt={itemName} width={width} height={height} />
-      {!discountAmount &&
+      {!discountAmount ?
       <p>{itemName}</p>
-      }
-      {discountAmount &&
+      :
       <p>{itemName}{` - ${discountAmount}% ${discountName}`}</p>
       }
     </div>

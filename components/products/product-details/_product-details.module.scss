@@ -1,4 +1,7 @@
 @use '../../../sass/abstracts/' as *;
 .wrapper {
   width: 100%;
+  @include break-point('medium', 'up') {
+    flex-direction: row;
+  }
 }
