@@ -7,13 +7,14 @@ const ProductPhotoGrid = (props) => {
       {photosUrls &&
         photosUrls.map((url, index) => {
           return (
-            <Image
-              key={index}
+            <div className={`${classes[`grid-photo-${index}-wrapper`]}`} key={index}>
+              <Image
               alt={`product-photo-${index}`}
               src={url}
-              width={300}
-              height={300}
+              width={1000}
+              height={1400}
             />
+            </div>
           );
         })}
     </div>

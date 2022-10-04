@@ -70,6 +70,14 @@ const queries = {
   FROM product_fabrics ph LEFT OUTER JOIN products p ON p.id = ph.product_id
   LEFT OUTER JOIN fabrics f ON ph.fabric_id = f.id
   WHERE p.slug = ?
-  ORDER BY ph.percentage DESC`
+  ORDER BY ph.percentage DESC`,
+
+  productColors: `
+  SELECT pr.color_id, c.name AS color_name FROM product_records pr
+  LEFT OUTER JOIN products p ON p.id = pr.product_id
+  LEFT OUTER JOIN colors c ON c.id = pr.color_id
+  WHERE p.slug = ?
+  GROUP BY pr.color_id
+  `
 };
 export default queries;

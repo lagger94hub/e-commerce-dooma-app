@@ -45,20 +45,30 @@ const queryProducts = (categoryPath, urlQuery, options) => {
     sqlQueryArr: dependencies.sqlQueryArr ? dependencies.sqlQueryArr : []
   }
 }
+// product details by slug and color id
 const queryProductDetails = (productSlug, colorId) => {
   return {
     sqlQuery: queries.productDetails,
     sqlQueryArr: [colorId, productSlug]
   }
 }
+// product fabrics by product slug
 const queryProductFabrics = (productSlug) => {
   return {
     sqlQuery: queries.productFabrics,
     sqlQueryArr: [productSlug]
   }
 }
+// product color by product slug
+const queryProductColors = (productSlug) => {
+  return {
+    sqlQuery: queries.productColors,
+    sqlQueryArr: [productSlug]
+  }
+}
 export {
   queryProducts,
   queryProductDetails,
-  queryProductFabrics
+  queryProductFabrics,
+  queryProductColors
 }

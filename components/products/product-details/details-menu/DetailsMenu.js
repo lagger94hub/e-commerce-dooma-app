@@ -8,13 +8,14 @@ import classes from "./_details-menu.module.scss";
 
 // side menu of product details page
 const DetailsMenu = (props) => {
-
   const productDetails = props.productDetails;
-  const productFabrics = props.productFabrics
+  const productFabrics = props.productFabrics;
+  const productColors = props.productColors;
   const price = productDetails.price;
-  const sizes = productDetails.size ? productDetails.size.split(',') : 
-  productDetails.width_length.split(',')
-  const description = productDetails.description
+  const sizes = productDetails.size
+    ? productDetails.size.split(",")
+    : productDetails.width_length.split(",");
+  const description = productDetails.description;
 
   return (
     <div className={`flex-col gap-32p ${classes.wrapper}`}>
@@ -24,7 +25,7 @@ const DetailsMenu = (props) => {
       </div>
       {productDetails.discount_amount ? (
         <>
-          <p className={`flex-row gap-8p ${classes['price-wrapper']}`}>
+          <p className={`flex-row gap-8p ${classes["price-wrapper"]}`}>
             <s>{price} TL</s>
             <span>
               {" "}
@@ -35,19 +36,26 @@ const DetailsMenu = (props) => {
         </>
       ) : (
         <>
-          <p className={`flex-row gap-8p ${classes['price-wrapper']}`}>
+          <p className={`flex-row gap-8p ${classes["price-wrapper"]}`}>
             <span>{price} TL</span>
           </p>
         </>
       )}
-      <ColorsSlider />
+      <ColorsSlider 
+      productColors={productColors}
+      currentColorId={productDetails.color_id} />
       <Button
         title="Add to cart"
         clickHandler={() => {}}
         styles={["default", "dark", "full-size", "thin"]}
       />
-      <SelectSize sizes={sizes}/>
-      <Accordion dataArr={[{title: 'Description', body: description}, {title: 'Fabric', body: productFabrics, array: true}]}/>
+      <SelectSize sizes={sizes} />
+      <Accordion
+        dataArr={[
+          { title: "Description", body: description },
+          { title: "Fabric", body: productFabrics, array: true },
+        ]}
+      />
     </div>
   );
 };

@@ -1,7 +1,30 @@
 @use '../../../../sass/abstracts/' as *;
 .wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto-fit, 1fr);
+  gap: 1rem;
   width: 100%;
   @include break-point('medium', 'up') {
-    width: 60%;
+    width: 55%;
   }
+
+  .grid-photo-0-wrapper, .grid-photo-1-wrapper, .grid-photo-2-wrapper, .grid-photo-3-wrapper {
+    span {
+      height: 100% !important;
+    }
+  }   
+  .grid-photo-0-wrapper {
+    grid-row: span 6;
+  }
+  .grid-photo-1-wrapper {
+    grid-row: span 6;
+  }
+  .grid-photo-2-wrapper {
+    grid-row: span 6;
+  }
+  .grid-photo-3-wrapper {
+    grid-row: span 6;
+  }
+
 }

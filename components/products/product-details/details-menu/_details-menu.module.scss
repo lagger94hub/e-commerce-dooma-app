@@ -1,8 +1,10 @@
 @use '../../../../sass/abstracts/' as *;
 .wrapper {
   width: 100%;
+  padding: .5rem;
   @include break-point('medium', 'up') {
-    width: 40%;
+    width: 42%;
+    padding: 0;
   }
 }
 .title-wrapper {
