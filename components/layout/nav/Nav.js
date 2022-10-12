@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect, useCallback } from "react";
+import { useContext, useState, useCallback } from "react";
+import Link from "next/link";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
@@ -39,7 +40,9 @@ const Nav = (props) => {
           <FontAwesomeIcon icon={faUser} />
         </li>
         <li>
-          <FontAwesomeIcon icon={faBagShopping} />
+          <Link href={'/cart'}>
+            <FontAwesomeIcon icon={faBagShopping} />
+          </Link>
         </li>
         <li onClick={showMenuHandler} className={classes.barsicon}>
           <FontAwesomeIcon icon={faBars} />

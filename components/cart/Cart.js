@@ -1,12 +1,84 @@
-import CartDetails from './cart-details/CartDetails'
-import CartSummary from './cart-summary/CartSummary'
-import classes from './_cart.module.scss'
+import { useContext, useEffect } from "react";
+import { CartContext } from "../../store/cart-context";
+import CartDetails from "./cart-details/CartDetails";
+import CartSummary from "./cart-summary/CartSummary";
+import classes from "./_cart.module.scss";
+const cartData = [
+  {
+    id: 0,
+    img: {
+      imgURL:
+        "/_next/image?url=%2Fimages%2Fproducts%2F1%2Fcolor-2%2Fp1-c2-1.jpg&w=1080&q=75",
+      linkURL: "/products/test-shirt-1/2",
+    },
+    productName: "T-shirt-test-1",
+    price: 50,
+    selectBox: {
+      default: 6,
+      values: [1, 2, 3, 4, 5, 6],
+      optionTitle: "Piece",
+    },
+    total: "300 TL",
+    button: {
+      title: "Remove",
+    },
+  },
+  {
+    id: 1,
+    img: {
+      imgURL:
+        "/_next/image?url=%2Fimages%2Fproducts%2F2%2Fcolor-3%2Fp2-c3-1.jpg&w=1080&q=75",
+      linkURL: "/products/test-shirt-2/3",
+    },
+    productName: "T-shirt-test-2",
+    price: 60,
+    selectBox: {
+      default: 3,
+      values: [1, 2, 3, 4],
+      optionTitle: "Piece",
+    },
+    total: "180 TL",
+    button: {
+      title: "Remove",
+    },
+  },
+  {
+    id: 2,
+    img: {
+      imgURL:
+        "/_next/image?url=%2Fimages%2Fproducts%2F3%2Fcolor-2%2Fp3-c2-1.jpg&w=1080&q=75",
+      linkURL: "/products/test-shirt-3/2",
+    },
+    productName: "T-shirt-test-3",
+    price: 100,
+    selectBox: {
+      default: 1,
+      values: [1],
+      optionTitle: "Piece",
+    },
+    total: "100 TL",
+    button: {
+      title: "Remove",
+    },
+  },
+];
 const Cart = (props) => {
-  return (
-    <div className={`flex-row gap-16p fjust-between falign-center ${classes['cart-wrapper']}`}>
+  const { state, dispatch } = useContext(CartContext);
+  // update the store after data is fetched from local storage
+  useEffect(() => {
+    if (cartData) {
+      dispatch({ type: "initializeCart", cartData });
+    }
+  }, [dispatch]);
+  return state.items.length !== 0 ? (
+    <div
+      className={`flex-row gap-16p fjust-between falign-center ${classes["cart-wrapper"]}`}
+    >
       <CartDetails />
       <CartSummary />
     </div>
-  )
-}
-export default Cart
+  ) : (
+    <h3>Your Cart is Empty</h3>
+  );
+};
+export default Cart;

@@ -1,33 +1,86 @@
+import Image from "next/image";
+import Link from "next/link";
+import Button from '../../ui/buttons/Button'
+import classes from "./_data-table.module.scss";
 const DataTable = (props) => {
   // array of columns titles
-  const rowsCount = props.rowsCount
-  const clickables = props.clickables
-  const selectables = props.selectables
-  const customStyled = props.customStyled
-  const columnsTitles = props.columnsTitles
-  const rows = props.rows
+  const title = props.title
+  const columnsTitles = props.columnsTitles;
+  const rows = props.rows;
+  const clickHandler = props.clickHandler
+  const selecChangeHandler = props.selecChangeHandler
   return (
-    <table>
-      <tr>
-        {columnsTitles && columnsTitles.map((title, index) => {
-          return (
-            <th key={index}>{title}</th>
-          )
-        })}
-      </tr>
-      {rows && rows.map((row, index) => {
-        return (
-          <tr key={`row-${index}`}>
-            {Object.values(row).map((value, valueIndex) => {
-              return (
-                <td key={`row-${index}-value-${valueIndex}`}>{value}</td>
-              )
+    <table className={`${classes["table-body"]}`}>
+      <thead>
+        <tr>
+          {columnsTitles &&
+            columnsTitles.map((title, index) => {
+              return <th key={index}>{title}</th>;
             })}
-          </tr>
-        )
-      })}
-
+        </tr>
+      </thead>
+      <tbody>
+        {rows && rows.length !== 0  &&
+          rows.map((row, index) => {
+            return (
+              <tr key={`row-${row.id}`}>
+                {Object.keys(row).map((key, keyIndex) => {
+                  if (key === 'id') return 
+                  if (key === "img")
+                    return (
+                      <td
+                        className={classes["td-image"]}
+                        key={`row-${index}-value-${keyIndex}`}
+                      >
+                        <Link href={row[key].linkURL}>
+                          <a>
+                            <Image
+                              src={row[key].imgURL}
+                              alt="thumbnail"
+                              height={600}
+                              width={600}
+                            ></Image>
+                          </a>
+                        </Link>
+                      </td>
+                    );
+                  if (key === 'selectBox') {
+                    return (
+                      <td key={`row-${index}-value-${keyIndex}`}>
+                        <select 
+                        defaultValue={row[key].default}
+                        onChange={(e) => selecChangeHandler(e, row.id)}>
+                          {row[key].values.map((value, index) => {
+                            return (
+                              <option key={`selectBox-option-${index}`} value={value}>
+                                {`${value} ${row[key].optionTitle}`}
+                              </option>
+                            )
+                          })}
+                        </select>
+                      </td>
+                    ) 
+                    
+                  }
+                  if (key === 'button') 
+                    return (
+                      <td key={`row-${index}-value-${keyIndex}`}>
+                        <Button 
+                        title={row[key].title}
+                        onClick={() => clickHandler(row.id)}
+                        styles={['default', 'dark']}
+                        />
+                      </td>
+                    )
+                  return (
+                    <td key={`row-${index}-value-${keyIndex}`}>{row[key]}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+      </tbody>
     </table>
-  )
-}
-export default DataTable
+  );
+};
+export default DataTable;

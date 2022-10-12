@@ -1,1 +1,9 @@
 @use '../../sass/abstracts/' as *;
+.cart-wrapper {
+  flex-direction: column;
+  padding: 0 .5rem;
+  @include break-point('medium', 'up') {
+    flex-direction: row;
+    padding: 0;
+  }
+}

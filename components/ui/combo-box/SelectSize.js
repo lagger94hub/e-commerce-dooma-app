@@ -4,7 +4,7 @@ const SelectSize = (props) => {
     <select>
       <option defaultValue={true}>Select Size</option>
       {options.length && options.map((option, index) => {
-        return (<option key={index}>{option}</option>)
+        return (<option key={index}>{option.toUpperCase()}</option>)
       })}
     </select>
   )

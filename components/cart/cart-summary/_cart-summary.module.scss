@@ -1,1 +1,19 @@
 @use '../../../sass/abstracts/' as *;
+.wrapper {
+  width: 100%;
+  @include break-point('medium', 'up') {
+    width: 30%;
+    align-self: flex-start;
+  }
+}
+.total-shipping-wrapper {
+  width: 100%;
+}
+.shipping, .total {
+  width: 100%;
+}
+.final-total {
+  width: 100%;
+  padding-top: .5rem;
+  border-top: 1px solid var(--clr-shadow-grey-100);
+}
