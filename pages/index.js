@@ -73,7 +73,7 @@ export default function Home(props) {
 
       {/* display 3 */}
       <SectionWrapper>
-        <Display3 width={100} height={100} dataArray={display3_dataArray} />
+        {/* <Display3 width={100} height={100} dataArray={display3_dataArray} /> */}
       </SectionWrapper>
     </>
   );

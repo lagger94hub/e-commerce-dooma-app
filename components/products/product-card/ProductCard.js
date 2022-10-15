@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useContext } from "react";
 
 import ProductCardSlider from "../../sliders/product-card-slider/ProductCardSlider";
 import classes from "./_product-card.module.scss";
 
 import Button from "../../ui/buttons/Button";
+import { CartContext } from "../../../store/cart-context";
 
 const ProductCard = (props) => {
   const productSlug = props.product.product_slug;
@@ -23,12 +24,36 @@ const ProductCard = (props) => {
   );
   // add to cart state
   const [button, setButton] = useState(false);
+
   const showButton = useCallback(() => {
     setButton(true);
   }, []);
   const hideButton = useCallback(() => {
     setButton(false);
   }, []);
+
+  // get dispatch from cart store to add
+  const dispatch = useContext(CartContext).dispatch;
+  const addToCart = useCallback(() => {
+    dispatch({
+      type: "addToCart",
+      productSlug,
+      colorId,
+      productName,
+      productPrice,
+      productDiscount,
+      imgURL: imagesURLs.split(",")[0],
+      linkURL: `/products/${productSlug}/${colorId}`,
+    });
+  }, [
+    dispatch,
+    productName,
+    productPrice,
+    productDiscount,
+    imagesURLs,
+    colorId,
+    productSlug,
+  ]);
 
   return (
     <li
@@ -37,15 +62,17 @@ const ProductCard = (props) => {
       className={classes.wrapper}
     >
       {button && (
-        <Button title={"Add to cart"} styles={["absolute", "light", "wide"]} />
+        <Button
+          title={"Add to cart"}
+          styles={["absolute", "light", "wide"]}
+          onClick={() => addToCart()}
+        />
       )}
 
       <Link href={`/products/${productSlug}/${colorId}`}>
         <a className={`flex-col gap-16p fjust-center  ${classes.card}`}>
           <ProductCardSlider
             alt={productName}
-            // width={318}
-            // height={420}
             width={1000}
             height={1300}
             imagesURLs={imagesURLs}
@@ -60,7 +87,7 @@ const ProductCard = (props) => {
               {productDiscount ? (
                 <>
                   <span className={classes.price}>
-                    {productPrice - productPrice * productDiscount / 100} TL
+                    {productPrice - (productPrice * productDiscount) / 100} TL
                   </span>
                   <span>
                     <s className={classes.old}>{productPrice} TL</s>

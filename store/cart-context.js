@@ -6,7 +6,7 @@ const contextInitiaData = {
   dispatch: null
 }
 const initiaData = {
-  items: [],
+  items: null,
   shippingCosts: 0,
   orderTotal: 0,
 }

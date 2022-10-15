@@ -27,4 +27,11 @@
     text-align: center;
     width: 15%;
   }
+  .strike {
+    color: var(--clr-shadow-grey-400)
+  }
+  .discount {
+    color: green;
+    font-weight: bold;
+  }
 }

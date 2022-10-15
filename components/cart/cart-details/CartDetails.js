@@ -20,7 +20,7 @@ const CartDetails = () => {
         columnsTitles={[" ", "Product", "Price", "Quantity", 'Total', ' ']}
         rows={state.items}
         clickHandler={removeClickHandler}
-        selecChangeHandler={selectChangeHandler}
+        selectChangeHandler={selectChangeHandler}
       />
     </div>
   );
