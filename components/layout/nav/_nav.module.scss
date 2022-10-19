@@ -14,9 +14,28 @@
   .icons_list {
     li {
       height: fit-content;
+      font-size: 1.1rem;
       padding: 0;
       &:hover {
         cursor: pointer;
+      }
+    }
+    .cart {
+      position: relative;
+      .cart-count {
+        position: absolute;
+        display: block;
+        color: white;
+        background-color: black;
+        // padding: .25rem;
+        width: 20px;
+        line-height: 20px;
+        text-align: center;
+        font-size: .5rem;
+        
+        @include rounded-corners();
+        top: 60%;
+        left: 60%;
       }
     }
   }

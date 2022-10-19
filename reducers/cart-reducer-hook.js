@@ -102,7 +102,7 @@ const useCartReducer = (initialData) => {
         return {
           ...state,
           items: newItemArr,
-          total,
+          orderTotal: total,
         };
       }
       default:

@@ -75,16 +75,14 @@ import classes from "./_cart.module.scss";
 const Cart = (props) => {
   const { state, dispatch } = useContext(CartContext);
   // update the store after data is fetched from local storage
-  useEffect(() => {
-    const cartData = loadCartFromLocalStorage()
-    if (cartData) 
-      dispatch({ type: "initializeCart", cartData });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const cartData = loadCartFromLocalStorage()
+  //   if (cartData) 
+  //     dispatch({ type: "initializeCart", cartData });
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if (state.items)
-      saveCartToLocalStorage(state.items)
-  }, [state.items])
+  
+
   return (state.items && state.items.length !== 0)  ? (
     <div
       className={`flex-row gap-16p fjust-between falign-center ${classes["cart-wrapper"]}`}

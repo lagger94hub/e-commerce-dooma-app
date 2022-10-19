@@ -4,6 +4,7 @@ const saveCartToLocalStorage = (cartData) => {
 const loadCartFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem('cart'))
 }
+
 export {
   saveCartToLocalStorage,
   loadCartFromLocalStorage

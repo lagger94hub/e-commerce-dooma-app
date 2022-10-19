@@ -40,19 +40,30 @@
   @include break-point('medium', 'up') {
     width: 23%;
   }
-  button {
+  .add-wrapper {
     position: absolute;
     left: 50%;
     bottom: 9rem;
     transform: translateX(-50%);
     width: 90%;
     padding: .7rem 0;
-    border: none;
     background-color: white;
     box-shadow: 0px 0px 4px 0px #000000;
     font-size: .8rem;
     font-weight: 700;
     z-index: 4;
     @include rounded-corners(.3rem, .3rem, .3rem, .3rem);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .select-size {
+    position: absolute;
+
+  }
+  button {
+    border: none;
+    height: 100%;
+    width: 100%;
   }
 }

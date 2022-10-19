@@ -1,0 +1,51 @@
+@use '../../../../sass/abstracts/' as *;
+.wrapper {
+  position: relative;
+  .default-option {
+    position: relative;
+    border: 1px solid black;
+    padding: .25rem;
+    @include rounded-corners(.25rem, .25rem, .25rem, .25rem);
+  }
+  .chevron {
+    position: absolute;
+    right: .25rem;
+  }
+  .sizes-list-wrapper {
+    h6 {
+      margin: 0;
+      font-size: .75rem;
+    }
+    position: absolute;
+    width: 100%;
+    box-shadow: 0px 0px 4px 0px var(--clr-shadow-grey-400);
+    z-index: 4;
+    background-color: white;
+    padding: 1rem;
+    bottom: 0;
+    left: 0;
+
+  }
+  .sizes-list {
+    .size {
+      color: black;
+      @include rounded-corners();
+      padding: .5rem;
+      font-size: .5rem;
+      // line-height: 1rem;
+      width: fit-content;
+      font-weight: bold;
+      border: 1px solid var(--clr-shadow-grey-900);
+    }
+    .selected {
+      color: white;
+      background-color: var(--clr-shadow-grey-900);
+    }
+    .disabled {
+
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}

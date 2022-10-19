@@ -2,9 +2,11 @@ import { toFriendlyName } from "../../../../utils/user-friendly-content";
 import Accordion from "../../../ui/accordion/Accordion";
 import Button from "../../../ui/buttons/Button";
 import ColorsSlider from "../../../ui/colors-slider/ColorsSlider";
-import SelectSize from "../../../ui/combo-box/SelectSize";
+import SelectSize from "../../../ui/combo-box/select-size/SelectSize";
+import { useContext, useCallback, useState, useRef } from "react";
 
 import classes from "./_details-menu.module.scss";
+import { CartContext } from "../../../../store/cart-context";
 
 // side menu of product details page
 const DetailsMenu = (props) => {
@@ -16,6 +18,57 @@ const DetailsMenu = (props) => {
     ? productDetails.size.split(",")
     : productDetails.width_length.split(",");
   const description = productDetails.description;
+
+  // size select menu state
+  const [openSelect, setOpenSelect] = useState(false);
+
+  const toggleSelectMenu = useCallback(() => {
+    setOpenSelect(!openSelect);
+  }, [setOpenSelect, openSelect]);
+
+  const closeSelectMenu = useCallback(() => {
+    setOpenSelect(false);
+  }, []);
+
+  // select size state management
+  const [selectedSize, setSelectedSize] = useState('');
+  const selectSize = useCallback(
+    (size) => {
+      setSelectedSize(size);
+    },
+    [setSelectedSize]
+  );
+
+    // adding product to cart
+    const dispatch = useContext(CartContext).dispatch;
+    const addToCart = useCallback(() => {
+      if (selectedSize) {
+        dispatch({
+          type: "addToCart",
+          productSlug: productDetails.slug,
+          colorId: productDetails.color_id,
+          productName: productDetails.product_name,
+          productPrice: price,
+          productDiscount: productDetails.discount_amount,
+          imgURL: productDetails.photos_urls.split(",")[0],
+          linkURL: `/products/${productDetails.slug}/${productDetails.color_id}`,
+        });
+      } else {
+        setOpenSelect(true)
+      }
+    }, [
+      productDetails.slug,
+      productDetails.color_id,
+      productDetails.photos_urls,
+      price,
+      productDetails.product_name,
+      productDetails.discount_amount,
+      selectedSize,
+      dispatch,
+    ]);
+
+    // referring to add button to add it later to the ignore list of the outsideclick detector, because when add button is clicked the menu is closing this is the opposite of the wanted behavior 
+    const addButtonRef = useRef(null)
 
   return (
     <div className={`flex-col gap-32p ${classes.wrapper}`}>
@@ -41,15 +94,24 @@ const DetailsMenu = (props) => {
           </p>
         </>
       )}
-      <ColorsSlider 
-      productColors={productColors}
-      currentColorId={productDetails.color_id} />
+      <ColorsSlider
+        productColors={productColors}
+        currentColorId={productDetails.color_id}
+      />
+      <SelectSize 
+      openSelect={openSelect}
+      selectedSize={selectedSize}
+      toggleSelectMenu={toggleSelectMenu}
+      closeSelectMenu={closeSelectMenu}
+      selectSize={selectSize}
+      sizes={sizes} 
+      addButtonRef={addButtonRef}/>
       <Button
         title="Add to cart"
-        clickHandler={() => {}}
+        onClick={addToCart}
         styles={["default", "dark", "full-size", "thin"]}
+        ref={addButtonRef}
       />
-      <SelectSize sizes={sizes} />
       <Accordion
         dataArr={[
           { title: "Description", body: description },

@@ -1,6 +1,8 @@
+/* eslint-disable react/display-name */
 import Link from "next/link";
 import classes from "./_button.module.scss";
-const Button = (props) => {
+import React from "react";
+const Button =  React.forwardRef((props, ref) => {
   const title = props.title;
   const clickHandler = props.onClick;
   const className =
@@ -9,15 +11,13 @@ const Button = (props) => {
   return to ? (
     // link button
     <Link href={to}>
-      <button className={className}>
-        {title}
-      </button>
+      <button className={className}>{title}</button>
     </Link>
   ) : (
     // normal button
-    <button className={className} onClick={clickHandler}>
+    <button className={className} onClick={clickHandler} ref={ref}>
       {title}
     </button>
   );
-};
+});
 export default Button;

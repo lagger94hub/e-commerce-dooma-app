@@ -8,6 +8,7 @@ import { faBars, faBagShopping, faSearch } from "@fortawesome/free-solid-svg-ico
 import classes from "./_nav.module.scss";
 import CategoryMenu from "./../menus/category-menu/CategoryMenu";
 import { MediaQueryContext } from "../../../store/media-query-context";
+import { CartContext } from "../../../store/cart-context";
 
 const Nav = (props) => {
 
@@ -15,9 +16,13 @@ const Nav = (props) => {
   // here depending on the screen size we either show the menu by default or not
   // in Next.js because the server prerenders every page, the server can't tell the value of the media query beforehand
   const [showMenu, setShowMenu] = useState(false);
+  
   const showMenuHandler = useCallback(() => {
     setShowMenu(!showMenu);
   }, [setShowMenu, showMenu])
+
+  // get the number of items inside the cart
+   const itemsQuant = useContext(CartContext).state.items
   
 
   return (
@@ -39,7 +44,8 @@ const Nav = (props) => {
         <li>
           <FontAwesomeIcon icon={faUser} />
         </li>
-        <li>
+        <li className={classes.cart}>
+          {(itemsQuant && itemsQuant.length !== 0) && <span className={classes['cart-count']}>{itemsQuant.length}</span>}
           <Link href={'/cart'}>
             <FontAwesomeIcon icon={faBagShopping} />
           </Link>
