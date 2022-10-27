@@ -42,7 +42,9 @@
       background-color: var(--clr-shadow-grey-900);
     }
     .disabled {
-
+      color: var(--clr-shadow-grey-200);
+      border: 1px solid var(--clr-shadow-grey-200);
+      cursor: default;
     }
   }
   &:hover {

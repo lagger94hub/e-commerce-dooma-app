@@ -65,7 +65,10 @@ const useCartReducer = (initialData) => {
                 imgURL: action.imgURL,
                 linkURL: action.linkURL,
               },
-              productName: action.productName,
+              productDetails: {
+                productName: action.productName,
+                size: action.size
+              },
               price: {
                 originalPrice: action.productPrice,
                 discountRate: action.productDiscount,

@@ -62,7 +62,7 @@ export async function getStaticProps(context) {
   const props = await getProps(productSlug, colorId)
 
   // if no product found return 404 page
-  if (!props.productDetails.length) {
+  if (!props) {
     return {
       notFound: true
     }

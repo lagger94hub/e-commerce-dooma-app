@@ -10,11 +10,14 @@ export default async function getProps(productSlug, colorId) {
     // get the product details based on the product slug and colorid
     const productDetails = await getProductDetails(productSlug, colorId)
 
+    // if no products found 
+    if (!productDetails.length) return
     // get the product fabrics by the product slug
     const productFabrics = await getProductFabrics(productSlug)
 
     // get the product colors by the product slug
     const productColors = await getProductColors(productSlug)
+
 
     if (productDetails.length) {
       // Add the product to the path to root

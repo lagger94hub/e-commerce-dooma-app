@@ -50,10 +50,9 @@ const queries = {
 
   productDetails: `
   SELECT p.slug, p.name AS product_name, p.description, c.name AS color_name, c.id AS color_id, f.name AS fit, 
-  dis.amount AS discount_amount, dis.name AS discount_name, GROUP_CONCAT(DISTINCT s.size) AS size, 
-  GROUP_CONCAT(DISTINCT s.width_length) AS width_length, p.price AS price, 
-  GROUP_CONCAT(DISTINCT ph.url) AS photos_urls
-  FROM products p 
+  dis.amount AS discount_amount, dis.name AS discount_name, p.price AS price, 
+  GROUP_CONCAT(DISTINCT ph.url) AS photos_urls, GROUP_CONCAT(DISTINCT CONCAT(s.size,',',pr.stock) SEPARATOR ';') AS size_stocks, GROUP_CONCAT(DISTINCT CONCAT(s.width_length,',',pr.stock) SEPARATOR ';') AS width_length_stocks
+  FROM products p  
   LEFT OUTER JOIN product_records pr ON pr.product_id = p.id
   LEFT OUTER JOIN categories cat ON p.category_id = cat.id
   LEFT OUTER JOIN discounts dis ON dis.id = cat.discount_id
@@ -78,6 +77,6 @@ const queries = {
   LEFT OUTER JOIN colors c ON c.id = pr.color_id
   WHERE p.slug = ?
   GROUP BY pr.color_id
-  `
+  `,
 };
 export default queries;

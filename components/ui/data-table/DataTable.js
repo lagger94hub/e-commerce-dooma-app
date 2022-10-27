@@ -27,6 +27,17 @@ const DataTable = (props) => {
               <tr key={`row-${row.id}`}>
                 {Object.keys(row).map((key, keyIndex) => {
                   if (key === "id") return;
+                  if (key === 'productDetails')
+                    return (
+                      <td
+                        key={`row-${index}-value-${keyIndex}`}
+                      >
+                        <div className="flex-col gap-8p falign-center fjust-center">
+                          <span>{row[key].productName}</span>
+                          <p>Size: <span>{row[key].size.toUpperCase()}</span></p>
+                        </div>
+                      </td>
+                    )
                   if (key === "img")
                     return (
                       <td

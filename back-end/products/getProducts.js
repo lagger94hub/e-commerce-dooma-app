@@ -61,6 +61,7 @@ const getProductColors = async (productSlug) => {
     throw e;
   }
 };
+
 export {
   getCategoryProducts,
   getProductDetails,
