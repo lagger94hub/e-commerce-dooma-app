@@ -26,7 +26,7 @@ const queryProducts = (categoryPath, urlQuery, options) => {
     sqlQuery: `SELECT  p.id AS product_id, p.slug AS product_slug, p.name AS product_name, co.name AS product_color, co.id AS color_id,
     f.name AS product_fit, p.price AS product_price, 
     d.amount AS discount_amount, d.end_date AS discount_end_date, pr.created_at, group_concat(DISTINCT ph.url) AS images_urls,
-    group_concat(DISTINCT (p.price - p.price * (d.amount/100))) AS after_discount, GROUP_CONCAT(DISTINCT CONCAT(s.size,',',pr.stock) SEPARATOR ';') AS size_stocks, GROUP_CONCAT(DISTINCT CONCAT(s.width_length,',',pr.stock) SEPARATOR ';') AS width_length_stocks
+    group_concat(DISTINCT (p.price - p.price * (d.amount/100))) AS after_discount, GROUP_CONCAT(DISTINCT CONCAT(s.size,',',pr.stock) SEPARATOR ';') AS size_stocks, GROUP_CONCAT(DISTINCT CONCAT(s.width_length,',',pr.stock) SEPARATOR ';') AS width_length_stocks, GROUP_CONCAT(DISTINCT s.size) as size, GROUP_CONCAT(DISTINCT s.width_length) as width_length
     FROM products p JOIN product_records pr ON pr.product_id = p.id
     JOIN categories c ON p.category_id = c.id
     JOIN paths pa ON c.path_id = pa.id

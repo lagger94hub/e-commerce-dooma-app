@@ -5,7 +5,6 @@ import classes from "./_cart-details.module.scss";
 
 const CartDetails = () => {
   const {state, dispatch} = useContext(CartContext)
-  console.log(state)
   const removeClickHandler = useCallback((cartId) => {
     dispatch({ type: 'removeItem', cartId })
   }, [dispatch])

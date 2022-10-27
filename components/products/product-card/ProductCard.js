@@ -97,6 +97,14 @@ const ProductCard = (props) => {
   const addToCart = useCallback(() => {
     if (selectedSize) {
       dispatch({
+        type: "createAddToCartNotification",
+        productName,
+        productPrice,
+        imgURL: imagesURLs.split(",")[0],
+        productDiscount,
+      });
+
+      dispatch({
         type: "addToCart",
         productSlug,
         colorId,

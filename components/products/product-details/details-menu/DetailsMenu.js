@@ -53,6 +53,13 @@ const DetailsMenu = (props) => {
   const addToCart = useCallback(() => {
     if (selectedSize) {
       dispatch({
+        type: "createAddToCartNotification",
+        productName: productDetails.product_name,
+        productPrice: price,
+        imgURL: productDetails.photos_urls.split(",")[0],
+        productDiscount: productDetails.discount_amount,
+      });
+      dispatch({
         type: "addToCart",
         productSlug: productDetails.slug,
         colorId: productDetails.color_id,

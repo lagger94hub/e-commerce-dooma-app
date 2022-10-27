@@ -12,6 +12,9 @@
     }
   }
   .icons_list {
+    @include break-point('medium', 'up') {
+      z-index: 101;
+    }
     li {
       height: fit-content;
       font-size: 1.1rem;

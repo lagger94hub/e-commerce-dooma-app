@@ -108,6 +108,27 @@ const useCartReducer = (initialData) => {
           orderTotal: total,
         };
       }
+      case 'createAddToCartNotification': {
+        const notificationItemData = {
+            imgURL: action.imgURL, 
+            productName: action.productName, 
+            price: action.productPrice, 
+            discountAmount: action.productDiscount
+          }
+        
+        return {
+          ...state,
+          notifications: [...state.notifications, notificationItemData]
+        }
+      }
+      case 'removeAddToCartNotification': {
+        const newNotifications = [...state.notifications]
+        newNotifications.shift()
+        return {
+          ...state,
+          notifications: newNotifications
+        }
+      }
       default:
         break;
     }

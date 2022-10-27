@@ -10,6 +10,7 @@ const initiaData = {
   items: null,
   shippingCosts: 0,
   orderTotal: 0,
+  notifications: []
 }
 
 const CartContext = createContext(contextInitiaData)
