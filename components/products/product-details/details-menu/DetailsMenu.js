@@ -3,15 +3,14 @@ import Accordion from "../../../ui/accordion/Accordion";
 import Button from "../../../ui/buttons/Button";
 import ColorsSlider from "../../../ui/colors-slider/ColorsSlider";
 import SelectSize from "../../../ui/combo-box/select-size/SelectSize";
-import { useContext, useCallback, useState, useRef, useMemo } from "react";
+import { useContext, useCallback, useState, useRef } from "react";
 
 import classes from "./_details-menu.module.scss";
 import { CartContext } from "../../../../store/cart-context";
 
 // side menu of product details page
 const DetailsMenu = (props) => {
-  const {productDetails, productFabrics, productColors, price, sizes, description } = useMemo(() => {
-    const productDetails = props.productDetails;
+  const productDetails = props.productDetails;
     const productFabrics = props.productFabrics;
     const productColors = props.productColors;
     const price = productDetails.price;
@@ -19,15 +18,6 @@ const DetailsMenu = (props) => {
       ? productDetails.size_stocks.split(";")
       : productDetails.width_length_stocks.split(";");
     const description = productDetails.description;
-    return {
-      productDetails,
-      productFabrics,
-      productColors,
-      price,
-      sizes,
-      description,
-    };
-  }, [props.productDetails, props.productColors, props.productFabrics]);
   // size select menu state
   const [openSelect, setOpenSelect] = useState(false);
 

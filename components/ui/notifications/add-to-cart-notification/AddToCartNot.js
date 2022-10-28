@@ -1,4 +1,4 @@
-import { useMemo, useContext, useEffect, useCallback, useRef } from "react";
+import { useContext, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -7,12 +7,8 @@ import Button from "../../buttons/Button";
 import { CartContext } from "../../../../store/cart-context";
 import { MediaQueryContext } from "../../../../store/media-query-context";
 const AddToCartNot = (props) => {
-  const { imgURL, productName, price, discountAmount,notificationIndex } = useMemo(() => {
-    const { imgURL, productName, price, discountAmount } = props.cartData;
-    const notificationIndex = props.notificationIndex
-    return { imgURL, productName, price, discountAmount, notificationIndex};
-  }, [props.cartData, props.notificationIndex]);
-
+  const { imgURL, productName, price, discountAmount } = props.cartData;
+  const notificationIndex = props.notificationIndex
   // close the notification after a certian amount of time is passed
   const timer = useRef(null);
   const dispatch = useContext(CartContext).dispatch;

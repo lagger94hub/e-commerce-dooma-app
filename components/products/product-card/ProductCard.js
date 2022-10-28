@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCallback, useState, useContext, useRef, useMemo } from "react";
+import { useCallback, useState, useContext, useRef } from "react";
 
 import ProductCardSlider from "../../sliders/product-card-slider/ProductCardSlider";
 import classes from "./_product-card.module.scss";
@@ -9,18 +9,7 @@ import SelectSize from "../../ui/combo-box/select-size/SelectSize";
 import { CartContext } from "../../../store/cart-context";
 
 const ProductCard = (props) => {
-  const {
-    productSlug,
-    productName,
-    productColor,
-    colorId,
-    productFit,
-    productPrice,
-    productDiscount,
-    imagesURLs,
-    sizes,
-  } = useMemo(() => {
-    const productSlug = props.product.product_slug;
+  const productSlug = props.product.product_slug;
     const productName = props.product.product_name;
     const productColor = props.product.product_color;
     const colorId = props.product.color_id;
@@ -31,29 +20,6 @@ const ProductCard = (props) => {
     const sizes = props.product.size_stocks
       ? props.product.size_stocks.split(";")
       : props.product.width_length_stocks.split(";");
-    return {
-      productSlug,
-      productName,
-      productColor,
-      colorId,
-      productFit,
-      productPrice,
-      productDiscount,
-      imagesURLs,
-      sizes,
-    };
-  }, [
-    props.product.product_slug,
-    props.product.product_name,
-    props.product.product_color,
-    props.product.color_id,
-    props.product.product_fit,
-    props.product.product_price,
-    props.product.discount_amount,
-    props.product.images_urls,
-    props.product.size_stocks,
-    props.product.width_length_stocks,
-  ]);
 
   // presentable fit-name creation
   const fit = (productFit[0].toUpperCase() + productFit.slice(1)).replace(
