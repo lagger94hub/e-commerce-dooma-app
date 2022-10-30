@@ -129,6 +129,8 @@ export default function CategoryPage(props) {
     </>
   );
 }
+CategoryPage.layout = 'default'
+
 export async function getServerSideProps(context) {
   try {
     const props = await getProps(context);

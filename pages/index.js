@@ -78,6 +78,7 @@ export default function Home(props) {
     </>
   );
 }
+Home.layout = 'default'
 
 export async function getStaticProps() {
   try {
