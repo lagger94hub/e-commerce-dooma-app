@@ -9,7 +9,7 @@ const AdminLayout = (props) => {
         <Nav />
       </Header>
       <SideNav />
-      <Main>
+      <Main mode='admin'>
         {props.children}
       </Main>
     </>

@@ -7,7 +7,7 @@ const Layout = (props) => {
       <Header mode='normal'>
         <Nav />
       </Header>
-      <Main>
+      <Main mode='normal'>
         {props.children}
       </Main>
     </>

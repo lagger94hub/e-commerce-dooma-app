@@ -1,8 +1,6 @@
 @use '../../../sass/abstracts/' as *;
 .main {
-  // max-width: 120rem;
-  width: 100vw;
-  margin: auto;
+
   padding-top: 5.5rem;
   @include break-point("small", "up") {
     padding-top: 8rem;
@@ -12,5 +10,23 @@
   @include break-point("large", "up") {
     padding-top: 8rem;
     width: 95vw;
+  }
+}
+.main-normal{
+  @extend .main;
+    // max-width: 120rem;
+    width: 100vw;
+    margin: auto;
+}
+.main-admin {
+  @extend .main;
+  padding: 5.5rem .5rem 0 16.5rem;
+  // width: 100%;
+  @include break-point("small", "up") {
+    padding: 8rem .5rem 0 16.5rem;
+    // width: 100%;
+  }
+  @include break-point("large", "up") {
+    // width: 100%;
   }
 }

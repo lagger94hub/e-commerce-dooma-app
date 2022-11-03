@@ -4,7 +4,45 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 25%;
+  width: 16rem;
   height: 100%;
   z-index: 6;
+  padding: 1rem 1rem;
+  a {
+    color: white;
+    &:visited {
+      color: white;
+    }
+  }
+  p {
+    color: white;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(15, 15, 15);
+    }
+    .before-icon {
+      position: absolute;
+      left: 0;
+    }
+    .after-icon {
+      position: absolute;
+      right: 0;
+    }
+  }
+  .logo-link {
+    padding-bottom: 2rem;
+    border-bottom: solid 1px white;
+  }
+  .link-list-wrapper {
+    // padding-bottom: 2rem;
+    border-bottom: solid 1px white;
+  }
+  .link-list {
+    background-color: rgb(15, 15, 15);
+    li {
+      padding: .75rem 0 .75rem 1.5rem;
+    }
+  }
 }
