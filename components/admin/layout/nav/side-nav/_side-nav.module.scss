@@ -1,0 +1,10 @@
+@use '../../../../../sass/abstracts/' as * ;
+.side-nav-wrapper {
+  background-color: black;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 25%;
+  height: 100%;
+  z-index: 6;
+}

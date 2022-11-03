@@ -1,4 +1,4 @@
-import addPersistentToProps from "../../../utils/persistent-data-builder";
+import {addPersistentToProps} from "../../../utils/persistent-data-builder";
 import { getCategoriesPaths } from "../../../categories/paths";
 import { logError } from "../../../utils/errorsLib";
 import { getCategoryProducts } from "../../../products/getProducts";

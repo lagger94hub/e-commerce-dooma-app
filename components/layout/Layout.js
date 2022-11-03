@@ -1,12 +1,15 @@
 import Header from "./header/Header"
-import classes from './_layout.module.scss'
+import Main from "./main/Main"
+import Nav from "./nav/Nav"
 const Layout = (props) => {
   return (
     <>
-      <Header />
-      <main className={classes.main}>
+      <Header mode='normal'>
+        <Nav />
+      </Header>
+      <Main>
         {props.children}
-      </main>
+      </Main>
     </>
   )
 }

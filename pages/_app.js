@@ -17,7 +17,7 @@ import MediaQueryContextProvider from "../store/media-query-context";
 import NavCategoriesContextProvider from "../store/nav-categories-context";
 import SettingsContextProvider from "../store/settings-context";
 import CartContextProvider from "../store/cart-context";
-import LayoutSelector from "../components/layout/utils/LayoutSelector";
+import LayoutSelector from "../components/utils/LayoutSelector";
 // import Head from "next/head";
 function MyApp({ Component, pageProps }) {
   return (

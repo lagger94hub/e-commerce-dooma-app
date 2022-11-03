@@ -1,5 +1,5 @@
 import { logError } from "../../utils/errorsLib";
-import addPersistentToProps from "../../utils/persistent-data-builder";
+import {addPersistentToProps} from "../../utils/persistent-data-builder";
 import { getProductColors, getProductDetails, getProductFabrics } from "../../products/getProducts";
 import { getCategoriesPaths } from "../../categories/paths";
 

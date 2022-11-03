@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useContext, useMemo } from "react";
-
 import Logo from "../logo/Logo";
 import classes from './_header.module.scss'
-import Nav from "../nav/Nav";
 import { SettingsContext } from "../../../store/settings-context";
 
-const Header = () => {
+const Header = (props) => {
+  // to change the header section width if it is used in an admin page
+  const mode = props.mode
   const siteSettings = useContext(SettingsContext).siteSettings;
 
   // filtering header settings of all settings
@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header
-      className={`${"flex-row fjust-between falign-center"} ${classes.header}`}
+      className={`${"flex-row fjust-between falign-center"} ${classes[`header-${mode}`]}`}
     >
       <Link href="/">
           <Logo
@@ -40,7 +40,7 @@ const Header = () => {
           />
       </Link>
 
-      <Nav />
+      {props.children}
     </header>
   );
 };

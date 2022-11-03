@@ -1,6 +1,6 @@
-import AdminLayout from "../admin/AdminLayout"
-import Layout from '../Layout'
-
+import AdminLayout from '../admin/layout/AdminLayout'
+import Layout from '../layout/Layout'
+// render different layouts based on the component layout proeprty 
 const LayoutSelector = (props) => {
   switch(props.children.type.layout) {
     case 'admin':

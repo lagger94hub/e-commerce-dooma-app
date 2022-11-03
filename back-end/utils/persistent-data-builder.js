@@ -50,4 +50,10 @@ const addPersistentToProps = async (props) => {
   // get navCategories
   props.siteSettings = await getSiteSettings()
 }
-export default addPersistentToProps
+const addSiteSettings = async (props) => {
+  props.siteSettings = await getSiteSettings()
+}
+export {
+  addPersistentToProps,
+  addSiteSettings
+}

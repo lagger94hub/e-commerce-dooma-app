@@ -5,10 +5,20 @@
   z-index: 6;
   background-color: white;
   position: fixed;
-  width: 100%;
   @include break-point("medium", "up") {
     height: 6.75rem;
     flex-direction: column;
-    // gap: .5rem;
+    gap: 0;
   }
+
+}
+.header-normal {
+  @extend .header;
+  width: 100%;
+}
+.header-admin {
+  @extend .header;
+  width: 75%;
+  right: 0;
+  top: 0
 }

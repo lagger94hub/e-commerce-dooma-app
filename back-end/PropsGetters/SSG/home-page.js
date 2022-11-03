@@ -1,6 +1,6 @@
 import {  getDisplayCategories } from "../../categories/getCategories";
 import { logError } from "../../utils/errorsLib";
-import addPersistentToProps from "../../utils/persistent-data-builder";
+import {addPersistentToProps} from "../../utils/persistent-data-builder";
 
 
 export default async function getProps() {

@@ -1,0 +1,16 @@
+@use '../../../sass/abstracts/' as *;
+.main {
+  // max-width: 120rem;
+  width: 100vw;
+  margin: auto;
+  padding-top: 5.5rem;
+  @include break-point("small", "up") {
+    padding-top: 8rem;
+    // padding: 2rem 0;
+    width: 98vw;
+  }
+  @include break-point("large", "up") {
+    padding-top: 8rem;
+    width: 95vw;
+  }
+}
