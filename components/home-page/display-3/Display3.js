@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import classes from "./_display-3.module.scss";
 import React, { useState, useRef, useCallback } from "react";
@@ -37,12 +37,9 @@ const Display3 = (props) => {
           return (
             <React.Fragment key={data.item_id}>
               {selectedCategory === parent && (
-                <Link href={`${data.item_path}`} key={data.item_id}>
-                  <a
-                    className={`${
-                      classes[`category-${index % 4}`]
-                    } flex-col falign-center fjust-center`}
-                  >
+                <Link href={`${data.item_path}`} key={data.item_id} className={`${
+                  classes[`category-${index % 4}`]
+                } flex-col falign-center fjust-center`}>
                     <Image
                       src={data.url}
                       alt={data.item_name}
@@ -50,7 +47,6 @@ const Display3 = (props) => {
                       height={height}
                     />
                     <p>{data.item_name}</p>
-                  </a>
                 </Link>
               )}
 

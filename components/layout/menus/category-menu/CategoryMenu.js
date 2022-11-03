@@ -105,7 +105,7 @@ const CategoryMenu = (props) => {
         onMouseLeave={() => leaveNav()}
       >
         {isDesktop ? (
-          <Link href={category.pathToRoot}><a onClick={() => setSelectedMenu(null)}>{category.name}</a></Link>
+          <Link href={category.pathToRoot} onClick={() => setSelectedMenu(null)}>{category.name}</Link>
         ) : (
           category.name
         )}

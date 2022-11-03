@@ -13,12 +13,12 @@ const RootPath = (props) => {
       {pathsToRoot &&
         pathsToRoot.map((path, index) => {
           return (
-            <Link href={path.path_to_root} key={index}>
+            <Link href={path.path_to_root} key={index} className={index === pathsToRoot.length - 1  ? classes.active : null}>
               {index === pathsToRoot.length - 1 
               ? 
-              <a className={classes.active}>{path.name}</a>
+              path.name
               :
-              <a>{path.name} |</a>
+              `${path.name} |`
               }
             </Link>
           );

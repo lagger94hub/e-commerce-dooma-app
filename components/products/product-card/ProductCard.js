@@ -126,8 +126,7 @@ const ProductCard = (props) => {
         </div>
       )}
 
-      <Link href={`/products/${productSlug}/${colorId}`}>
-        <a className={`flex-col gap-16p fjust-center  ${classes.card}`}>
+      <Link href={`/products/${productSlug}/${colorId}`} className={`flex-col gap-16p fjust-center  ${classes.card}`}>
           <ProductCardSlider
             alt={productName}
             width={1000}
@@ -156,7 +155,6 @@ const ProductCard = (props) => {
               )}
             </p>
           </div>
-        </a>
       </Link>
     </li>
   );

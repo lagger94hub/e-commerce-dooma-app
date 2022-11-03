@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import React from "react";
 import classes from "./_display-2.module.scss";
@@ -27,23 +27,17 @@ const Display2 = (props) => {
                 {/* {!(data.item_order === 1) && (
                   <div className={classes[`bar-${index}`]}></div>
                 )} */}
-                <Link href={`${data.item_path}`} >
-                  <a 
-                  className={classes[`name-${data.item_order}`]}
-                  >
+                <Link href={`${data.item_path}`} className={classes[`name-${data.item_order}`]} >
                     {data.item_name}
-                  </a>
                 </Link>
 
-                <Link href={`${data.item_path}`}>
-                  <a className={classes.img}>
+                <Link href={`${data.item_path}`} className={classes.img}>
                     <Image
                       src={data.url}
                       alt={data.item_name}
                       width={width}
                       height={height - data.item_order * 100}
                     />
-                  </a>
                 </Link>
               </div>
             </React.Fragment>

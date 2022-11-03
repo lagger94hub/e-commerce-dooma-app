@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import classes from "./_showcase.module.scss";
 const Showcase = (props) => {
   const imagesUrlArray = props.imagesUrlArray;

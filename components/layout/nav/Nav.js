@@ -50,14 +50,14 @@ const Nav = (props) => {
         </li>
         <li className={classes.cart}>
           <Link href={"/cart"}>
-            <a>
+          
               {itemsQuant && itemsQuant.length !== 0 && (
                 <span className={classes["cart-count"]}>
                   {itemsQuant.length}
                 </span>
               )}
               <FontAwesomeIcon icon={faBagShopping} />
-            </a>
+            
           </Link>
         </li>
         <li onClick={showMenuHandler} className={classes.barsicon}>

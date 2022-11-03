@@ -14,7 +14,6 @@ const CategoryDetails = (props) => {
   const isDesktop = props.isDesktop;
   const setShowMenu = props.setShowMenu
   const setSelectedMenu = props.setSelectedMenu
-
   //  fonts to determine the categories parent and child sizes
   const parentFont = props.parentFont <= 0.9 ? 0.9 : props.parentFont;
   const childFont = props.childFont <= 0.8 ? 0.8: props.parentFont;
@@ -62,8 +61,8 @@ const CategoryDetails = (props) => {
                     }}
                   >
                     <strong>
-                      <Link href={categories[child].pathToRoot}>
-                        <a onClick={closeParentMenu}>{categories[child].name}</a>
+                      <Link href={categories[child].pathToRoot} onClick={closeParentMenu}>
+                        {categories[child].name}
                       </Link>
                     </strong>
                     {!isDesktop && showSubCategory[child] && (
@@ -122,8 +121,8 @@ const CategoryDetails = (props) => {
                     paddingLeft: `${padding}rem`,
                   }}
                 >
-                  <Link href={categories[child].pathToRoot}>
-                    <a onClick={closeParentMenu}>{categories[child].name}</a>
+                  <Link href={categories[child].pathToRoot} onClick={closeParentMenu}>
+                    {categories[child].name}
                   </Link>
                 </li>
               )}

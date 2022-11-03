@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/legacy/image"
 import classes from './_product-card-slider.module.scss'
 const ProductCardSlider = (props) => {
   const imagesURLs = props.imagesURLs.split(',')

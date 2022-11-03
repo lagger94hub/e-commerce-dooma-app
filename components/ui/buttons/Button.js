@@ -11,7 +11,7 @@ const Button = React.forwardRef((props, ref) => {
 
   return to ? (
     // link button
-    <Link href={to}>
+    <Link href={to} className={classes.to}>
       <button className={className}>{title}</button>
     </Link>
   ) : (

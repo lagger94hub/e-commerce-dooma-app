@@ -31,7 +31,6 @@ const Header = () => {
       className={`${"flex-row fjust-between falign-center"} ${classes.header}`}
     >
       <Link href="/">
-        <a>
           <Logo
             src={logoSetting && logoSetting.setting_value}
             alt={"site logo"}
@@ -39,7 +38,6 @@ const Header = () => {
             width={200}
             className={"logo"}
           />
-        </a>
       </Link>
 
       <Nav />

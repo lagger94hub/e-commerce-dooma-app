@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import Button from "../../ui/buttons/Button";
 import classes from "./_data-table.module.scss";
@@ -45,14 +45,14 @@ const DataTable = (props) => {
                         key={`row-${index}-value-${keyIndex}`}
                       >
                         <Link href={row[key].linkURL}>
-                          <a>
+                        
                             <Image
                               src={row[key].imgURL}
                               alt="thumbnail"
                               height={600}
                               width={600}
                             ></Image>
-                          </a>
+                          
                         </Link>
                       </td>
                     );

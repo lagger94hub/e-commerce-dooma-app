@@ -25,7 +25,7 @@ const Display1 = (props) => {
                 key={data.item_id}
                 style={{ order: data.item_order ? data.item_order : 0 }}
               >
-                <Link href={`${data.item_path}`} passHref>
+                <Link href={`${data.item_path}`}>
                   <DataCard
                     itemName={data.item_name}
                     itemPhotoURL={data.url}

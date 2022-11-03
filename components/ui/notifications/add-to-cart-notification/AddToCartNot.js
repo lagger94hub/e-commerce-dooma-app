@@ -1,5 +1,5 @@
 import { useContext, useEffect, useCallback, useRef } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import classes from "./_add-to-cart-not.module.scss";

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import classes from './_product-photo-grid.module.scss'
 const ProductPhotoGrid = (props) => {
   const photosUrls = props.photosUrls;
