@@ -44,6 +44,7 @@ export default function  ProductDetailsPage(props) {
     </>
   )
 }
+ProductDetailsPage.layout = 'default'
 export async function getStaticPaths() {
   try {
     const paths = await getCachedProducts()

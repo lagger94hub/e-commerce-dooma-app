@@ -21,6 +21,7 @@ const CartPage = (props) => {
     </SectionWrapper>
   )
 }
+CartPage.layout = 'default'
 export async function getStaticProps() {
   const props = await getProps()
   return {

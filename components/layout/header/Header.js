@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useContext, useMemo } from "react";
 
 import Logo from "../logo/Logo";
-import classes from "./_header.module.scss";
+import classes from './_header.module.scss'
 import Nav from "../nav/Nav";
 import { SettingsContext } from "../../../store/settings-context";
 
